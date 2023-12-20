@@ -1,6 +1,7 @@
 import os.path
 from random import randint
 import sys
+from pathlib import Path
 
 PATH = '/Users/fluffyoctopus/Desktop/webnotes'
 FILE_EXTENSION = '.md'
@@ -52,6 +53,14 @@ def write_index(index):
     index_file.close()
 
 
+def find(names, path):
+    for root, dirs, files in os.walk(path):
+        for name in names:
+            if name in files:
+                new_path = os.path.join(root, name)
+                return Path(new_path).relative_to(path).as_posix()
+
+
 def get_or_create_file(url: str, website_title: str):
     filename = get_filename(website_title)
     filename_fullpath = os.path.join(PATH, filename)
@@ -66,8 +75,17 @@ def get_or_create_file(url: str, website_title: str):
 
     else:
         if not os.path.exists(filename_fullpath):
+            # file was either renamed, moved or deleted
             old_file_path = os.path.join(PATH, index[url])
-            os.rename(old_file_path, filename_fullpath)
+            if os.path.exists(filename_fullpath):
+                # file was renamed
+                os.rename(old_file_path, filename_fullpath)
+            else:
+                # file was removed or deleted
+                filenames = [index[url], filename]
+                filename = find(filenames, PATH)
+                if filename is None:
+                    print("file was deleted!")
 
     index[url] = filename
     write_index(index)
