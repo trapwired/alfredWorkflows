@@ -1,9 +1,10 @@
+import configparser
 import os.path
 from random import randint
 import sys
 from pathlib import Path
 
-PATH = '/Users/fluffyoctopus/Desktop/webnotes'
+PATH = 'SAMPLE/PATH'
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
 
@@ -94,7 +95,15 @@ def get_or_create_file(url: str, website_title: str):
     return correct_filename
 
 
+def init_config():
+    global PATH
+    config = configparser.RawConfigParser()
+    config.read('config.ini', encoding='utf8')
+    PATH = config.get('OPTIONS', 'path')
+
+
 if __name__ == '__main__':
+    init_config()
     # get url and title from command-line arguments
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])
