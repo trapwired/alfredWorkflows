@@ -3,6 +3,7 @@ import os.path
 from random import randint
 import sys
 from pathlib import Path
+import pathlib
 
 PATH = 'SAMPLE/PATH'
 FILE_EXTENSION = '.md'
@@ -95,16 +96,19 @@ def get_or_create_file(url: str, website_title: str):
     return correct_filename
 
 
-def init_config():
+def init_config(main_path: str):
     global PATH
     config = configparser.RawConfigParser()
-    config.read('config.ini', encoding='utf8')
+    config_path = os.path.join(main_path[:-7], 'config.ini')
+    config.read(config_path, encoding='utf8')
     PATH = config.get('OPTIONS', 'path')
 
 
 if __name__ == '__main__':
-    init_config()
     # get url and title from command-line arguments
+    main_path = sys.argv[0]
+    init_config(main_path)
+
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])
 
