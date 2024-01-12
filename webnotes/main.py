@@ -3,9 +3,12 @@ import os.path
 from random import randint
 import sys
 from pathlib import Path
+import shutil
 import pathlib
 
 PATH = 'SAMPLE/PATH'
+JIRA_PATH = 'SAMPLE/JIRA/TEMPLATE/PATH'
+JIRA_FOLDER_NAME = 'SAMPLE_JIRA_FOLDER_NAME'
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
 
@@ -19,6 +22,7 @@ def replace_multiple(input_str: str, characters: str, replace_with: str):
 
 def get_filename(name: str):
     filename = replace_multiple(name, '/[]', ' ')
+    filename = filename.strip()
     filename += FILE_EXTENSION
     return filename
 
@@ -28,16 +32,22 @@ def parse_index(index_file):
     for line in index_file.readlines():
         line_split = line.split(DELIMITER)
         if len(line_split) > 1:
-            result_dict[line_split[0]] = line_split[1].rstrip()
+            link = line_split[0].split('?')[0]
+            title = line_split[1].rstrip()
+            if title == 'None':
+                continue
+            if title.endswith('.md.md'):
+                title = title.split('.md')[0] + '.md'
+            result_dict[link] = title
     return result_dict
 
 
 def get_index_file(option: str):
     index_filename = os.path.join(PATH, 'index.txt')
     if not os.path.exists(index_filename):
-        index_file = open(index_filename, "w")
+        index_file = open(index_filename, "w", encoding='utf-8')
         index_file.close()
-    index_file = open(index_filename, option)
+    index_file = open(index_filename, option, encoding='utf-8')
     return index_file
 
 
@@ -57,23 +67,44 @@ def write_index(index):
 
 def find(names, path):
     for root, dirs, files in os.walk(path):
+        files = [x.rstrip() for x in files]
         for name in names:
+            name = name.rstrip()
             if name in files:
                 new_path = os.path.join(root, name)
                 return Path(new_path).relative_to(path).as_posix()
 
 
+def get_fullpath(filename):
+    return os.path.join(PATH, filename)
+
+
+def is_jira(filename):
+    return (JIRA_PATH != 'SAMPLE/JIRA/TEMPLATE/PATH'
+            and JIRA_FOLDER_NAME != 'SAMPLE_JIRA_FOLDER_NAME'
+            and filename.startswith('OPA-'))
+
+
+def get_issue_number(filename):
+    return filename.split()[0]
+
+
+def find_jira(issue_number, path, filename):
+    for root, dirs, files in os.walk(path):
+        files = [x.rstrip() for x in files]
+        for file in files:
+            if file.startswith(issue_number):
+                new_path = os.path.join(root, filename)
+                return Path(new_path).relative_to(path).as_posix()
+
+
 def get_or_create_file(url: str, website_title: str):
     filename = get_filename(website_title)
-    filename_fullpath = os.path.join(PATH, filename)
+    filename_fullpath = get_fullpath(filename)
     index = get_index()
 
     if url not in index.keys():
-        while os.path.exists(filename_fullpath):
-            filename = website_title + str(randint(0, 100)) + FILE_EXTENSION
-            filename_fullpath = os.path.join(PATH, filename)
-        file = open(filename_fullpath, 'w')
-        file.close()
+        filename = create_new_file(filename, filename_fullpath, website_title)
 
     else:
         if not os.path.exists(filename_fullpath):
@@ -83,25 +114,62 @@ def get_or_create_file(url: str, website_title: str):
                 # file was renamed
                 os.rename(old_file_path, filename_fullpath)
             else:
-                # file was removed or deleted
+                # file was moved or deleted
                 filenames = [index[url], filename]
-                filename = find(filenames, PATH)
-                if filename is None:
-                    print("file was deleted!")
+                found_filename = find_file(filename, filenames)
+                filename = create_new_if_not_found(filename, filename_fullpath, found_filename, website_title)
 
     index[url] = filename
     write_index(index)
     correct_filename = index[url]
-    # correct_fullpath = os.path.join(PATH, correct_filename)
     return correct_filename
 
 
+def find_file(filename, filenames):
+    if is_jira(filename):
+        issue_number = get_issue_number(filename)
+        found_filename = find_jira(issue_number, PATH, filename)
+    else:
+        found_filename = find(filenames, PATH)
+    return found_filename
+
+
+def create_new_if_not_found(filename, filename_fullpath, found_filename, website_title):
+    if found_filename is None:
+        # file was deleted, create new one
+        filename = create_new_file(filename, filename_fullpath, website_title)
+    else:
+        filename = found_filename
+    return filename
+
+
+def create_new_file(filename, filename_fullpath, website_title):
+    while os.path.exists(filename_fullpath):
+        filename = website_title + str(randint(0, 100)) + FILE_EXTENSION
+        filename_fullpath = os.path.join(PATH, filename)
+    if is_jira(filename):
+        # use template
+        filename = os.path.join(JIRA_FOLDER_NAME, filename)
+        jira_folder_path = os.path.join(PATH, filename)
+        shutil.copyfile(JIRA_PATH, jira_folder_path)
+        return filename
+    else:
+        file = open(filename_fullpath, 'w')
+        file.close()
+        return filename
+
+
 def init_config(main_path: str):
-    global PATH
+    global PATH, JIRA_PATH, JIRA_FOLDER_NAME
     config = configparser.RawConfigParser()
     config_path = os.path.join(main_path[:-7], 'config.ini')
     config.read(config_path, encoding='utf8')
     PATH = config.get('OPTIONS', 'path')
+    try:
+        JIRA_PATH = config.get('OPTIONS', 'jira_template_path')
+        JIRA_FOLDER_NAME = config.get('OPTIONS', 'jira_folder_name')
+    except Exception:
+        pass
 
 
 if __name__ == '__main__':
@@ -111,6 +179,8 @@ if __name__ == '__main__':
 
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])
+
+    url_arg = url_arg.split('?')[0]
 
     # get filename, create file if it does not exist
     file_to_open = get_or_create_file(url_arg, website_title_arg)
