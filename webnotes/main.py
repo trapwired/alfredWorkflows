@@ -1,16 +1,27 @@
 import configparser
 import os.path
+from enum import Enum
 from random import randint
 import sys
 from pathlib import Path
 import shutil
-import pathlib
 
 PATH = 'SAMPLE/PATH'
 JIRA_PATH = 'SAMPLE/JIRA/TEMPLATE/PATH'
 JIRA_FOLDER_NAME = 'SAMPLE_JIRA_FOLDER_NAME'
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
+
+
+class TEMPLATE(Enum):
+    NO_TEMPLATE = 0
+    JIRA = 1
+
+
+def jira_template_values(url):
+    return {
+        '漢JIRA_LINK漢': url
+    }
 
 
 def replace_multiple(input_str: str, characters: str, replace_with: str):
@@ -85,6 +96,12 @@ def is_jira(filename):
             and filename.startswith('OPA-'))
 
 
+def is_template(filename):
+    if is_jira(filename):
+        return TEMPLATE.JIRA
+    return TEMPLATE.NO_TEMPLATE
+
+
 def get_issue_number(filename):
     return filename.split()[0]
 
@@ -104,7 +121,7 @@ def get_or_create_file(url: str, website_title: str):
     index = get_index()
 
     if url not in index.keys():
-        filename = create_new_file(filename, filename_fullpath, website_title)
+        filename = create_new_file(filename, filename_fullpath, website_title, url)
 
     else:
         if not os.path.exists(filename_fullpath):
@@ -117,7 +134,7 @@ def get_or_create_file(url: str, website_title: str):
                 # file was moved or deleted
                 filenames = [index[url], filename]
                 found_filename = find_file(filename, filenames)
-                filename = create_new_if_not_found(filename, filename_fullpath, found_filename, website_title)
+                filename = create_new_if_not_found(filename, filename_fullpath, found_filename, website_title, url)
 
     index[url] = filename
     write_index(index)
@@ -126,37 +143,55 @@ def get_or_create_file(url: str, website_title: str):
 
 
 def find_file(filename, filenames):
-    if is_jira(filename):
-        issue_number = get_issue_number(filename)
-        found_filename = find_jira(issue_number, PATH, filename)
-    else:
-        found_filename = find(filenames, PATH)
+    template = is_template(filename)
+    match template:
+        case TEMPLATE.JIRA:
+            issue_number = get_issue_number(filename)
+            found_filename = find_jira(issue_number, PATH, filename)
+        case _:
+            found_filename = find(filenames, PATH)
     return found_filename
 
 
-def create_new_if_not_found(filename, filename_fullpath, found_filename, website_title):
+def create_new_if_not_found(filename, filename_fullpath, found_filename, website_title, url):
     if found_filename is None:
         # file was deleted, create new one
-        filename = create_new_file(filename, filename_fullpath, website_title)
+        filename = create_new_file(filename, filename_fullpath, website_title, url)
     else:
         filename = found_filename
     return filename
 
 
-def create_new_file(filename, filename_fullpath, website_title):
+def create_new_file(filename, filename_fullpath, website_title, url):
     while os.path.exists(filename_fullpath):
         filename = website_title + str(randint(0, 100)) + FILE_EXTENSION
         filename_fullpath = os.path.join(PATH, filename)
-    if is_jira(filename):
-        # use template
-        filename = os.path.join(JIRA_FOLDER_NAME, filename)
-        jira_folder_path = os.path.join(PATH, filename)
-        shutil.copyfile(JIRA_PATH, jira_folder_path)
-        return filename
-    else:
-        file = open(filename_fullpath, 'w')
-        file.close()
-        return filename
+
+    template = is_template(filename)
+    match template:
+        case TEMPLATE.JIRA:
+            return create_jira_template(filename, url)
+        case _:
+            file = open(filename_fullpath, 'w')
+            file.close()
+            return filename
+
+
+def create_jira_template(filename, url):
+    filename = os.path.join(JIRA_FOLDER_NAME, filename)
+    jira_folder_path = os.path.join(PATH, filename)
+    shutil.copyfile(JIRA_PATH, jira_folder_path)
+
+    filename_fullpath = os.path.join(PATH, filename)
+    with open(filename_fullpath, 'r') as file:
+        filedata = file.read()
+
+    for key, value in jira_template_values(url).items():
+        filedata = filedata.replace(key, value)
+
+    with open(filename_fullpath, 'w') as file:
+        file.write(filedata)
+    return filename
 
 
 def init_config(main_path: str):
