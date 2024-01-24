@@ -63,8 +63,8 @@ def parse_index(index_file):
             title = line_split[1].rstrip()
             if title == 'None':
                 continue
-            if title.endswith('.md.md'):
-                title = title.split('.md')[0] + '.md'
+            if title.endswith(f'{FILE_EXTENSION}{FILE_EXTENSION}'):
+                title = title.split(f'{FILE_EXTENSION}')[0] + f'{FILE_EXTENSION}'
             result_dict[link] = title
     return result_dict
 
@@ -109,7 +109,7 @@ def get_fullpath(filename):
 def is_jira(filename):
     return (JIRA_PATH != 'SAMPLE/JIRA/TEMPLATE/PATH'
             and JIRA_FOLDER_NAME != 'SAMPLE_JIRA_FOLDER_NAME'
-            and filename.startswith('OPA-'))
+            and filename.strip().endswith(f'- Jira{FILE_EXTENSION}'))
 
 
 def is_jira_pr(filename):
