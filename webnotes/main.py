@@ -36,6 +36,10 @@ def jira_pr_template_values(url, issue_url):
     }
 
 
+def get_header_with_link(url):
+    return f'---\nlink: {url}\n---'
+
+
 def replace_multiple(input_str: str, characters: str, replace_with: str):
     result = input_str
     for char in characters:
@@ -195,8 +199,8 @@ def create_new_file(filename, filename_fullpath, website_title, url):
         case TEMPLATE.JIRA_PR:
             return create_jira_pr_template(filename, url)
         case _:
-            file = open(filename_fullpath, 'w')
-            file.close()
+            with open(filename_fullpath, 'w') as file:
+                file.write(get_header_with_link(url))
             return filename
 
 
