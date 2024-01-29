@@ -48,7 +48,7 @@ def replace_multiple(input_str: str, characters: str, replace_with: str):
 
 
 def get_filename(name: str):
-    filename = replace_multiple(name, '/[]', ' ')
+    filename = replace_multiple(name, '/[]&', ' ')
     filename = filename.strip()
     filename += FILE_EXTENSION
     return filename
