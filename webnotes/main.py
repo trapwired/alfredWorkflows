@@ -16,6 +16,8 @@ JIRA_PR_FOLDER_NAME = 'SAMPLE_JIRA_PR_FOLDER_NAME'
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
 
+OPTIONS = ['OPA', 'SUP']
+
 
 class TEMPLATE(Enum):
     NO_TEMPLATE = 0
@@ -128,10 +130,15 @@ def is_template(filename):
 
 
 def get_issue_number(filename):
-    return filename.split()[0]
+    potential_issue_number = filename.split()[0]
+    if any([x in potential_issue_number for x in OPTIONS]):
+        return potential_issue_number
+    return None
 
 
 def find_jira(issue_number, path, filename):
+    if not issue_number:
+        return
     for root, dirs, files in os.walk(path):
         files = [x.rstrip() for x in files]
         for file in files:
@@ -223,11 +230,17 @@ def create_jira_template(filename, url):
 
 def get_jira_issue_link_from_pr_title(filename):
     if 'noissue' in filename.lower():
+
         return '#NOISSUE-PR'
-    split_1 = filename.split('OPA-')
-    split_2 = split_1[1].split(' ')
-    number = split_2[0]
-    return f'https://jiradg.atlassian.net/browse/OPA-{number}'
+
+    for option in OPTIONS:
+        split_1 = filename.split(f'{option}-')
+        if len(split_1) == 1:
+            # we are not in this option
+            continue
+        split_2 = split_1[1].split(' ')
+        number = split_2[0]
+        return f'https://jiradg.atlassian.net/browse/{option}-{number}'
 
 
 def create_jira_pr_template(filename, url):
