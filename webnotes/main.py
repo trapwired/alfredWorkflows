@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 import shutil
 
+INDEX_PATH = 'SAMPLE/PATH'
 PATH = 'SAMPLE/PATH'
 
 JIRA_PATH = 'SAMPLE/JIRA/TEMPLATE/PATH'
@@ -72,7 +73,10 @@ def parse_index(index_file):
 
 
 def get_index_file(option: str):
-    index_filename = os.path.join(PATH, 'index.txt')
+    index_path = INDEX_PATH
+    if index_path == 'SAMPLE/PATH':
+        index_path = PATH
+    index_filename = os.path.join(index_path, 'index.txt')
     if not os.path.exists(index_filename):
         index_file = open(index_filename, "w", encoding='utf-8')
         index_file.close()
@@ -263,7 +267,7 @@ def create_jira_pr_template(filename, url):
 
 
 def init_config(main_path: str):
-    global PATH, JIRA_PATH, JIRA_FOLDER_NAME, JIRA_PR_PATH, JIRA_PR_FOLDER_NAME
+    global PATH, JIRA_PATH, JIRA_FOLDER_NAME, JIRA_PR_PATH, JIRA_PR_FOLDER_NAME, INDEX_PATH
     config = configparser.RawConfigParser()
     config_path = os.path.join(main_path[:-7], 'config.ini')
     config.read(config_path, encoding='utf8')
@@ -273,6 +277,7 @@ def init_config(main_path: str):
         JIRA_FOLDER_NAME = config.get('OPTIONS', 'jira_folder_name')
         JIRA_PR_PATH = config.get('OPTIONS', 'jira_pr_template_path')
         JIRA_PR_FOLDER_NAME = config.get('OPTIONS', 'jira_pr_folder_name')
+        INDEX_PATH = config.get('OPTIONS', 'index_path')
     except Exception:
         pass
 
