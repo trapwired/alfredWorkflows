@@ -163,9 +163,11 @@ def get_or_create_file(url: str, website_title: str):
         if not os.path.exists(filename_fullpath):
             # file was either renamed, moved or deleted
             old_file_path = os.path.join(PATH, index[url])
-            if os.path.exists(filename_fullpath):
-                # file was renamed
-                os.rename(old_file_path, filename_fullpath)
+            if os.path.exists(old_file_path):
+                # file was renamed, rename at original location
+                head, tail = os.path.split(old_file_path)
+                new_path = os.path.join(head, filename)
+                os.rename(old_file_path, new_path)
             else:
                 # file was moved or deleted
                 filenames = [index[url], filename]
