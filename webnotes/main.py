@@ -143,7 +143,7 @@ def find_jira(issue_number, path, filename):
         files = [x.rstrip() for x in files]
         for file in files:
             if file.startswith(issue_number):
-                new_path = os.path.join(root, filename)
+                new_path = os.path.join(root, file)
                 return Path(new_path).relative_to(path).as_posix()
 
 
@@ -161,6 +161,17 @@ def create_new_file(filename, website_title, url):
             with open(os.path.join(PATH, filename), 'w') as file:
                 file.write(get_header_with_link(url))
             return filename
+
+
+def get_prefixed_filename(filename):
+    template = is_template(filename)
+    match template:
+        case TEMPLATE.JIRA:
+            return os.path.join(JIRA_FOLDER_NAME, filename)
+        case TEMPLATE.JIRA_PR:
+            return os.path.join(JIRA_PR_FOLDER_NAME, filename)
+        case _:
+            return os.path.join(filename)
 
 
 def create_jira_pr_template(filename, url):
@@ -239,10 +250,14 @@ def get_or_create_file(url: str, website_title: str):
 
     else:
         # url indexed
-        full_file_path = os.path.join(PATH, filename)
+        prefixed_filename = get_prefixed_filename(filename)
+        full_file_path = os.path.join(PATH, prefixed_filename)
 
-        # file exists? --> Happy flow
-        if not os.path.exists(full_file_path):
+        if os.path.exists(full_file_path):
+            # Happy Flow, file found
+            filename = prefixed_filename
+
+        else:
             # file was either renamed, moved or deleted
             old_file_path = os.path.join(PATH, index[url])
             file_found = find([index[url], filename], PATH)
@@ -251,6 +266,7 @@ def get_or_create_file(url: str, website_title: str):
                 head, _ = os.path.split(old_file_path)
                 new_path = os.path.join(head, filename)
                 os.rename(old_file_path, new_path)
+                filename = Path(new_path).relative_to(PATH).as_posix()
 
             elif file_found:
                 # file was moved, update location in index
@@ -264,18 +280,19 @@ def get_or_create_file(url: str, website_title: str):
                 found_jira_filename = find_jira(issue_number, PATH, filename)
                 if found_jira_filename:
                     # rename jira issue at its current location
-                    original_full_path = os.path.join(PATH, found_jira_filename)
-                    head, _ = os.path.split(old_file_path)
+                    existing_full_path = os.path.join(PATH, found_jira_filename)
+                    head, tail = os.path.split(existing_full_path)
                     new_full_path = os.path.join(head, filename)
-                    os.rename(original_full_path, new_full_path)
+                    os.rename(existing_full_path, new_full_path)
+                    filename = Path(new_full_path).relative_to(PATH).as_posix()
+
                 else:
                     # file must have been deleted, create new one
                     filename = create_new_file(filename, website_title, url)
 
     index[url] = filename
     write_index(index)
-    correct_filename = index[url]
-    return correct_filename
+    return filename
 
 
 if __name__ == '__main__':
