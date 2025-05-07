@@ -10,7 +10,9 @@ INDEX_PATH = 'SAMPLE/PATH'
 PATH = 'SAMPLE/PATH'
 
 JIRA_PATH = 'SAMPLE/JIRA/TEMPLATE/PATH'
+JIRA_SUP_PATH = 'SAMPLE/JIRA/TEMPLATE/PATH'
 JIRA_FOLDER_NAME = 'SAMPLE_JIRA_FOLDER_NAME'
+JIRA_SUP_FOLDER_NAME = 'SAMPLE_JIRA_FOLDER_NAME'
 JIRA_PR_PATH = 'SAMPLE/JIRA/PR/TEMPLATE/PATH'
 JIRA_PR_FOLDER_NAME = 'SAMPLE_JIRA_PR_FOLDER_NAME'
 
@@ -24,6 +26,7 @@ class TEMPLATE(Enum):
     NO_TEMPLATE = 0
     JIRA = 1
     JIRA_PR = 2
+    JIRA_SUP = 3
 
 
 def jira_template_values(url):
@@ -113,6 +116,11 @@ def is_jira(filename):
             and JIRA_FOLDER_NAME != 'SAMPLE_JIRA_FOLDER_NAME'
             and filename.strip().endswith(f'- Jira{FILE_EXTENSION}'))
 
+def is_jira_sup(filename):
+    return (JIRA_PATH != 'SAMPLE/JIRA/TEMPLATE/PATH'
+            and JIRA_SUP_FOLDER_NAME != 'SAMPLE_JIRA_FOLDER_NAME'
+            and filename.strip().startswith(f'SUP'))
+
 
 def is_jira_pr(filename):
     return (JIRA_PATH != 'SAMPLE/JIRA/PR/TEMPLATE/PATH'
@@ -121,7 +129,9 @@ def is_jira_pr(filename):
 
 
 def is_template(filename):
-    if is_jira(filename):
+    if is_jira_sup(filename):
+        return TEMPLATE.JIRA_SUP
+    elif is_jira(filename):
         return TEMPLATE.JIRA
     elif is_jira_pr(filename):
         return TEMPLATE.JIRA_PR
@@ -155,6 +165,8 @@ def create_new_file(filename, website_title, url):
     match template:
         case TEMPLATE.JIRA:
             return create_jira_template(filename, url)
+        case TEMPLATE.JIRA_SUP:
+            return create_jira_sup_template(filename, url)
         case TEMPLATE.JIRA_PR:
             return create_jira_pr_template(filename, url)
         case _:
@@ -167,6 +179,8 @@ def get_prefixed_filename(filename):
     template = is_template(filename)
     match template:
         case TEMPLATE.JIRA:
+            return os.path.join(JIRA_FOLDER_NAME, filename)
+        case TEMPLATE.JIRA_SUP:
             return os.path.join(JIRA_FOLDER_NAME, filename)
         case TEMPLATE.JIRA_PR:
             return os.path.join(JIRA_PR_FOLDER_NAME, filename)
@@ -209,6 +223,22 @@ def create_jira_template(filename, url):
         file.write(filedata)
     return filename
 
+def create_jira_sup_template(filename, url):
+    filename = os.path.join(JIRA_SUP_FOLDER_NAME, filename)
+    jira_folder_path = os.path.join(PATH, filename)
+    shutil.copyfile(JIRA_SUP_PATH, jira_folder_path)
+
+    filename_fullpath = os.path.join(PATH, filename)
+    with open(filename_fullpath, 'r') as file:
+        filedata = file.read()
+
+    for key, value in jira_template_values(url).items():
+        filedata = filedata.replace(key, value)
+
+    with open(filename_fullpath, 'w') as file:
+        file.write(filedata)
+    return filename
+
 
 def get_jira_issue_link_from_pr_title(filename):
     if 'noissue' in filename.lower():
@@ -225,7 +255,7 @@ def get_jira_issue_link_from_pr_title(filename):
 
 
 def init_config(main_path: str):
-    global PATH, JIRA_PATH, JIRA_FOLDER_NAME, JIRA_PR_PATH, JIRA_PR_FOLDER_NAME, INDEX_PATH
+    global PATH, JIRA_PATH, JIRA_FOLDER_NAME, JIRA_PR_PATH, JIRA_PR_FOLDER_NAME, INDEX_PATH, JIRA_SUP_FOLDER_NAME, JIRA_SUP_PATH
     config = configparser.RawConfigParser()
     config_path = os.path.join(main_path[:-7], 'config.ini')
     config.read(config_path, encoding='utf8')
@@ -233,6 +263,8 @@ def init_config(main_path: str):
     try:
         JIRA_PATH = config.get('OPTIONS', 'jira_template_path')
         JIRA_FOLDER_NAME = config.get('OPTIONS', 'jira_folder_name')
+        JIRA_SUP_PATH = config.get('OPTIONS', 'jira_sup_template_path')
+        JIRA_SUP_FOLDER_NAME = config.get('OPTIONS', 'jira_sup_folder_name')
         JIRA_PR_PATH = config.get('OPTIONS', 'jira_pr_template_path')
         JIRA_PR_FOLDER_NAME = config.get('OPTIONS', 'jira_pr_folder_name')
         INDEX_PATH = config.get('OPTIONS', 'index_path')

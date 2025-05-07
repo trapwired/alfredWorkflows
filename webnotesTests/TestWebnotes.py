@@ -23,6 +23,8 @@ class TestWebnotes(unittest.TestCase):
         webnotes.main.PATH = 'temp'
         webnotes.main.JIRA_PATH = os.path.join('temp', jira_template_name)
         webnotes.main.JIRA_FOLDER_NAME = 'jira'
+        webnotes.main.JIRA_SUP_PATH = os.path.join('temp', jira_template_name)
+        webnotes.main.JIRA_SUP_FOLDER_NAME = 'jira-sup'
         # index setup
         if os.path.exists('index.txt'):
             os.remove('index.txt')
@@ -32,6 +34,7 @@ class TestWebnotes(unittest.TestCase):
             shutil.rmtree('temp')
         os.mkdir('temp')
         os.mkdir(os.path.join('temp', 'jira'))
+        os.mkdir(os.path.join('temp', 'jira-sup'))
         # templates
         setup_file(jira_template_name, content='')
 
@@ -53,10 +56,22 @@ class TestWebnotes(unittest.TestCase):
         self.assertEqual(ref_index, webnotes.main.get_index())
         self.assertTrue(os.path.exists(os.path.join('temp', filename)))
 
-    def test_getOrCreateFile_newIndex_FileOutOfTemplateCreateIndexIsUpdated(self):
+    def test_getOrCreateFile_newIndex_FileOutOfJiraTemplateCreateIndexIsUpdated(self):
         website = 'www.website.com'
         title = 'Website - Jira'
         filename = os.path.join('jira', title + '.md')
+        ref_index = {website: filename}
+
+        result = webnotes.main.get_or_create_file(website, title)
+
+        self.assertEqual(result, filename)
+        self.assertEqual(ref_index, webnotes.main.get_index())
+        self.assertTrue(os.path.exists(os.path.join('temp', filename)))
+
+    def test_getOrCreateFile_newIndex_FileOutOfJiraSupTemplateCreateIndexIsUpdated(self):
+        website = 'www.website.com'
+        title = 'SUP Website - Jira'
+        filename = os.path.join('jira-sup', title + '.md')
         ref_index = {website: filename}
 
         result = webnotes.main.get_or_create_file(website, title)
