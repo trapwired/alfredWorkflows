@@ -70,6 +70,22 @@ class TestWebnotes(unittest.TestCase):
         self.assertEqual(ref_index, self.testee.get_index())
         self.assertTrue(os.path.exists(os.path.join('temp', filename)))
 
+    @patch('webnotes.utilities.get_url_title')
+    def test_getOrCreateFile_newIndex_FileOutOfJiraTemplateMainBacklogLinkCreateIndexIsUpdated(self, mock_get_url_title):
+        website = 'https://jiradg.atlassian.net/jira/random_part/backlog?issueLimit=100&selectedIssue=PROJ-123'
+        expected_website = 'https://jiradg.atlassian.net/browse/PROJ-123'
+        title = 'Phoenix - Backlog - Jira'
+        expected_title = 'PROJ-123 Some random Story - Jira'
+        mock_get_url_title.return_value = expected_title
+        filename = os.path.join('jira', expected_title + '.md')
+        ref_index = {expected_website: filename}
+
+        result = self.testee.get_or_create_file(website, title)
+
+        self.assertEqual(result, filename)
+        self.assertEqual(ref_index, self.testee.get_index())
+        self.assertTrue(os.path.exists(os.path.join('temp', filename)))
+
     def test_getOrCreateFile_newIndex_FileOutOfJiraSupTemplateCreateIndexIsUpdated(self):
         website = 'www.website.com'
         title = 'SUP Website - Jira'

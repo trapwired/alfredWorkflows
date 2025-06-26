@@ -155,6 +155,10 @@ class NotesInterface:
 
     def get_or_create_file(self, url: str, website_title: str):
         index = self.get_index()
+
+        url, website_title = handle_special_jira_cases(url, website_title)
+        print(url)
+        print(website_title)
         filename = get_filename(website_title)
 
         if url not in index.keys():
