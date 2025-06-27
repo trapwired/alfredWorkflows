@@ -75,8 +75,9 @@ class TestWebnotes(unittest.TestCase):
         website = 'https://jiradg.atlassian.net/jira/random_part/backlog?issueLimit=100&selectedIssue=PROJ-123'
         expected_website = 'https://jiradg.atlassian.net/browse/PROJ-123'
         title = 'Phoenix - Backlog - Jira'
-        expected_title = 'PROJ-123 Some random Story - Jira'
-        mock_get_url_title.return_value = expected_title
+        mock_get_url_title.return_value = '[PROJ-123] Some random Story - Jira'
+
+        expected_title = 'PROJ-123  Some random Story - Jira'
         filename = os.path.join('jira', expected_title + '.md')
         ref_index = {expected_website: filename}
 

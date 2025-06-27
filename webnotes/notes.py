@@ -14,8 +14,6 @@ if __name__ == '__main__':
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])
 
-    url_arg = url_arg.split('?')[0]
-
     # get filename, create file if it does not exist
     file_to_open = notes_interface.get_or_create_file(url_arg, website_title_arg)
 

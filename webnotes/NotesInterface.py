@@ -157,8 +157,7 @@ class NotesInterface:
         index = self.get_index()
 
         url, website_title = handle_special_jira_cases(url, website_title)
-        print(url)
-        print(website_title)
+        url = url.split('?')[0]
         filename = get_filename(website_title)
 
         if url not in index.keys():
