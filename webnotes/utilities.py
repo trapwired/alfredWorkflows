@@ -2,6 +2,7 @@ import os.path
 from enum import Enum
 from pathlib import Path
 import re
+import datetime
 
 from webnotes.JiraInterface import get_jira_issue
 
@@ -55,6 +56,38 @@ def get_filename(name: str):
     filename += FILE_EXTENSION
     return filename
 
+
+def get_current_sprint():
+    """
+    Calculate the current sprint number based on two-week sprints.
+    Reference point: Sprint 378 starts on July 1, 2025 (a Tuesday)
+    Sprint duration: 2 weeks, always starting on Tuesdays
+    """
+
+    # Define the reference sprint and date
+    reference_sprint = 378
+    reference_date = datetime.date(2025, 7, 1)  # July 1, 2025 is a Tuesday
+
+    # Get today's date
+    today = datetime.date.today()
+
+    # Calculate the number of days between today and the reference date
+    days_diff = (today - reference_date).days
+
+    # Calculate the number of complete sprints that have passed
+    # Negative if we're before the reference date, positive if after
+    sprints_diff = days_diff // 14
+
+    # Calculate the current sprint
+    current_sprint = reference_sprint + sprints_diff
+
+    # Check if we need to adjust based on day of week
+    # If we're past a reference date but not yet reached the next Tuesday,
+    # we're still in the previous sprint
+    if days_diff > 0 and days_diff % 14 < (today.weekday() - 1) % 7:
+        current_sprint -= 1
+
+    return current_sprint
 
 def parse_index(index_file):
     result_dict = dict()

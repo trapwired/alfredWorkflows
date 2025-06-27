@@ -26,6 +26,9 @@ class NotesInterface:
         except Exception as e:
             print(e)
 
+    def get_full_path(self, filename: str):
+        return os.path.join(self._path, filename)
+
     def get_index_file(self, option: str):
         index_path = self._index_path
         if index_path == 'SAMPLE/PATH':
