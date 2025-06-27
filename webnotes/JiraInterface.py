@@ -4,16 +4,24 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 
+
+def get_story_points(story_points):
+    if '.' in str(story_points):
+        story_points = str(story_points).split('.')[0]  # Take only the integer part
+    return story_points
+
+
 class JiraIssue:
     def __init__(self, key, summary, status, story_points, description):
         self.key = key
         self.summary = summary
         self.status = status
-        self.story_points = story_points
+        self.story_points = get_story_points(story_points)
         self.description = description
 
     def __str__(self):
         return f"Key: {self.key}, Summary: {self.summary}, Status: {self.status}, Story Points: {self.story_points}, Description: {self.description[:100]}..."
+
 
 def get_jira_issue(issue_key):
     # Read configuration from config.ini

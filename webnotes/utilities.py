@@ -1,6 +1,7 @@
 import os.path
 from enum import Enum
 from pathlib import Path
+import re
 
 from webnotes.JiraInterface import get_jira_issue
 
@@ -16,10 +17,17 @@ class TEMPLATE(Enum):
     JIRA_PR = 2
     JIRA_SUP = 3
 
-
-def jira_template_values(url):
+def jira_sup_template_values(url):
     return {
         '漢JIRA_LINK漢': url
+    }
+
+def jira_template_values(url):
+    number = get_issue_number_from_url(url)
+    jira_issue = get_jira_issue(number)
+    return {
+        '漢JIRA_LINK漢': url,
+        '漢JIRA_STORY_POINTS漢': f'"{jira_issue.story_points}"'
     }
 
 
@@ -73,10 +81,16 @@ def find(names, path):
                 return Path(new_path).relative_to(path).as_posix()
 
 
-def get_issue_number(filename):
+def get_issue_number_from_filename(filename):
     potential_issue_number = filename.split()[0]
     if any([x in potential_issue_number for x in OPTIONS]):
         return potential_issue_number
+    return None
+
+def get_issue_number_from_url(url):
+    match = re.search(r'(OPA|SUP)-\d{1,6}', url)
+    if match:
+        return match.group(0)
     return None
 
 

@@ -146,7 +146,7 @@ class NotesInterface:
         with open(filename_fullpath, 'r') as file:
             filedata = file.read()
 
-        for key, value in jira_template_values(url).items():
+        for key, value in jira_sup_template_values(url).items():
             filedata = filedata.replace(key, value)
 
         with open(filename_fullpath, 'w') as file:
@@ -192,7 +192,7 @@ class NotesInterface:
                     # file was moved and renamed or deleted
 
                     # maybe we can find the file cause its jira
-                    issue_number = get_issue_number(filename)
+                    issue_number = get_issue_number_from_filename(filename)
                     found_jira_filename = find_jira(issue_number, self._path, filename)
                     if found_jira_filename:
                         # rename jira issue at its current location
