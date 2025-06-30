@@ -1,5 +1,6 @@
 import sys
 import os
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -9,8 +10,8 @@ import FileAdjuster
 
 if __name__ == '__main__':
     # get url and title from command-line arguments
-    main_path = sys.argv[0]
-    notes_interface = NotesInterface.NotesInterface(main_path)
+    main_path = Path(sys.argv[0])
+    notes_interface = NotesInterface.NotesInterface(main_path.parent)
 
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])
@@ -21,5 +22,5 @@ if __name__ == '__main__':
 
     result = FileAdjuster.adjust_file(complete_filepath)
 
-    # export to alfred, opens obsidian
+    # pass to alfred
     print(result, end='')

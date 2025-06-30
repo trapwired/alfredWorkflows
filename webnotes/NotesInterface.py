@@ -8,9 +8,9 @@ from webnotes.utilities import *
 
 class NotesInterface:
 
-    def __init__(self, main_path: str):
+    def __init__(self, main_path: Path):
         config = configparser.RawConfigParser()
-        config_path = os.path.join(main_path[:-9], 'config.ini')
+        config_path = os.path.join(main_path, 'config.ini')
         config.read(config_path, encoding='utf8')
 
         try:

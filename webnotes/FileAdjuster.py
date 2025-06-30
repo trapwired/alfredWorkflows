@@ -4,7 +4,7 @@ from webnotes.utilities import get_issue_number_from_url, get_current_sprint
 from webnotes.JiraInterface import get_jira_issue
 
 
-def adjust_file(file_path):
+def adjust_file(file_path, done_sp_in_sprint=None):
     """
     Read and process a markdown file with Jira properties.
 
@@ -87,6 +87,9 @@ def adjust_file(file_path):
         current_sprint = get_current_sprint()
         if current_sprint in sp_done_dict.keys():
             remaining_sp += sp_done_dict[current_sprint]
+
+        if done_sp_in_sprint:
+            remaining_sp = done_sp_in_sprint
         sp_done_dict[current_sprint] = remaining_sp
 
         new_sp_done = ', '.join(f'{k}:{sp_done_dict[k]}' for k in sorted(sp_done_dict, key=int))
@@ -112,8 +115,10 @@ def adjust_file(file_path):
 
         # save file
         # return ok and remaining SP
-
-        return f'Added remaining SP ({sp_done_dict[current_sprint]}) to current Sprint ({current_sprint})'
+        if done_sp_in_sprint:
+            return f'Added {done_sp_in_sprint} SP to current Sprint ({current_sprint})'
+        else:
+            return f'Added remaining SP ({sp_done_dict[current_sprint]}) to current Sprint ({current_sprint})'
 
     except Exception as e:
         return f"Error processing file: {str(e)}"
