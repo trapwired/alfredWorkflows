@@ -81,3 +81,63 @@ def get_jira_issue(issue_key):
 
     except json.JSONDecodeError as e:
         return None
+
+def get_transitions(issue_key):
+    # Read configuration from config.ini
+    config = configparser.ConfigParser()
+    config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
+
+    jira_token = config.get('API', 'jira_token')
+    jira_email = config.get('API', 'jira_email')
+    jira_custom_domain = config.get('API', 'jira_custom_domain')
+
+    url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json"
+    }
+
+    response = requests.get(url, headers=headers, auth=auth)
+
+    if response.status_code == 200:
+        return response.json().get('transitions', [])
+    else:
+        return []
+
+def transition_issue(issue_key, transition_id):
+    # Read configuration from config.ini
+    config = configparser.ConfigParser()
+    config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
+
+    jira_token = config.get('API', 'jira_token')
+    jira_email = config.get('API', 'jira_email')
+    jira_custom_domain = config.get('API', 'jira_custom_domain')
+
+    url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    }
+
+    payload = json.dumps({
+        "fields": {
+            "resolution": {
+                "name": "Done"
+            }
+        },
+        "transition": {
+            "id": transition_id
+        },
+
+    })
+
+    response = requests.request(
+        "POST",
+        url,
+        data=payload,
+        headers=headers,
+        auth=auth
+    )
+
+    return response

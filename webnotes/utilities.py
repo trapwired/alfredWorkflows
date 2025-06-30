@@ -168,3 +168,7 @@ def handle_special_jira_cases(url, website_title):
             return new_url, new_website_title
 
     return url, website_title
+
+def get_issue_number_from_url(url: str) -> str:
+    match = re.search(r'OPA-\d{1,6}', url)
+    return match.group(0) if match else None
