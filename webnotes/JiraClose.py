@@ -18,11 +18,6 @@ if __name__ == '__main__':
     issue_number = get_issue_number_from_url(url_arg)
     result = 'Not a Jira issue'
     if issue_number:
-        # transitions = JiraInterface.get_transitions(issue_number)
-        response = JiraInterface.transition_issue(issue_number, 151)
-        fullname = os.path.join(main_path.parent, 'temp.json')
-        with open(fullname, 'w') as f:
-            f.write(str(response))
-        result = 'Closed issue: ' + issue_number
+        result = JiraInterface.transition_issue(issue_number, 151)
 
     print(result, end='')

@@ -23,15 +23,18 @@ class JiraIssue:
         return f"Key: {self.key}, Summary: {self.summary}, Status: {self.status}, Story Points: {self.story_points}, Description: {self.description[:100]}..."
 
 
-def get_jira_issue(issue_key):
+def init_config():
     # Read configuration from config.ini
-
     config = configparser.ConfigParser()
     config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
-
     jira_token = config.get('API', 'jira_token')
     jira_email = config.get('API', 'jira_email')
     jira_custom_domain = config.get('API', 'jira_custom_domain')
+    return jira_custom_domain, jira_email, jira_token
+
+
+def get_jira_issue(issue_key):
+    jira_custom_domain, jira_email, jira_token = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -82,14 +85,9 @@ def get_jira_issue(issue_key):
     except json.JSONDecodeError as e:
         return None
 
-def get_transitions(issue_key):
-    # Read configuration from config.ini
-    config = configparser.ConfigParser()
-    config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
-    jira_token = config.get('API', 'jira_token')
-    jira_email = config.get('API', 'jira_email')
-    jira_custom_domain = config.get('API', 'jira_custom_domain')
+def get_transitions(issue_key):
+    jira_custom_domain, jira_email, jira_token = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -104,14 +102,9 @@ def get_transitions(issue_key):
     else:
         return []
 
-def transition_issue(issue_key, transition_id):
-    # Read configuration from config.ini
-    config = configparser.ConfigParser()
-    config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 
-    jira_token = config.get('API', 'jira_token')
-    jira_email = config.get('API', 'jira_email')
-    jira_custom_domain = config.get('API', 'jira_custom_domain')
+def transition_issue(issue_key, transition_id):
+    jira_custom_domain, jira_email, jira_token = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -140,4 +133,33 @@ def transition_issue(issue_key, transition_id):
         auth=auth
     )
 
-    return response
+    if response.status_code == 204:
+        return issue_key
+    else:
+        return 'Failed to close issue: ' + issue_key + ' - ' + response.text
+
+
+def get_all_issues_from_current_sprint():
+    jira_custom_domain, jira_email, jira_token = init_config()
+
+    url = f"https://{jira_custom_domain}/rest/api/2/search/jql"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        'jql': 'sprint in openSprints() and "Team[Team]"=c3db8dfc-c970-4639-8138-4ccdd1179649-26 and status = Resolved',
+        'fields': 'key',
+    }
+
+    response = requests.get(url, headers=headers, params=query, auth=auth)
+
+    if response.status_code == 200:
+        return extract_issues_numbers(response.json().get('issues', []))
+    else:
+        return []
+
+def extract_issues_numbers(json_data):
+    return [item['key'] for item in json_data if 'key' in item]
+
