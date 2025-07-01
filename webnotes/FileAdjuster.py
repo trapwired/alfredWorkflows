@@ -92,7 +92,7 @@ def adjust_file(file_path, done_sp_in_sprint=None):
             remaining_sp = done_sp_in_sprint
         sp_done_dict[current_sprint] = remaining_sp
 
-        new_sp_done = ', '.join(f'{k}:{sp_done_dict[k]}' for k in sorted(sp_done_dict, key=int))
+        new_sp_done = ', '.join(f'{k}: {sp_done_dict[k]}' for k in sorted(sp_done_dict, key=int))
 
         # Update the SP-done property in the file
         # Surround new_sp_done with double quotes
