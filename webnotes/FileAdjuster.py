@@ -4,16 +4,7 @@ from webnotes.utilities import get_issue_number_from_url, get_current_sprint
 from webnotes.JiraInterface import get_jira_issue
 
 
-def adjust_file(file_path, done_sp_in_sprint=None):
-    """
-    Read and process a markdown file with Jira properties.
-
-    Args:
-        file_path: Complete path to the markdown file
-
-    Returns:
-        dict: Contains 'Total-SP' and 'SP-done' values or 'Not a jira story' message
-    """
+def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
     if not os.path.exists(file_path):
         return "File does not exist: " + file_path
 
@@ -83,6 +74,10 @@ def adjust_file(file_path, done_sp_in_sprint=None):
         total_sp_done = sum(sp_done_dict.values())
         # calculate remaining SP: all nums in sp_done, subtract from total_sp
         remaining_sp = total_sp - total_sp_done
+
+        if return_remaining_sp:
+            return remaining_sp
+
         # append to SP-done: currentSprint: remainingSP (even if 0)
         current_sprint = get_current_sprint()
         if current_sprint in sp_done_dict.keys():

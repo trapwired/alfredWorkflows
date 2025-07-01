@@ -157,6 +157,9 @@ def get_url_title(number):
         return f'[{jira_issue.key}] {jira_issue.summary} - Jira'
     return f'{number} - Jira'
 
+def get_jira_url(number):
+    return f'https://jiradg.atlassian.net/browse/{number}'
+
 
 def handle_special_jira_cases(url, website_title):
     if url.startswith('https://jiradg.atlassian.net'):
