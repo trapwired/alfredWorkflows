@@ -19,7 +19,11 @@ if __name__ == '__main__':
     # get jira issue number
     issue_number = get_issue_number_from_url(url_arg)
     if issue_number:
-        website_title_arg = get_url_title(issue_number)
+        possible_website_title_arg = get_url_title(issue_number)
+        if possible_website_title_arg:
+            website_title_arg = possible_website_title_arg
+        else:
+            f'{issue_number} - Jira'
         url_arg = get_jira_url(issue_number)
 
     result = f'{url_arg}\t{website_title_arg}'

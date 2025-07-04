@@ -26,6 +26,11 @@ def jira_sup_template_values(url):
 def jira_template_values(url):
     number = get_issue_number_from_url(url)
     jira_issue = get_jira_issue(number)
+    if not jira_issue:
+        return {
+            '漢JIRA_LINK漢': url,
+            '漢JIRA_STORY_POINTS漢': '"424242"'
+        }
     return {
         '漢JIRA_LINK漢': url,
         '漢JIRA_STORY_POINTS漢': f'"{jira_issue.story_points}"'
@@ -155,7 +160,7 @@ def get_url_title(number):
     jira_issue = get_jira_issue(number)
     if jira_issue:
         return f'[{jira_issue.key}] {jira_issue.summary} - Jira'
-    return f'{number} - Jira'
+    return None
 
 def get_jira_url(number):
     return f'https://jiradg.atlassian.net/browse/{number}'
@@ -168,6 +173,8 @@ def handle_special_jira_cases(url, website_title):
             number = possible_issue.split('=')[1]
             new_url = f'https://jiradg.atlassian.net/browse/{number}'
             new_website_title = get_url_title(number)
+            if not new_website_title:
+                return new_url, website_title
             return new_url, new_website_title
 
     return url, website_title
