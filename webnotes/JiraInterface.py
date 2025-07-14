@@ -11,16 +11,33 @@ def get_story_points(story_points):
     return story_points
 
 
+def get_parent(parent):
+    parent_number, parent_summary = parent
+    possible_topics = ['ATK', 'ETK', 'Briefzentrum', 'Fastlane', 'FlexPack', 'Sorting', 'VAS', 'C-Hand', 'ON1', 'Sortierung']
+    for topic in possible_topics:
+        if topic.lower() in parent_summary.lower():
+            return parent_number, topic
+    return parent_number, None
+
+
 class JiraIssue:
-    def __init__(self, key, summary, status, story_points, description):
+    def __init__(self, key, summary, status, story_points, description, assignee, reporter, parent):
         self.key = key
         self.summary = summary
         self.status = status
         self.story_points = get_story_points(story_points)
         self.description = description
+        self.assignee = assignee
+        self.reporter = reporter
+        parent_number, topic = get_parent(parent)  # Tuple of (parent_key, parent_topic)
+        self.parent_key = parent_number
+        self.parent_topic = topic
 
     def __str__(self):
-        return f"Key: {self.key}, Summary: {self.summary}, Status: {self.status}, Story Points: {self.story_points}, Description: {self.description[:100]}..."
+        return f"{self.key} ({self.parent_topic}), {self.summary}, {self.status}, {self.story_points}, {self.description[:100]}..."
+
+    def get_link(self):
+        return f'https://jiradg.atlassian.net/browse/{self.key}'
 
 
 def init_config():
@@ -63,6 +80,18 @@ def get_jira_issue(issue_key):
         description = jira_data.get('fields', {}).get('description', {})
         description_text = "Description not available in simple text format"
 
+        # get Assignee information
+        assignee_id = jira_data.get('fields', {}).get('assignee', {}).get('accountId', default)
+        assignee_name = jira_data.get('fields', {}).get('assignee', {}).get('displayName', default)
+
+        # get Reporter information
+        reporter_id = jira_data.get('fields', {}).get('reporter', {}).get('accountId', default)
+        reporter_name = jira_data.get('fields', {}).get('reporter', {}).get('displayName', default)
+
+        # Get Parent information if it exists
+        parent_key = jira_data.get('fields', {}).get('parent', {}).get('key', default)
+        parent_summary = jira_data.get('fields', {}).get('parent', {}).get('fields', {}).get('summary', default)
+
         # Try to extract plain text from the description if it exists and has content
         if isinstance(description, dict) and 'content' in description:
             try:
@@ -80,7 +109,7 @@ def get_jira_issue(issue_key):
 
         if key == default or summary == default or status == default or story_points == default:
             return None
-        return JiraIssue(key, summary, status, story_points, description_text)
+        return JiraIssue(key, summary, status, story_points, description_text, (assignee_id, assignee_name), (reporter_id, reporter_name), (parent_key, parent_summary))
 
     except json.JSONDecodeError as e:
         return None
@@ -139,7 +168,7 @@ def transition_issue(issue_key, transition_id):
         return 'Failed to close issue: ' + issue_key + ' - ' + response.text
 
 
-def get_all_issues_from_current_sprint():
+def get_all_done_issues_from_current_sprint():
     jira_custom_domain, jira_email, jira_token = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/2/search/jql"
@@ -149,7 +178,7 @@ def get_all_issues_from_current_sprint():
     }
 
     query = {
-        'jql': 'sprint in openSprints() and "Team[Team]"=c3db8dfc-c970-4639-8138-4ccdd1179649-26 and status = Resolved',
+        'jql': 'sprint in openSprints() AND "Team[Team]" = "c3db8dfc-c970-4639-8138-4ccdd1179649-26" AND status IN (Resolved, Closed)',
         'fields': 'key',
     }
 
@@ -160,6 +189,14 @@ def get_all_issues_from_current_sprint():
     else:
         return []
 
+
+def get_finish_sprint_table_data():
+    issue_numbers = get_all_done_issues_from_current_sprint()
+    table_data = []
+    for issue_number in issue_numbers:
+        table_data.append(get_jira_issue(issue_number))
+    return table_data
+
+
 def extract_issues_numbers(json_data):
     return [item['key'] for item in json_data if 'key' in item]
-

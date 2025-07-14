@@ -9,7 +9,7 @@ import JiraInterface
 
 def get_all_issues():
     global issue_numbers
-    issue_numbers = JiraInterface.get_all_issues_from_current_sprint()
+    issue_numbers = JiraInterface.get_all_done_issues_from_current_sprint()
     result = 'get_all_issues'
     if len(issue_numbers) == 0:
         result = 'NoIssues'
@@ -33,7 +33,10 @@ def close_all_issues(issue_numbers=None):
 
 if __name__ == '__main__':
     main_path = Path(sys.argv[0])
-    case_arg = sys.argv[1]
+    if len(sys.argv) < 2:
+        case_arg = 'get'
+    else:
+        case_arg = sys.argv[1]
 
     result = 'main'
     if case_arg == 'get':

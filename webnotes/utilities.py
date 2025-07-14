@@ -179,6 +179,36 @@ def handle_special_jira_cases(url, website_title):
 
     return url, website_title
 
-def get_issue_number_from_url(url: str) -> str:
-    match = re.search(r'OPA-\d{1,6}', url)
-    return match.group(0) if match else None
+
+def get_start_end_date(sprint_number=None):
+    """
+    Calculate the start and end date for a given sprint number.
+
+    The sprint always starts on a Tuesday and ends on the Monday 13 days later.
+    Reference: Sprint 377 lasted from June 17, 2025 (Tuesday) to June 30, 2025 (Monday).
+
+    Args:
+        sprint_number (int, optional): The sprint number to get dates for.
+                                      If None, uses the current sprint.
+
+    Returns:
+        tuple: (start_date, end_date) as datetime.date objects
+    """
+    if not sprint_number:
+        sprint_number = get_current_sprint()
+
+    # Reference sprint data
+    reference_sprint = 377
+    reference_start = datetime.date(2025, 6, 17)  # Tuesday
+
+    # Calculate the difference in sprints
+    sprint_diff = sprint_number - reference_sprint
+
+    # Calculate days difference (each sprint is 14 days)
+    days_diff = sprint_diff * 14
+
+    # Calculate the start and end dates
+    start_date = reference_start + datetime.timedelta(days=days_diff)
+    end_date = start_date + datetime.timedelta(days=13)  # 13 days later (inclusive of start date)
+
+    return start_date, end_date
