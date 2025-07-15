@@ -4,7 +4,7 @@ import os
 
 from webnotes.ConfluencePageNodes import ParagraphNode
 from webnotes.ConfluencePageNodes.InlineExtensionNode import InlineExtensionNode
-from webnotes.ConfluencePageNodes.TableNode import TableNode
+from webnotes.ConfluencePageNodes.Table import TableNode
 from webnotes.ConfluencePageNodes.TextContent import TextContent
 from .PanelNode import PanelNode
 from .HeadingNode import HeadingNode
@@ -30,7 +30,7 @@ def get_review_table():
     table_node.add_title_row(["Jira Issue", "Topic / Epic", "Daten / Kommentar", "Reporter", "Assignee"])
 
     for row in table_data:
-        table_node.add_jira_table_row(row) # TODO add background color for cell
+        table_node.add_jira_table_row(row)
 
     return table_node
 
