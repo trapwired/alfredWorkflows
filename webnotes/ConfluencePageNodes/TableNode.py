@@ -6,20 +6,7 @@ from ..JiraInterface import JiraIssue
 
 
 class TableNode(Node):
-    """
-    Table node implementation that creates a table structure.
-    Represents a JSON object with type "table" and layout, width, localId attributes.
-    """
-
     def __init__(self, num_cols, col_sizes=None, layout="full-width", width=1800.0):
-        """
-        Initialize a TableNode object.
-
-        Args:
-            layout (str): Layout of the table (default: "full-width")
-            width (float): Width of the table in pixels (default: 1800.0)
-        """
-
         localId = str(uuid.uuid4())
 
         attrs = {
@@ -40,12 +27,6 @@ class TableNode(Node):
         super().__init__(node_type="table", attrs=attrs, content=[])
 
     def add_row(self, row):
-        """
-        Add a TableRowNode to the table.
-
-        Args:
-            row (TableRowNode): A row to add to the table
-        """
         self.content.append(row)
 
     def add_title_row(self, col_titles):
@@ -92,6 +73,7 @@ class TableNode(Node):
             return self.cell_colors[parent_topic]
         return None
 
+
 class CellColors:
     def __init__(self):
         self.colors = ['#deebff', '#ffebe6', '#fffae6', '#f4f5f7', '#e3fcef', '']
@@ -104,36 +86,13 @@ class CellColors:
 
 
 class TableRowNode(Node):
-    """
-    Table row node implementation that represents a row in a table.
-    Represents a JSON object with type "tableRow" and content (list of cells).
-    """
-
     def __init__(self, content=None):
-        """
-        Initialize a TableRowNode object.
-
-        Args:
-            content (list): List of TableHeaderNode or TableCellNode objects representing cells in this row
-        """
         super().__init__(node_type="tableRow", attrs={}, content=content or [])
 
     def add_cell(self, cell):
-        """
-        Add a cell (header or regular) to the row.
-
-        Args:
-            cell (TableHeaderNode or TableCellNode): A cell to add to this row
-        """
         self.content.append(cell)
 
     def to_json(self):
-        """
-        Override to_json to exclude the attrs attribute from the output.
-
-        Returns:
-            dict: Dictionary representation of the table row node without attrs
-        """
         result = {
             "type": self.type,
             "content": [
@@ -145,21 +104,7 @@ class TableRowNode(Node):
 
 
 class TableHeaderNode(Node):
-    """
-    Table header node implementation that represents a header cell in a table.
-    Represents a JSON object with type "tableHeader" and specific attributes.
-    """
-
     def __init__(self, content=None, colwidth=None):
-        """
-        Initialize a TableHeaderNode object.
-
-        Args:
-            content (list): List of nodes (typically ParagraphNode) representing the cell content
-            colspan (int): Number of columns this cell spans (default: 1)
-            rowspan (int): Number of rows this cell spans (default: 1)
-            colwidth (list): Width of columns in pixels (default: [568.0])
-        """
         if colwidth is None:
             colwidth = 568.0
 
@@ -173,7 +118,6 @@ class TableHeaderNode(Node):
 
 
 class TableCellNode(Node):
-
     def __init__(self, content=None, colwidth=None, color=None):
         if colwidth is None:
             colwidth = 568.0

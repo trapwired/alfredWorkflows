@@ -3,25 +3,7 @@ import uuid
 
 
 class ExtensionNode(Node):
-    """
-    Extension node implementation for Confluence macros and extensions.
-    Represents a JSON object with type "extension" and the specified attributes.
-    """
-
     def __init__(self, layout="default", extensionKey="", macroParameters=None,title="", extensionType="com.atlassian.confluence.macro.core"):
-        """
-        Initialize an ExtensionNode object.
-
-        Args:
-            layout (str): Layout of the extension (default: "default")
-            extensionKey (str): Key identifying the extension type (e.g., "toc" for Table of Contents)
-            macroParameters (dict): Parameters specific to the macro (default: empty dict)
-            macroId (str): Unique ID for the macro (generated if not provided)
-            title (str): Title of the extension
-            localId (str): Local ID for the extension (generated if not provided)
-            extensionType (str): Type of extension (default: "com.atlassian.confluence.macro.core")
-        """
-
         macroId = str(uuid.uuid4())
         localId = str(uuid.uuid4())
 
@@ -58,12 +40,6 @@ class ExtensionNode(Node):
         super().__init__(node_type="extension", attrs=attrs)
 
     def to_json(self):
-        """
-        Override to_json to exclude the content attribute from the output.
-
-        Returns:
-            dict: Dictionary representation of the extension node without content
-        """
         result = {
             "type": self.type,
             "attrs": self.attrs
@@ -72,12 +48,6 @@ class ExtensionNode(Node):
 
     @staticmethod
     def get_toc_extension():
-        """
-        Creates a Table of Contents extension with predefined values.
-
-        Returns:
-            ExtensionNode: A configured TOC extension instance
-        """
         return ExtensionNode(
             layout="default",
             extensionKey="toc",
@@ -86,13 +56,6 @@ class ExtensionNode(Node):
 
     @staticmethod
     def get_jira_filter_extension(filter_query):
-        """
-        Creates a Jira filter extension with predefined values.
-
-        Returns:
-            ExtensionNode: A configured Jira filter extension instance
-        """
-        # Define the macro parameters for the Jira filter
         jira_macro_params = {
             "server": {
                 "value": "Jira"
@@ -114,7 +77,6 @@ class ExtensionNode(Node):
             }
         }
 
-        # Create the extension
         extension = ExtensionNode(
             layout="full-width",
             extensionKey="jira",
@@ -122,7 +84,6 @@ class ExtensionNode(Node):
             title="Jira Legacy",
         )
 
-        # Add the placeholder which has a special structure
         placeholder = [
             {
                 "type": "image",
