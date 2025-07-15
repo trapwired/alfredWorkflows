@@ -4,7 +4,7 @@ from pathlib import Path
 import re
 import datetime
 
-from webnotes.JiraInterface import get_jira_issue
+from JiraInterface import get_jira_issue
 
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
@@ -165,14 +165,18 @@ def get_url_title(number):
 def get_jira_url(number):
     return f'https://jiradg.atlassian.net/browse/{number}'
 
+def get_jira_url_and_title(number):
+    url = get_jira_url(number)
+    website_title = get_url_title(number)
+    return url, website_title
+
 
 def handle_special_jira_cases(url, website_title):
     if url.startswith('https://jiradg.atlassian.net'):
         possible_issue = url.split('&')[-1]
         if possible_issue.startswith('selectedIssue='):
             number = possible_issue.split('=')[1]
-            new_url = f'https://jiradg.atlassian.net/browse/{number}'
-            new_website_title = get_url_title(number)
+            new_url, new_website_title = get_jira_url_and_title(number)
             if not new_website_title:
                 return new_url, website_title
             return new_url, new_website_title

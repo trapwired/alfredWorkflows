@@ -4,6 +4,8 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 
+import utilities
+
 
 def get_story_points(story_points):
     if '.' in str(story_points):
@@ -37,7 +39,7 @@ class JiraIssue:
         return f"{self.key} ({self.parent_topic}), {self.summary}, {self.status}, {self.story_points}, {self.description[:100]}..."
 
     def get_link(self):
-        return f'https://jiradg.atlassian.net/browse/{self.key}'
+        return utilities.get_jira_url(self.key)
 
 
 def init_config():

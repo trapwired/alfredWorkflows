@@ -2,9 +2,13 @@ import os
 import sys
 from pathlib import Path
 
+import utilities
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import JiraInterface
+import NotesInterface
+import FileAdjuster
 
 
 def get_all_issues():
@@ -19,13 +23,24 @@ def get_all_issues():
 
 
 def close_all_issues(issue_numbers=None):
-    result = 'close_all_issues'
+    main_path = Path(sys.argv[0])
+    notes_interface = NotesInterface.NotesInterface(main_path.parent)
+
     if not issue_numbers:
         result = 'No issues provided to close'
     else:
         results = []
         for issue_number in issue_numbers:
+            # close Story on Jira
             res = JiraInterface.transition_issue(issue_number, 151)
+
+            # close Story in notes
+            url, title = utilities.get_jira_url_and_title(issue_number)
+            file_to_open = notes_interface.get_or_create_file(url, title)
+            if file_to_open:
+                complete_filepath = notes_interface.get_full_path(file_to_open)
+                _ = FileAdjuster.adjust_file(complete_filepath)
+
             results.append(res)
         result = f'Closed {len(results)} issues: {", ".join(results)}'
     return result
