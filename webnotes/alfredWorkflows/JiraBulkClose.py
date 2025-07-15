@@ -2,13 +2,15 @@ import os
 import sys
 from pathlib import Path
 
-import utilities
+# Add the directory containing the webnotes package to sys.path
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-import JiraInterface
-import NotesInterface
-import FileAdjuster
+from webnotes import utilities
+from webnotes import JiraInterface
+from webnotes import NotesInterface
+from webnotes import FileAdjuster
 
 
 def get_all_issues():
@@ -24,7 +26,7 @@ def get_all_issues():
 
 def close_all_issues(issue_numbers=None):
     main_path = Path(sys.argv[0])
-    notes_interface = NotesInterface.NotesInterface(main_path.parent)
+    notes_interface = NotesInterface.NotesInterface(main_path.parent.parent)
 
     if not issue_numbers:
         result = 'No issues provided to close'

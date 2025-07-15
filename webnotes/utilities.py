@@ -3,8 +3,10 @@ from enum import Enum
 from pathlib import Path
 import re
 import datetime
+import sys
 
-from JiraInterface import get_jira_issue
+# To avoid circular import issues, import JiraInterface functions inside the functions that need them
+# rather than at the module level
 
 FILE_EXTENSION = '.md'
 DELIMITER = '漢'
@@ -25,6 +27,8 @@ def jira_sup_template_values(url):
 
 def jira_template_values(url):
     number = get_issue_number_from_url(url)
+    # Import inside function to avoid circular import
+    from webnotes.JiraInterface import get_jira_issue
     jira_issue = get_jira_issue(number)
     if not jira_issue:
         return {
@@ -157,6 +161,8 @@ def get_jira_issue_link_from_pr_title(filename):
         return f'https://jiradg.atlassian.net/browse/{option}-{number}'
 
 def get_url_title(number):
+    # Import inside function to avoid circular import
+    from webnotes.JiraInterface import get_jira_issue
     jira_issue = get_jira_issue(number)
     if jira_issue:
         return f'[{jira_issue.key}] {jira_issue.summary} - Jira'

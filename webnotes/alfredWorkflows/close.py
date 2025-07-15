@@ -2,16 +2,19 @@ import sys
 import os
 from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add the directory containing the webnotes package to sys.path
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-import NotesInterface
-import FileAdjuster
+from webnotes import NotesInterface
+from webnotes import FileAdjuster
 
 
 if __name__ == '__main__':
     # get url and title from command-line arguments
     main_path = Path(sys.argv[0])
-    notes_interface = NotesInterface.NotesInterface(main_path.parent)
+    notes_interface = NotesInterface.NotesInterface(main_path.parent.parent)
 
     url_arg = sys.argv[1]
     website_title_arg = ' '.join(sys.argv[2:])

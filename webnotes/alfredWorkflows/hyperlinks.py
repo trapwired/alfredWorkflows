@@ -2,11 +2,13 @@ import sys
 import os
 from pathlib import Path
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Add the directory containing the webnotes package to sys.path
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
-from webnotes.utilities import get_issue_number_from_url, get_jira_url
-from utilities import get_url_title
-import JiraInterface
+from webnotes.utilities import get_issue_number_from_url, get_jira_url, get_url_title
+from webnotes import JiraInterface
 
 
 if __name__ == '__main__':

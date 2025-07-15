@@ -4,7 +4,8 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 
-import utilities
+# Using absolute import to avoid circular imports
+from webnotes import utilities
 
 
 def get_story_points(story_points):

@@ -212,3 +212,4 @@ class NotesInterface:
         index[url] = filename
         self.write_index(index)
         return filename
+

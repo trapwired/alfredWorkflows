@@ -1,5 +1,6 @@
 import configparser
 import os
+import json
 
 import requests
 from requests.auth import HTTPBasicAuth
@@ -40,7 +41,7 @@ def get_conf_page(page_id):
         f.write(response_json)
 
 
-def create_conf_page():
+def create_confluence_review_page():
     conf_custom_domain, jira_email, jira_token = init_config()
     url = f"https://{conf_custom_domain}/wiki/api/v2/pages/"
 
@@ -55,7 +56,7 @@ def create_conf_page():
     review_page = create_review_page()
     payload = review_page.to_json()
 
-    output_path = os.path.join(os.path.dirname(__file__), 'generated.json')
+    output_path = os.path.join(os.path.dirname(__file__), 'output', 'generated.json')
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(payload)
 
@@ -68,9 +69,20 @@ def create_conf_page():
     )
 
     response_json = response.text
-    print(response_json[:200])
+    if response.status_code == 200:
+        output_path = os.path.join(os.path.dirname(__file__), 'output', 'response_created.json')
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(response_json)
 
+        # Parse the response JSON to extract title and URL
+        response_data = json.loads(response_json)
+        title = response_data.get('title', '')
 
-if __name__ == '__main__':
-    get_conf_page(171024679690)
-    # create_conf_page()
+        # Construct the complete URL by concatenating base and webui
+        base_url = response_data.get('_links', {}).get('base', '')
+        web_ui_path = response_data.get('_links', {}).get('webui', '')
+        complete_url = f"{base_url}{web_ui_path}" if base_url and web_ui_path else ''
+
+        return title, complete_url
+    else:
+        return f"Error: {response.status_code} - {response.text}", None
