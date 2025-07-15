@@ -34,6 +34,9 @@ class TableNode(Node):
         self.column_sizes = col_sizes
         self.number_of_columns = num_cols
 
+        self.cell_colors = {}
+        self.cell_color_iterator = CellColors()
+
         super().__init__(node_type="table", attrs=attrs, content=[])
 
     def add_row(self, row):
@@ -71,12 +74,33 @@ class TableNode(Node):
 
     def add_jira_table_row(self, data: JiraIssue):
         cell1 = TableCellNode(content=[ParagraphNode.inline_card_cell(data.get_link())], colwidth=self.column_sizes[0])
-        cell2 = TableCellNode(content=[ParagraphNode(content=[TextContent(text=data.parent_topic)])], colwidth=self.column_sizes[1])
+        cell_color = self.get_cell_color(data.parent_topic)
+        cell2 = TableCellNode(content=[ParagraphNode(content=[TextContent(text=data.parent_topic)])],
+                              colwidth=self.column_sizes[1], color=cell_color)
         cell3 = TableCellNode(content=[ParagraphNode()], colwidth=self.column_sizes[2])
-        cell4 = TableCellNode(content=[ParagraphNode.mention_cell(data.reporter[0], data.reporter[1])], colwidth=self.column_sizes[3])
-        cell5 = TableCellNode(content=[ParagraphNode.mention_cell(data.assignee[0], data.assignee[1])], colwidth=self.column_sizes[4])
+        cell4 = TableCellNode(content=[ParagraphNode.mention_cell(data.reporter[0], data.reporter[1])],
+                              colwidth=self.column_sizes[3])
+        cell5 = TableCellNode(content=[ParagraphNode.mention_cell(data.assignee[0], data.assignee[1])],
+                              colwidth=self.column_sizes[4])
         table_row = TableRowNode(content=[cell1, cell2, cell3, cell4, cell5])
         self.add_row(table_row)
+
+    def get_cell_color(self, parent_topic):
+        if parent_topic:
+            if parent_topic not in self.cell_colors:
+                self.cell_colors[parent_topic] = self.cell_color_iterator.get_next_color()
+            return self.cell_colors[parent_topic]
+        return None
+
+class CellColors:
+    def __init__(self):
+        self.colors = ['#deebff', '#ffebe6', '#fffae6', '#f4f5f7', '#e3fcef', '']
+        self.index = 0
+
+    def get_next_color(self):
+        color = self.colors[self.index]
+        self.index = (self.index + 1) % len(self.colors)
+        return color
 
 
 class TableRowNode(Node):
@@ -149,21 +173,8 @@ class TableHeaderNode(Node):
 
 
 class TableCellNode(Node):
-    """
-    Table cell node implementation that represents a standard cell in a table.
-    Represents a JSON object with type "tableCell" and specific attributes.
-    """
 
-    def __init__(self, content=None, colwidth=None):
-        """
-        Initialize a TableCellNode object.
-
-        Args:
-            content (list): List of nodes (typically ParagraphNode) representing the cell content
-            colspan (int): Number of columns this cell spans (default: 1)
-            rowspan (int): Number of rows this cell spans (default: 1)
-            colwidth (list): Width of columns in pixels (default: [568.0])
-        """
+    def __init__(self, content=None, colwidth=None, color=None):
         if colwidth is None:
             colwidth = 568.0
 
@@ -172,5 +183,8 @@ class TableCellNode(Node):
             "rowspan": 1,
             "colwidth": [colwidth]
         }
+
+        if color:
+            attrs["background"] = color
 
         super().__init__(node_type="tableCell", attrs=attrs, content=content or [])

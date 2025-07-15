@@ -35,7 +35,7 @@ def get_conf_page(page_id):
     )
 
     response_json = response.text
-    output_path = os.path.join(os.path.dirname(__file__), 'review-page-complete.json')
+    output_path = os.path.join(os.path.dirname(__file__), 'download.json')
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(response_json)
 
@@ -72,5 +72,5 @@ def create_conf_page():
 
 
 if __name__ == '__main__':
-    # get_conf_page(170983456823)
-    create_conf_page()
+    get_conf_page(171024679690)
+    # create_conf_page()
