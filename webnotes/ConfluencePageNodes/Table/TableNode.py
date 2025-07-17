@@ -45,13 +45,24 @@ class TableNode(Node):
         table_row = TableRowNode(content=col_nodes)
         self.add_row(table_row)
 
-    def add_table_row(self, row_values):
+    def add_formated_table_row(self, row_values):
         if len(row_values) != self.number_of_columns:
             raise ValueError("Number of column titles must match the number of rows in the table.")
         col_nodes = []
         for title, size in zip(row_values, self.column_sizes):
             paragraph = ParagraphNode(content=[TextContent(text=title)])
             header = TableCellNode(content=[paragraph], colwidth=size)
+            col_nodes.append(header)
+
+        table_row = TableRowNode(content=col_nodes)
+        self.add_row(table_row)
+
+    def add_table_row(self, row_values):
+        if len(row_values) != self.number_of_columns:
+            raise ValueError("Number of column titles must match the number of rows in the table.")
+        col_nodes = []
+        for content, size in zip(row_values, self.column_sizes):
+            header = TableCellNode(content=content, colwidth=size)
             col_nodes.append(header)
 
         table_row = TableRowNode(content=col_nodes)
