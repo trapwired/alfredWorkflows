@@ -14,7 +14,6 @@ from webnotes import FileAdjuster
 
 
 def get_all_issues():
-    global issue_numbers
     issue_numbers = JiraInterface.get_all_done_issues_from_current_sprint()
     result = 'get_all_issues'
     if len(issue_numbers) == 0:

@@ -181,7 +181,29 @@ def get_all_done_issues_from_current_sprint():
     }
 
     query = {
-        'jql': 'sprint in openSprints() AND "Team[Team]" = "c3db8dfc-c970-4639-8138-4ccdd1179649-26" AND status IN (Resolved, Closed)',
+        'jql': 'sprint IN openSprints() AND "Team[Team]" = 26 AND status IN (Resolved, Closed)',
+        'fields': 'key',
+    }
+
+    response = requests.get(url, headers=headers, params=query, auth=auth)
+
+    if response.status_code == 200:
+        return extract_issues_numbers(response.json().get('issues', []))
+    else:
+        return []
+
+
+def get_next_open_stories_from_backlog():
+    jira_custom_domain, jira_email, jira_token = init_config()
+
+    url = f"https://{jira_custom_domain}/rest/api/2/search/jql"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        'jql': 'project IN (OPA) AND issuetype = Story AND "Team[Team]" = 26 AND Sprint NOT IN (19963, 20305, 19966, 19964) AND status = Open ORDER BY Rank ASC',
         'fields': 'key',
     }
 
