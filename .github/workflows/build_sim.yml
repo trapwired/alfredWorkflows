@@ -9,4 +9,9 @@ jobs:
   MyFirstJob:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for 5 seconds
+        run: |
+          echo "Waiting for 5 seconds to allow other workflows to complete..."
+          sleep 5
+          echo "Continuing execution after wait"
       - run: echo "I build"
