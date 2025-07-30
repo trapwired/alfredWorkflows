@@ -1,0 +1,14 @@
+name: A-Workflow
+
+on:
+  workflow_run:
+    workflows: ["Build-Sim", "A-Check"]
+    types: [completed]
+    branches:
+      - main
+
+jobs:
+  MyFirstJob:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I deploy the A-Workflow"
