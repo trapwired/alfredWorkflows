@@ -1,0 +1,15 @@
+name: A-Check
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - a/**
+  workflow_dispatch:
+
+jobs:
+  MyFirstJob:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Check-A-completed"
