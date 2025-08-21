@@ -181,7 +181,7 @@ def get_all_done_issues_from_current_sprint():
     }
 
     query = {
-        'jql': 'sprint IN openSprints() AND "Team[Team]" = 26 AND status IN (Resolved, Closed)',
+        'jql': 'sprint IN openSprints() AND "Team[Team]" = 26 AND status IN (Resolved, Closed) AND project = "Operations Area"',
         'fields': 'key',
     }
 
