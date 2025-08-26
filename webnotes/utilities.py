@@ -91,9 +91,10 @@ def get_current_sprint():
     current_sprint = reference_sprint + sprints_diff
 
     # Check if we need to adjust based on day of week
-    # If we're past a reference date but not yet reached the next Tuesday,
-    # we're still in the previous sprint
-    if days_diff > 0 and days_diff % 14 < (today.weekday() - 1) % 7:
+    if days_diff % 14 < (today.weekday() - 1) % 7:
+        current_sprint -= 1
+
+    if today.weekday() == 1 and datetime.datetime.now().hour < 12:
         current_sprint -= 1
 
     return current_sprint

@@ -4,8 +4,8 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 
-# Using absolute import to avoid circular imports
 from webnotes import utilities
+from webnotes.JiraObjects.Sprint import Sprint
 
 
 def get_story_points(story_points):
@@ -50,11 +50,12 @@ def init_config():
     jira_token = config.get('API', 'jira_token')
     jira_email = config.get('API', 'jira_email')
     jira_custom_domain = config.get('API', 'jira_custom_domain')
-    return jira_custom_domain, jira_email, jira_token
+    jira_board_id = config.get('API', 'jira_board_id')
+    return jira_custom_domain, jira_email, jira_token, jira_board_id
 
 
 def get_jira_issue(issue_key):
-    jira_custom_domain, jira_email, jira_token = init_config()
+    jira_custom_domain, jira_email, jira_token, _ = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -83,13 +84,21 @@ def get_jira_issue(issue_key):
         description = jira_data.get('fields', {}).get('description', {})
         description_text = "Description not available in simple text format"
 
-        # get Assignee information
-        assignee_id = jira_data.get('fields', {}).get('assignee', {}).get('accountId', default)
-        assignee_name = jira_data.get('fields', {}).get('assignee', {}).get('displayName', default)
+        try:
+            # get Assignee information
+            assignee_id = jira_data.get('fields', {}).get('assignee', {}).get('accountId', default)
+            assignee_name = jira_data.get('fields', {}).get('assignee', {}).get('displayName', default)
+        except AttributeError:
+            assignee_id = None
+            assignee_name = 'Unassigned'
 
-        # get Reporter information
-        reporter_id = jira_data.get('fields', {}).get('reporter', {}).get('accountId', default)
-        reporter_name = jira_data.get('fields', {}).get('reporter', {}).get('displayName', default)
+        try:
+            # get Reporter information
+            reporter_id = jira_data.get('fields', {}).get('reporter', {}).get('accountId', default)
+            reporter_name = jira_data.get('fields', {}).get('reporter', {}).get('displayName', default)
+        except AttributeError:
+            reporter_id = None
+            reporter_name = 'Unassigned'
 
         # Get Parent information if it exists
         parent_key = jira_data.get('fields', {}).get('parent', {}).get('key', default)
@@ -119,7 +128,7 @@ def get_jira_issue(issue_key):
 
 
 def get_transitions(issue_key):
-    jira_custom_domain, jira_email, jira_token = init_config()
+    jira_custom_domain, jira_email, jira_token, _ = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -136,7 +145,7 @@ def get_transitions(issue_key):
 
 
 def transition_issue(issue_key, transition_id):
-    jira_custom_domain, jira_email, jira_token = init_config()
+    jira_custom_domain, jira_email, jira_token, _ = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/3/issue/{issue_key}/transitions"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -172,7 +181,7 @@ def transition_issue(issue_key, transition_id):
 
 
 def get_all_done_issues_from_current_sprint():
-    jira_custom_domain, jira_email, jira_token = init_config()
+    jira_custom_domain, jira_email, jira_token, _ = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/2/search/jql"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -193,8 +202,8 @@ def get_all_done_issues_from_current_sprint():
         return []
 
 
-def get_next_open_stories_from_backlog():
-    jira_custom_domain, jira_email, jira_token = init_config()
+def get_story_keys_from_backlog(filter_query):
+    jira_custom_domain, jira_email, jira_token, _ = init_config()
 
     url = f"https://{jira_custom_domain}/rest/api/2/search/jql"
     auth = HTTPBasicAuth(jira_email, jira_token)
@@ -203,7 +212,7 @@ def get_next_open_stories_from_backlog():
     }
 
     query = {
-        'jql': 'project IN (OPA) AND issuetype = Story AND "Team[Team]" = 26 AND Sprint NOT IN (19963, 20305, 19966, 19964) AND status = Open ORDER BY Rank ASC',
+        'jql': filter_query,
         'fields': 'key',
     }
 
@@ -211,6 +220,55 @@ def get_next_open_stories_from_backlog():
 
     if response.status_code == 200:
         return extract_issues_numbers(response.json().get('issues', []))
+    else:
+        return []
+
+
+def get_all_open_sprints():
+    jira_custom_domain, jira_email, jira_token, board_id = init_config()
+
+    url = f"https://{jira_custom_domain}/rest/agile/1.0/board/{board_id}/sprint"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json"
+    }
+
+    params = {
+        "state": "active,future"
+    }
+
+    response = requests.get(url, headers=headers, auth=auth, params=params)
+    sprint_list = []
+
+    if response.status_code == 200:
+        sprints_data = response.json()["values"]
+
+        for sprint_data in sprints_data:
+            sprint = Sprint(sprint_data)
+            sprint_list.append(sprint)
+            # print(f"Sprint ID: {sprint.id}, Name: {sprint.name}, State: {sprint.state}")
+
+    return sprint_list
+
+def get_open_stories_from_sprint(sprint_id):
+    jira_custom_domain, jira_email, jira_token, board_id = init_config()
+
+    url = f"https://{jira_custom_domain}/rest/agile/1.0/sprint/{sprint_id}/issue"
+    auth = HTTPBasicAuth(jira_email, jira_token)
+    headers = {
+        "Accept": "application/json",
+        "Authorization": f"{jira_token}"
+    }
+
+    response = requests.request(
+        "GET",
+        url,
+        headers=headers,
+        auth=auth
+    )
+
+    if response.status_code == 200:
+        return 'found'
     else:
         return []
 

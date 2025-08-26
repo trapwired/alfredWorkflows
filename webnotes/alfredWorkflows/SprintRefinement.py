@@ -60,18 +60,36 @@ def copy_as_html_to_clipboard(html_text):
     pb_process.communicate(input=rtf_data)
 
 
+def get_issue_numbers(number_of_elements):
+    sprints = JiraInterface.get_all_open_sprints()
+    sprints = [s for s in sprints if 'PHX' in s.name]
+    sprints = sorted(sprints, key=lambda s: s.name)
+    issue_numbers = []
+    cur_sprint_index = 0
+    while len(issue_numbers) < number_of_elements:
+        sprint = sprints[cur_sprint_index]
+        filter_query = f'Sprint = {sprint.id} AND status IN (Open, "To be Discussed") ORDER BY RANK ASC'
+        sprint_stories = JiraInterface.get_story_keys_from_backlog(filter_query)
+        issue_numbers.extend(sprint_stories)
+        cur_sprint_index += 1
+
+    return issue_numbers[:number_of_elements]
+
+
 if __name__ == '__main__':
     main_path = Path(sys.argv[0])
 
     number_of_issues = 3
     day = None
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 1:
         number_of_issues = int(sys.argv[1])
+    if len(sys.argv) > 2:
         day = sys.argv[2]
 
-    issue_numbers = JiraInterface.get_next_open_stories_from_backlog()
+    issue_numbers = get_issue_numbers(number_of_issues)
+
     urls_and_titles = []
-    for issue_number in issue_numbers[:number_of_issues]:
+    for issue_number in issue_numbers:
         url, title = utilities.get_jira_url_and_title(issue_number)
         urls_and_titles.append((url, title))
 
