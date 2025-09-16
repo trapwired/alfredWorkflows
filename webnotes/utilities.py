@@ -94,7 +94,7 @@ def get_current_sprint():
     if days_diff % 14 < (today.weekday() - 1) % 7:
         current_sprint -= 1
 
-    if today.weekday() == 1 and datetime.datetime.now().hour < 12:
+    if today.weekday() == 1 and datetime.datetime.now().hour < 12 and days_diff % 14 == 0:
         current_sprint -= 1
 
     return current_sprint

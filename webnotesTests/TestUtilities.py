@@ -34,3 +34,13 @@ class TestGetCurrentSprint(unittest.TestCase):
     def test_reference_date_random_sprint_2(self):
         sprint = get_current_sprint()
         self.assertEqual(sprint, 382)
+
+    @freeze_time("2025-09-16 08:08:08")
+    def test_reference_date_random_sprint_3(self):
+        sprint = get_current_sprint()
+        self.assertEqual(sprint, 383)
+
+    @freeze_time("2025-09-26 08:08:08")
+    def test_reference_date_random_sprint_4(self):
+        sprint = get_current_sprint()
+        self.assertEqual(sprint, 384)
