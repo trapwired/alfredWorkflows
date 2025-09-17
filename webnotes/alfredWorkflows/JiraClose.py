@@ -24,7 +24,9 @@ if __name__ == '__main__':
     issue_number = get_issue_number_from_url(url_arg)
     result = 'Not a Jira issue'
     if issue_number:
-        result = JiraInterface.transition_issue(issue_number, 151)
+        jira_issue = JiraInterface.get_jira_issue(issue_number)
+        if jira_issue and not jira_issue.status == 'Closed':
+            result = JiraInterface.transition_issue(issue_number, 151)
 
         notes_interface = NotesInterface.NotesInterface(main_path.parent.parent)
         file_to_open = notes_interface.get_or_create_file(url_arg, website_title_arg)
