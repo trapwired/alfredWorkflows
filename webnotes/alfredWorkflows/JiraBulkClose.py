@@ -30,10 +30,16 @@ def close_all_issues(issue_numbers=None):
     if not issue_numbers:
         result = 'No issues provided to close'
     else:
+        closed_jira = 0
+        closed_notes = 0
         results = []
         for issue_number in issue_numbers:
             # close Story on Jira
-            res = JiraInterface.transition_issue(issue_number, 151)
+            jira_issue = JiraInterface.get_jira_issue(issue_number)
+            if jira_issue and not jira_issue.status == 'Closed':
+                res = JiraInterface.transition_issue(issue_number, 151)
+                closed_jira += 1
+                results.append(res)
 
             # close Story in notes
             url, title = utilities.get_jira_url_and_title(issue_number)
@@ -41,9 +47,9 @@ def close_all_issues(issue_numbers=None):
             if file_to_open:
                 complete_filepath = notes_interface.get_full_path(file_to_open)
                 _ = FileAdjuster.adjust_file(complete_filepath)
+                closed_notes += 1
 
-            results.append(res)
-        result = f'Closed {len(results)} issues: {", ".join(results)}'
+        result = f'Closed issues: Jira: {closed_jira} | Notes: {closed_notes}: \n{", ".join(results)}'
     return result
 
 
