@@ -20,10 +20,12 @@ class TEMPLATE(Enum):
     JIRA_PR = 2
     JIRA_SUP = 3
 
+
 def jira_sup_template_values(url):
     return {
         '漢JIRA_LINK漢': url
     }
+
 
 def jira_template_values(url):
     number = get_issue_number_from_url(url)
@@ -33,11 +35,13 @@ def jira_template_values(url):
     if not jira_issue:
         return {
             '漢JIRA_LINK漢': url,
-            '漢JIRA_STORY_POINTS漢': '"424242"'
+            '漢JIRA_STORY_POINTS漢': '"424242"',
+            '漢JIRA_INITIATIVE漢': f'"Unknown"'
         }
     return {
         '漢JIRA_LINK漢': url,
-        '漢JIRA_STORY_POINTS漢': f'"{jira_issue.story_points}"'
+        '漢JIRA_STORY_POINTS漢': f'"{jira_issue.story_points}"',
+        '漢JIRA_INITIATIVE漢': f'"{jira_issue.parent_topic}"'
     }
 
 
@@ -99,6 +103,7 @@ def get_current_sprint():
 
     return current_sprint
 
+
 def parse_index(index_file):
     result_dict = dict()
     for line in index_file.readlines():
@@ -129,6 +134,7 @@ def get_issue_number_from_filename(filename):
     if any([x in potential_issue_number for x in OPTIONS]):
         return potential_issue_number
     return None
+
 
 def get_issue_number_from_url(url):
     match = re.search(r'(OPA|SUP)-\d{1,6}', url)
@@ -161,6 +167,7 @@ def get_jira_issue_link_from_pr_title(filename):
         number = split_2[0]
         return f'https://jiradg.atlassian.net/browse/{option}-{number}'
 
+
 def get_url_title(number):
     # Import inside function to avoid circular import
     from webnotes.JiraInterface import get_jira_issue
@@ -169,8 +176,10 @@ def get_url_title(number):
         return f'[{jira_issue.key}] {jira_issue.summary} - Jira'
     return None
 
+
 def get_jira_url(number):
     return f'https://jiradg.atlassian.net/browse/{number}'
+
 
 def get_jira_url_and_title(number):
     url = get_jira_url(number)
