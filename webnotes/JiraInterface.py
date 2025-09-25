@@ -14,12 +14,18 @@ def get_story_points(story_points):
     return story_points
 
 
-def get_parent(parent):
+def get_parent(parent, summary):
     parent_number, parent_summary = parent
     possible_topics = ['ATK', 'ETK', 'Briefzentrum', 'Fastlane', 'FlexPack', 'Sorting', 'VAS', 'C-Hand', 'ON1', 'Sortierung']
     for topic in possible_topics:
         if topic.lower() in parent_summary.lower():
             return parent_number, topic
+
+    # Check issues title as fallback
+    for topic in possible_topics:
+        if topic.lower() in summary.lower():
+            return parent_number, topic
+
     return parent_number, None
 
 
@@ -32,7 +38,7 @@ class JiraIssue:
         self.description = description
         self.assignee = assignee
         self.reporter = reporter
-        parent_number, topic = get_parent(parent)  # Tuple of (parent_key, parent_topic)
+        parent_number, topic = get_parent(parent, summary)  # Tuple of (parent_key, parent_topic)
         self.parent_key = parent_number
         self.parent_topic = topic
 
