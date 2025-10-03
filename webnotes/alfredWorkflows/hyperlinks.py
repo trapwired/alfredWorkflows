@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Add the directory containing the webnotes package to sys.path
@@ -8,8 +8,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 from webnotes.utilities import get_issue_number_from_url, get_jira_url, get_url_title
-from webnotes import JiraInterface
-
+from webnotes import NotesInterface
 
 if __name__ == '__main__':
     # get url and title from command-line arguments
@@ -27,6 +26,8 @@ if __name__ == '__main__':
         else:
             f'{issue_number} - Jira'
         url_arg = get_jira_url(issue_number)
+    else:
+        url_arg, website_title_arg = NotesInterface.handle_special_jira_cases(url_arg, website_title_arg)
 
     result = f'{url_arg}\t{website_title_arg}'
     print(result, end='')

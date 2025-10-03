@@ -5,6 +5,8 @@ import re
 import datetime
 import sys
 
+import xerox
+
 # To avoid circular import issues, import JiraInterface functions inside the functions that need them
 # rather than at the module level
 
@@ -196,6 +198,16 @@ def handle_special_jira_cases(url, website_title):
             if not new_website_title:
                 return new_url, website_title
             return new_url, new_website_title
+        else:
+            # maybe the issue number is alraedy in the clipboard
+            clipboard = xerox.paste()
+            if 'OPA-' in clipboard or 'SUP-' in clipboard:
+                number = get_issue_number_from_url(clipboard)
+                if number:
+                    new_url, new_website_title = get_jira_url_and_title(number)
+                    if not new_website_title:
+                        return new_url, website_title
+                    return new_url, new_website_title
 
     return url, website_title
 
