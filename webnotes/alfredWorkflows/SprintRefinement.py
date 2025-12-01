@@ -14,22 +14,18 @@ from webnotes import utilities
 
 
 def get_title(day: str = None) -> str:
+    daymap = {"MO": 0, "DI": 1, "MI": 2, "DO": 3, "FR": 4}
     today = datetime.date.today()
     if not day:
         days = [1, 3]
     else:
-        if day.upper() == "DI":
-            days = [1]  # Tuesday
-        elif day.upper() == "DO":
-            days = [3]
+        days = [daymap[day.upper()]]
 
     next_day = today
     while next_day.weekday() not in days:
         next_day += datetime.timedelta(days=1)
-    if next_day.weekday() == 1:
-        day_name = "Di"
-    else:
-        day_name = "DO"
+    # find the day name: get the corresponding key in daymap
+    day_name = next(key for key, value in daymap.items() if value == next_day.weekday())
 
     # Format the date as "Di 23.4.2025"
     date_str = f"{day_name.title()}. {next_day.day}.{next_day.month}.{next_day.year}"

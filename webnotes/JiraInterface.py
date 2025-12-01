@@ -196,7 +196,7 @@ def get_all_done_issues_from_current_sprint():
     }
 
     query = {
-        'jql': 'sprint IN openSprints() AND "Team[Team]" = 26 AND status IN (Resolved, Closed) AND project = "Operations Area"',
+        'jql': 'sprint IN openSprints() AND "Team[Team]" = 26 AND status IN (Resolved, Closed) AND project = "Operations Area" AND type = Story',
         'fields': 'key',
     }
 
@@ -289,3 +289,12 @@ def get_finish_sprint_table_data():
 
 def extract_issues_numbers(json_data):
     return [item['key'] for item in json_data if 'key' in item]
+
+if __name__ == '__main__':
+    issue_key = 'SUP-47968'
+    init_config()
+    jira_issue = get_jira_issue(issue_key)
+    if jira_issue:
+        print(jira_issue)
+    else:
+        print(f'Issue {issue_key} not found or could not be retrieved.')
