@@ -16,7 +16,7 @@ def get_story_points(story_points):
 
 def get_parent(parent, summary):
     parent_number, parent_summary = parent
-    possible_topics = ['ATK', 'ETK', 'Briefzentrum', 'Fastlane', 'FlexPack', 'Sorting', 'VAS', 'C-Hand', 'ON1', 'Sortierung']
+    possible_topics = ['ATK', 'ETK', 'Briefzentrum', 'Fastlane', 'FlexPack', 'Sorting', 'VAS', 'C-Hand', 'ON1', 'Sortierung', 'Komponentisierung']
     for topic in possible_topics:
         if topic.lower() in parent_summary.lower():
             return parent_number, topic
