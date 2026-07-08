@@ -48,10 +48,12 @@ def make_clickable_bullet_list(urls_and_titles, title="The Bullet List"):
 
 
 def copy_as_html_to_clipboard(html_text):
+    # Wrap HTML with proper UTF-8 charset declaration
+    html_with_charset = f'<html><head><meta charset="UTF-8"></head><body>{html_text}</body></html>'
     process = subprocess.Popen(
-        ['textutil', '-stdin', '-stdout', '-format', 'html', '-convert', 'rtf', '-encoding', 'ASCII'],
+        ['textutil', '-stdin', '-stdout', '-format', 'html', '-convert', 'rtf'],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    rtf_data, _ = process.communicate(input=html_text.encode())
+    rtf_data, _ = process.communicate(input=html_with_charset.encode('utf-8'))
     pb_process = subprocess.Popen(['pbcopy'], stdin=subprocess.PIPE)
     pb_process.communicate(input=rtf_data)
 

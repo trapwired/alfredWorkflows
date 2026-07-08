@@ -33,6 +33,6 @@ if __name__ == '__main__':
 
         if file_to_open:
             complete_filepath = notes_interface.get_full_path(file_to_open)
-            remaining_sp = FileAdjuster.adjust_file(complete_filepath)
+            remaining_sp = FileAdjuster.adjust_file(complete_filepath, mark_closed=True)
 
     print(result, end='')

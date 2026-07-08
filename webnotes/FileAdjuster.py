@@ -4,7 +4,7 @@ from webnotes.utilities import get_issue_number_from_url, get_current_sprint
 from webnotes.JiraInterface import get_jira_issue
 
 
-def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
+def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, mark_closed=False):
     if not os.path.exists(file_path):
         return "File does not exist: " + file_path
 
@@ -25,6 +25,7 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
         total_sp = None
         sp_done = ""
         jira_link = None
+        closed_in_sprint = ""
 
         for line in frontmatter_lines:
             if line.strip().startswith('Total-SP:'):
@@ -35,6 +36,8 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
                 sp_done = value if value else ""
             elif line.strip().startswith('jira-link:'):
                 jira_link = line.split('jira-link:', 1)[1].strip()
+            elif line.strip().startswith('closedInSprint:'):
+                closed_in_sprint = line.split('closedInSprint:', 1)[1].strip().strip('"\'')
 
         # If we don't have jira-link, it's not a valid Jira story
         if not jira_link:
@@ -89,17 +92,28 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
 
         new_sp_done = ', '.join(f'{k}: {sp_done_dict[k]}' for k in sorted(sp_done_dict, key=int))
 
+        # closedInSprint records the sprint of the FIRST close; re-closing never overwrites it
+        set_closed_in_sprint = mark_closed and not closed_in_sprint
+        if set_closed_in_sprint:
+            closed_in_sprint = str(current_sprint)
+        closed_in_sprint_line = f'closedInSprint: "{closed_in_sprint}"' if closed_in_sprint else 'closedInSprint:'
+
         # Update the SP-done property in the file
         # Surround new_sp_done with double quotes
         new_sp_done_quoted = f'"{new_sp_done}"'
-        # Replace the SP-done property in the frontmatter
+        # Replace the SP-done and closedInSprint properties in the frontmatter
         def replace_sp_done(match):
             frontmatter = match.group(1)
             lines = frontmatter.split('\n')
+            has_closed_in_sprint = any(l.strip().startswith('closedInSprint:') for l in lines)
             new_lines = []
             for line in lines:
                 if line.strip().startswith('SP-done:'):
                     new_lines.append(f'SP-done: {new_sp_done_quoted}')
+                    if set_closed_in_sprint and not has_closed_in_sprint:
+                        new_lines.append(closed_in_sprint_line)
+                elif line.strip().startswith('closedInSprint:'):
+                    new_lines.append(closed_in_sprint_line)
                 else:
                     new_lines.append(line)
             return f"---\n{chr(10).join(new_lines)}\n---"
@@ -110,10 +124,11 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False):
 
         # save file
         # return ok and remaining SP
+        closed_info = f', closedInSprint: {closed_in_sprint}' if set_closed_in_sprint else ''
         if done_sp_in_sprint:
-            return f'Added {done_sp_in_sprint} SP to current Sprint ({current_sprint})'
+            return f'Added {done_sp_in_sprint} SP to current Sprint ({current_sprint}){closed_info}'
         else:
-            return f'Added remaining SP ({sp_done_dict[current_sprint]}) to current Sprint ({current_sprint})'
+            return f'Added remaining SP ({sp_done_dict[current_sprint]}) to current Sprint ({current_sprint}){closed_info}'
 
     except Exception as e:
         return f"Error processing file: {str(e)}"

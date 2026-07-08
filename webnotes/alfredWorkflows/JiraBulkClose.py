@@ -46,7 +46,7 @@ def close_all_issues(issue_numbers=None):
             file_to_open = notes_interface.get_or_create_file(url, title)
             if file_to_open:
                 complete_filepath = notes_interface.get_full_path(file_to_open)
-                _ = FileAdjuster.adjust_file(complete_filepath)
+                _ = FileAdjuster.adjust_file(complete_filepath, mark_closed=True)
                 closed_notes += 1
 
         result = f'Closed issues: Jira: {closed_jira} | Notes: {closed_notes}: \n{", ".join(results)}'

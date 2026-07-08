@@ -23,7 +23,7 @@ if __name__ == '__main__':
     file_to_open = notes_interface.get_or_create_file(url_arg, website_title_arg)
     complete_filepath = notes_interface.get_full_path(file_to_open)
 
-    result = FileAdjuster.adjust_file(complete_filepath)
+    result = FileAdjuster.adjust_file(complete_filepath, mark_closed=True)
 
     # pass to alfred
     print(result, end='')

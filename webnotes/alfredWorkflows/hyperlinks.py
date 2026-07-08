@@ -2,6 +2,9 @@ import os
 import sys
 from pathlib import Path
 
+# Ensure stdout uses UTF-8 encoding
+sys.stdout.reconfigure(encoding='utf-8')
+
 # Add the directory containing the webnotes package to sys.path
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if project_root not in sys.path:

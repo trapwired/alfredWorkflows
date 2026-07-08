@@ -24,7 +24,7 @@ def find_jpg_match(raw_filename):
             if file.lower() == jpg_filename.lower():
                 # if file was modified in the last 24h, only then add it
                 file_path = os.path.join(root, file)
-                if os.path.getmtime(file_path) > (datetime.datetime.now() - datetime.timedelta(days=1)).timestamp():
+                if os.path.getmtime(file_path) > (datetime.datetime.now() - datetime.timedelta(days=100)).timestamp():
                     jpg_matches.append(os.path.join(root, file))
 
     return jpg_matches
