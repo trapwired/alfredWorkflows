@@ -5,6 +5,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 from webnotes import utilities
+from webnotes import InitiativeResolver
 from webnotes.JiraObjects.Sprint import Sprint
 
 
@@ -14,23 +15,15 @@ def get_story_points(story_points):
     return story_points
 
 
-def get_parent(parent, summary):
+def get_parent(parent, summary, lane=None):
     parent_number, parent_summary = parent
-    possible_topics = ['ATK', 'ETK', 'Briefzentrum', 'Fastlane', 'FlexPack', 'Sorting', 'VAS', 'C-Hand', 'ON1', 'Sortierung', 'Komponentisierung', 'Packing Monitoring', 'TETRIS', 'PickPack', 'Gefahrengut']
-    for topic in possible_topics:
-        if topic.lower() in parent_summary.lower():
-            return parent_number, topic
-
-    # Check issues title as fallback
-    for topic in possible_topics:
-        if topic.lower() in summary.lower():
-            return parent_number, topic
-
-    return parent_number, None
+    topic = InitiativeResolver.resolve(parent_key=parent_number, parent_summary=parent_summary,
+                                       summary=summary, lane=lane)
+    return parent_number, topic
 
 
 class JiraIssue:
-    def __init__(self, key, summary, status, story_points, description, assignee, reporter, parent):
+    def __init__(self, key, summary, status, story_points, description, assignee, reporter, parent, lane=None):
         self.key = key
         self.summary = summary
         self.status = status
@@ -38,7 +31,7 @@ class JiraIssue:
         self.description = description
         self.assignee = assignee
         self.reporter = reporter
-        parent_number, topic = get_parent(parent, summary)  # Tuple of (parent_key, parent_topic)
+        parent_number, topic = get_parent(parent, summary, lane)  # Tuple of (parent_key, parent_topic)
         self.parent_key = parent_number
         self.parent_topic = topic
 
@@ -86,6 +79,9 @@ def get_jira_issue(issue_key):
         # Get status name
         status = jira_data.get('fields', {}).get('status', {}).get('name', default)
 
+        # Story Lane entscheidet die Initiative, wenn die Story kein Epic hat
+        lane = (jira_data.get('fields', {}).get(InitiativeResolver.LANE_FIELD) or {}).get('value')
+
         # Get description - might be complex formatted content
         description = jira_data.get('fields', {}).get('description', {})
         description_text = "Description not available in simple text format"
@@ -125,9 +121,13 @@ def get_jira_issue(issue_key):
             except Exception as e:
                 description_text = f"Error extracting description text: {str(e)}"
 
-        if key == default or summary == default or status == default or story_points == default:
+        # Story Points sind kein Identitätsmerkmal: Technical Tasks und frische Stories haben oft
+        # keine. Sie deshalb zu verwerfen hiess, dass für sie gar keine Notiz entstehen konnte.
+        if story_points == default:
+            story_points = ''
+        if key == default or summary == default or status == default:
             return None
-        return JiraIssue(key, summary, status, story_points, description_text, (assignee_id, assignee_name), (reporter_id, reporter_name), (parent_key, parent_summary))
+        return JiraIssue(key, summary, status, story_points, description_text, (assignee_id, assignee_name), (reporter_id, reporter_name), (parent_key, parent_summary), lane)
 
     except json.JSONDecodeError as e:
         return None
