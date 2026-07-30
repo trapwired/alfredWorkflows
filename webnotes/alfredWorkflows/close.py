@@ -20,7 +20,7 @@ if __name__ == '__main__':
     website_title_arg = ' '.join(sys.argv[2:])
 
     # get filename, create file if it does not exist
-    file_to_open = notes_interface.get_or_create_file(url_arg, website_title_arg)
+    file_to_open = notes_interface.get_or_create_file(url_arg, website_title_arg, resolve_issue_from_clipboard=True)
     complete_filepath = notes_interface.get_full_path(file_to_open)
 
     result = FileAdjuster.adjust_file(complete_filepath, mark_closed=True)

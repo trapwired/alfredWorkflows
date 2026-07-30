@@ -156,10 +156,10 @@ class NotesInterface:
             file.write(filedata)
         return filename
 
-    def get_or_create_file(self, url: str, website_title: str):
+    def get_or_create_file(self, url: str, website_title: str, resolve_issue_from_clipboard: bool = False):
         index = self.get_index()
 
-        url, website_title = handle_special_jira_cases(url, website_title)
+        url, website_title = handle_special_jira_cases(url, website_title, resolve_issue_from_clipboard)
         url = url.split('?')[0]
         filename = get_filename(website_title)
 

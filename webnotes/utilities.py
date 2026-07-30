@@ -189,7 +189,11 @@ def get_jira_url_and_title(number):
     return url, website_title
 
 
-def handle_special_jira_cases(url, website_title):
+def handle_special_jira_cases(url, website_title, resolve_issue_from_clipboard=False):
+    # resolve_issue_from_clipboard belongs to the Alfred entry points only: there the url is
+    # whatever page the browser is on, so falling back to the clipboard is the intent. Callers
+    # that already know the issue key must leave it off, otherwise a key lying around in the
+    # clipboard silently replaces the key they passed in.
     if url.startswith('https://jiradg.atlassian.net'):
         possible_issue = url.split('&')[-1]
         if possible_issue.startswith('selectedIssue='):
@@ -198,7 +202,7 @@ def handle_special_jira_cases(url, website_title):
             if not new_website_title:
                 return new_url, website_title
             return new_url, new_website_title
-        else:
+        elif resolve_issue_from_clipboard:
             # maybe the issue number is alraedy in the clipboard
             clipboard = xerox.paste()
             if 'OPA-' in clipboard or 'SUP-' in clipboard:
