@@ -33,15 +33,15 @@ OVERVIEW = VAULT / 'Spaces/Home/DG/SCRUM/Story Points done in Sprint.md'
 
 SP_FIELD = 'customfield_10013'
 TEAM_JQL = '"Team[Team]" = 26'
-# Diese Initiativen sind keine Vorhaben, sondern Kapazitätstöpfe für Ungeplantes.
-UNPLANNED = {'Fastlane', 'Superfastlane', 'Engineering'}
+# Keine Vorhaben, sondern Kapazitätstöpfe. Ein Topf wird nie fertig, darum bleibt er aus
+# „Fortschritt je Initiative“ draussen — ein Fortschrittsbalken hätte dort kein Ziel.
+POOLS = {'Fastlane', 'Superfastlane', 'Engineering'}
 
 PAGE_W, PAGE_H = 842, 595  # A4 quer
 MARGIN = 40
 LINE = 12
 
 ACCENT = (0.165, 0.471, 0.839)   # #2a78d6
-WARM = (0.922, 0.408, 0.204)     # #eb6834 — validiert gegen ACCENT (CVD ΔE 24.7)
 INK = (0.04, 0.04, 0.04)
 MUTED = (0.42, 0.42, 0.40)
 RULE = (0.80, 0.80, 0.78)
@@ -416,10 +416,10 @@ def render(sprint, stories, notes, scope, missing_notes, jira_note):
     pdf.hbars([(name, value, f'{value / delivered * 100:.0f}%' if delivered else '')
                for name, value in rows], value_fmt=lambda v: f'{fmt(v)} SP')
 
-    pdf.heading('Geplant vs. ungeplant')
-    planned = sum(v for k, v in per_initiative.items() if k not in UNPLANNED)
-    unplanned_rows = [(k, v) for k, v in per_initiative.items() if k in UNPLANNED]
-    split = [('Initiative-Arbeit', planned, ACCENT)] + [(k, v, WARM) for k, v in sorted(unplanned_rows)]
+    pdf.heading('Töpfe')
+    initiative_sp = sum(v for k, v in per_initiative.items() if k not in POOLS)
+    pool_rows = [(k, v) for k, v in per_initiative.items() if k in POOLS]
+    split = [('Initiative-Arbeit', initiative_sp, ACCENT)] + [(k, v, ACCENT) for k, v in sorted(pool_rows)]
     peak = max((v for _, v, _ in split), default=1) or 1
     for label, value, color in split:
         pdf.space(LINE + 3)
@@ -448,6 +448,8 @@ def render(sprint, stories, notes, scope, missing_notes, jira_note):
     if scope:
         progress_rows = []
         for name in sorted(per_initiative, key=lambda n: -per_initiative[n]):
+            if name in POOLS:
+                continue
             data = scope.get(name)
             if not data or not data['total']:
                 continue

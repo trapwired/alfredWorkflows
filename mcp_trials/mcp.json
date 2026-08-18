@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "name": "mix_server",
+  "description": "Jira tools for accessing sprint information",
+  "image": "",
+  "contact_email": "",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "",
+    "endpoints": [
+      {
+        "name": "get_all_open_sprints",
+        "description": "Retrieves all active and future sprints from the Jira board. Returns a list of Sprint objects representing all open sprints in the Jira board, including details like ID, name, state, start date, and end date.",
+        "parameters": [],
+        "returns": {
+          "type": "array",
+          "description": "A list of Sprint objects representing all open sprints in the Jira board. Returns an empty list if no sprints are found or if there's an API error."
+        }
+      }
+    ]
+  }
+}
+
