@@ -16,8 +16,13 @@ Jetzt in vier Stufen, von präzise nach grob:
 Was über Stufe 2 oder 3 gefunden wird, wird für das Epic gelernt und beim nächsten Mal über
 Stufe 1 beantwortet.
 
-    python -m webnotes.InitiativeResolver rebuild   # Zuordnung aus Vault + Jira neu aufbauen
-    python -m webnotes.InitiativeResolver show      # Zuordnung und Vokabular ausgeben
+    python -m webnotes.InitiativeResolver rebuild            # Zuordnung aus Vault + Jira neu aufbauen
+    python -m webnotes.InitiativeResolver show               # Zuordnung und Vokabular ausgeben
+    python -m webnotes.InitiativeResolver backfill           # Probelauf: was liesse sich nachtragen?
+    python -m webnotes.InitiativeResolver backfill --apply   # in die Notizen schreiben
+
+Der Resolver läuft sonst nur beim Anlegen einer Notiz. Wurde sie erzeugt, bevor ihr Epic im
+Cache stand, bleibt sie für immer auf `None` und fehlt im Sprint-Report — dafür `backfill`.
 """
 import collections
 import configparser
@@ -107,47 +112,109 @@ def resolve(parent_key=None, parent_summary='', summary='', lane=None, learn=Tru
     return None
 
 
-def rebuild():
-    """Epic -> Initiative aus den Notizen lernen, in denen die Initiative schon gepflegt ist."""
+def _jira_fields(keys, fields):
+    """Jira-Felder für viele Keys holen, in Blöcken zu 80. Gibt {key: fields} zurück."""
     config = configparser.ConfigParser()
     config.read(HERE / 'config.ini')
     domain = config.get('API', 'jira_custom_domain')
     auth = HTTPBasicAuth(config.get('API', 'jira_email'), config.get('API', 'jira_token'))
 
-    vocabulary = vocabulary_from_vault()
-    by_key = {}
-    for path in VAULT_JIRA_DIR.glob('*.md'):
-        key = path.stem.split(' ')[0]
-        if not re.match(r'^[A-Z]+-\d+$', key):
-            continue
-        text = path.read_text(errors='ignore')
-        if not text.startswith('---'):
-            continue
-        match = re.search(r'^Initiative:[^\S\n]*(.*)$', text.split('---', 2)[1], re.M)
-        value = match.group(1).strip().strip('"').strip("'") if match else ''
-        if value and value != 'None' and value in vocabulary:
-            by_key[key] = value
-
-    votes = collections.defaultdict(collections.Counter)
-    keys = sorted(by_key)
+    result = {}
+    keys = sorted(keys)
     for start in range(0, len(keys), 80):
         chunk = keys[start:start + 80]
         response = requests.post(
             f'https://{domain}/rest/api/3/search/jql',
             headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
             auth=auth,
-            json={'jql': f"key IN ({', '.join(chunk)})", 'fields': ['parent'], 'maxResults': 100},
+            json={'jql': f"key IN ({', '.join(chunk)})", 'fields': fields, 'maxResults': 100},
             timeout=60)
         if response.status_code != 200:
             raise RuntimeError(f'JQL failed ({response.status_code}): {response.text[:200]}')
         for issue in response.json().get('issues', []):
-            parent = (issue.get('fields') or {}).get('parent')
-            if parent:
-                votes[parent['key']][by_key[issue['key']]] += 1
+            result[issue['key']] = issue.get('fields') or {}
+    return result
 
-    cache = {'epics': {epic: counter.most_common(1)[0][0] for epic, counter in votes.items()},
-             'keys': by_key,
-             'vocabulary': vocabulary}
+
+def read_initiative(path):
+    """Initiative-Wert aus dem Frontmatter.
+
+    `None` heisst: die Notiz hat gar kein Initiative-Feld (SUP- und PR-Notizen etwa). Das ist
+    etwas anderes als ein leeres Feld — ohne Feld gibt es nichts zu überschreiben.
+    """
+    text = path.read_text(errors='ignore')
+    if not text.startswith('---'):
+        return None
+    match = re.search(r'^Initiative:[^\S\n]*(.*)$', text.split('---', 2)[1], re.M)
+    return match.group(1).strip().strip('"').strip("'") if match else None
+
+
+def note_paths():
+    """Alle Jira-Notizen als (key, path), Dateien ohne sauberen Key übersprungen."""
+    for path in sorted(VAULT_JIRA_DIR.glob('*.md')):
+        key = path.stem.split(' ')[0]
+        if re.match(r'^[A-Z]+-\d+$', key):
+            yield key, path
+
+
+def backfill(apply=False):
+    """Notizen ohne brauchbare Initiative erneut auflösen.
+
+    Der Resolver läuft nur beim Anlegen einer Notiz. Alles, was angelegt wurde, bevor das Epic
+    im Cache stand, bleibt sonst für immer auf `None` — und fehlt damit im Sprint-Report.
+    Ohne `apply` wird nur berichtet, nichts geschrieben.
+    """
+    stale = {key: path for key, path in note_paths()
+             if read_initiative(path) in ('', 'None', 'Unknown')}
+    # `read_initiative` gibt None zurück, wenn die Notiz kein Initiative-Feld hat — die bleibt
+    # draussen, sonst meldete der Lauf Treffer, bei denen es nichts zu ersetzen gibt.
+    if not stale:
+        return []
+
+    fields = _jira_fields(stale, ['parent', 'summary', LANE_FIELD])
+    fixed = []
+    for key, path in sorted(stale.items()):
+        data = fields.get(key)
+        if not data:
+            continue  # Key existiert in Jira nicht mehr — Notiz unangetastet lassen
+        parent = data.get('parent') or {}
+        topic = resolve(parent_key=parent.get('key'),
+                        parent_summary=(parent.get('fields') or {}).get('summary', ''),
+                        summary=data.get('summary', ''),
+                        lane=(data.get(LANE_FIELD) or {}).get('value'))
+        # `Unknown` steht im Vokabular, ist aber keine Antwort — es würde None nur umbenennen.
+        if not topic or topic == 'Unknown':
+            continue
+        if apply:
+            text = path.read_text(errors='ignore')
+            path.write_text(re.sub(r'^(Initiative:).*$', lambda m: f'{m.group(1)} "{topic}"',
+                                   text, count=1, flags=re.M))
+        fixed.append((key, topic))
+    return fixed
+
+
+def rebuild():
+    """Epic -> Initiative aus den Notizen lernen, in denen die Initiative schon gepflegt ist."""
+    vocabulary = vocabulary_from_vault()
+    by_key = {}
+    for key, path in note_paths():
+        value = read_initiative(path)
+        if value and value != 'None' and value in vocabulary:
+            by_key[key] = value
+
+    votes = collections.defaultdict(collections.Counter)
+    for key, data in _jira_fields(by_key, ['parent']).items():
+        parent = data.get('parent')
+        if parent:
+            votes[parent['key']][by_key[key]] += 1
+
+    # Nicht ersetzen, sondern ergänzen: `resolve()` lernt Epics einzeln dazu (Stufe 2), und
+    # dafür gibt es oft keine Notiz, die beim Rebuild mitstimmen könnte. Ein Neuaufbau von null
+    # hat diese Zuordnungen bisher stillschweigend weggeworfen. Die frischen Votes gewinnen.
+    epics = dict(_load().get('epics', {}))
+    epics.update({epic: counter.most_common(1)[0][0] for epic, counter in votes.items()})
+
+    cache = {'epics': epics, 'keys': by_key, 'vocabulary': vocabulary}
     _save(cache)
     return cache
 
@@ -157,6 +224,13 @@ if __name__ == '__main__':
     if case == 'rebuild':
         result = rebuild()
         print(f"{len(result['epics'])} Epics zugeordnet, {len(result['vocabulary'])} Initiativen im Vokabular")
+    elif case == 'backfill':
+        apply = '--apply' in sys.argv
+        fixed = backfill(apply=apply)
+        for key, topic in fixed:
+            print(f'{key} -> {topic}')
+        verb = 'gesetzt' if apply else 'auflösbar (Probelauf, nichts geschrieben)'
+        print(f'{len(fixed)} {verb}')
     else:
         result = _load()
         print(f"{len(result['epics'])} Epics, Vokabular: {', '.join(result['vocabulary'])}")
