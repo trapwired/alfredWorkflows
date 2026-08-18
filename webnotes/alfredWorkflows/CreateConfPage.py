@@ -19,8 +19,8 @@ def create_review_page():
     return title
 
 
-def create_1to1_page():
-    title, url = ConfluenceInterface.create_confluence_1to1_page()
+def create_1to1_page(meeting_date=None):
+    title, url = ConfluenceInterface.create_confluence_1to1_page(meeting_date)
     if url:
         pyperclip.copy(url)
     return title
@@ -42,6 +42,6 @@ if __name__ == '__main__':
         print(f'Unknown case: {case_arg}')
         sys.exit(0)
 
-    result = cases[case_arg]()
+    result = cases[case_arg](*sys.argv[2:])
 
     print(result, end='')

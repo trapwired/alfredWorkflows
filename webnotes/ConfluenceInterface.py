@@ -64,8 +64,8 @@ def create_confluence_review_page():
     review_page = create_review_page()
     return _create_confluence_page(review_page)
 
-def create_confluence_1to1_page():
-    one_to_one_page = create_1to1_page()
+def create_confluence_1to1_page(meeting_date=None):
+    one_to_one_page = create_1to1_page(meeting_date)
     return _create_confluence_page(one_to_one_page)
 
 

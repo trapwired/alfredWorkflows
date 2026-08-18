@@ -171,9 +171,9 @@ def create_1to1_body():
     return root
 
 
-def create_1to1_page():
+def create_1to1_page(meeting_date=None):
     space_id, author_id, _, one_to_one_parent_id = init_config()
-    title = get_1to1_title()
+    title = get_1to1_title(meeting_date)
     status = "current"
 
     # Create the body of the review page
@@ -196,20 +196,15 @@ def get_review_title():
     formatted_end = end_date.strftime('%d.%m.%Y')
     return f'Sprint {sprint_number} Review ({formatted_start} - {formatted_end})'
 
-def get_1to1_title():    
-    # Get today's date
-    today = datetime.now()
-    
-    # Calculate days until next Thursday (where Monday is 0 and Sunday is 6)
-    days_until_thursday = (3 - today.weekday()) % 7
-        
-    # Calculate the date of the next Thursday
-    next_thursday = today + timedelta(days=days_until_thursday)
-    
-    # Format date as YYYY-MM-DD
-    formatted_date = next_thursday.strftime('%Y-%m-%d')
-    
-    return f"{formatted_date} Srdjan/Dominic"
+def get_1to1_title(meeting_date=None):
+    if meeting_date is None:
+        today = datetime.now()
+        days_until_thursday = (3 - today.weekday()) % 7
+        meeting_date = today + timedelta(days=days_until_thursday)
+    elif isinstance(meeting_date, str):
+        meeting_date = datetime.strptime(meeting_date, '%Y-%m-%d')
+
+    return f"{meeting_date.strftime('%Y-%m-%d')} Srdjan/Dominic"
 
 
 class ConfluencePage:
