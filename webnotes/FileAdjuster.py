@@ -86,7 +86,8 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
         if current_sprint in sp_done_dict.keys():
             remaining_sp += sp_done_dict[current_sprint]
 
-        if done_sp_in_sprint:
+        # 0 is a deliberate booking ("no progress this sprint"), only None means "book remaining"
+        if done_sp_in_sprint is not None:
             remaining_sp = done_sp_in_sprint
         sp_done_dict[current_sprint] = remaining_sp
 
@@ -125,7 +126,7 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
         # save file
         # return ok and remaining SP
         closed_info = f', closedInSprint: {closed_in_sprint}' if set_closed_in_sprint else ''
-        if done_sp_in_sprint:
+        if done_sp_in_sprint is not None:
             return f'Added {done_sp_in_sprint} SP to current Sprint ({current_sprint}){closed_info}'
         else:
             return f'Added remaining SP ({sp_done_dict[current_sprint]}) to current Sprint ({current_sprint}){closed_info}'

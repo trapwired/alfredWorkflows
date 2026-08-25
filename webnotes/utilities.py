@@ -72,6 +72,22 @@ def get_filename(name: str):
     return filename
 
 
+def normalize_jira_filename(url: str, filename: str):
+    """Enforce the vault convention '{KEY}  {Titel} - Jira.md' for Jira-issue notes.
+
+    Callers (e.g. addStoryPoints) may pass a bare issue title; without this,
+    get_or_create_file renames existing notes to unconventional filenames."""
+    issue_number = get_issue_number_from_url(url)
+    if not issue_number:
+        return filename
+    stem = filename[:-len(FILE_EXTENSION)] if filename.endswith(FILE_EXTENSION) else filename
+    if not stem.startswith(issue_number):
+        stem = f'{issue_number}  {stem}'
+    if not stem.endswith(' - Jira'):
+        stem = f'{stem} - Jira'
+    return stem + FILE_EXTENSION
+
+
 def get_current_sprint():
     """
     Calculate the current sprint number based on two-week sprints.

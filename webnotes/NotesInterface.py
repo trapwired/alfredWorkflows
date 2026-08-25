@@ -161,7 +161,7 @@ class NotesInterface:
 
         url, website_title = handle_special_jira_cases(url, website_title, resolve_issue_from_clipboard)
         url = url.split('?')[0]
-        filename = get_filename(website_title)
+        filename = normalize_jira_filename(url, get_filename(website_title))
 
         if url not in index.keys():
             # url not yet indexed, create new file
