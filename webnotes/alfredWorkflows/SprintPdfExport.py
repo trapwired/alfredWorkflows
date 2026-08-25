@@ -111,14 +111,19 @@ def load_notes():
     return notes
 
 
-def sprint_stories(notes, sprint):
+def sprint_stories(notes, sprint, open_sprint_keys=()):
+    """Stories mit Buchung im Sprint, plus offene Sprint-Mitglieder ohne Buchung
+    (aus Jira, damit der Carry-over vollständig ist)."""
     rows = []
     for note in notes:
-        if sprint not in note['done_map']:
+        booked = sprint in note['done_map']
+        left = note['total'] - note['total_done']
+        # Unbebuchte Sprint-Mitglieder nur mit Rest > 0 — sonst gibt es nichts zu carry-overn
+        if not booked and (note['key'] not in open_sprint_keys or left <= 0):
             continue
         row = dict(note)
-        row['done_sprint'] = note['done_map'][sprint]
-        row['left'] = note['total'] - note['total_done']
+        row['done_sprint'] = note['done_map'].get(sprint, 0)
+        row['left'] = left
         rows.append(row)
     return rows
 
@@ -166,6 +171,28 @@ def jira_search(jql, fields, limit=400):
         start += len(batch)
         break  # eine Seite reicht für unsere Grössenordnung; verhindert Endlosschleifen
     return issues
+
+
+def sprint_sync(notes, sprint):
+    """Sprint-Mitglieder aus Jira holen: stale Total-SP in den Notizen nachziehen
+    und die offenen Keys zurückgeben (für den vollständigen Carry-over)."""
+    by_key = {n['key']: n for n in notes}
+    open_keys, refreshed = set(), []
+    for issue in jira_search(f'sprint = PHX{sprint} AND {TEAM_JQL}', ['status', SP_FIELD]):
+        fields = issue.get('fields') or {}
+        key = issue['key']
+        if (fields.get('status') or {}).get('name') not in ('Closed', 'Resolved', 'Done'):
+            open_keys.add(key)
+        note = by_key.get(key)
+        jira_total = number(fields.get(SP_FIELD))
+        if note and jira_total and note['total'] != jira_total:
+            content = note['path'].read_text()
+            new_content, count = re.subn(r'(?m)^Total-SP:.*$', f'Total-SP: "{fmt(jira_total)}"', content)
+            if count:
+                note['path'].write_text(new_content)
+                refreshed.append(f"{key}: {fmt(note['total'])} -> {fmt(jira_total)}")
+                note['total'] = jira_total
+    return open_keys, refreshed
 
 
 def epic_to_initiative(notes):
@@ -506,7 +533,15 @@ def main():
         return 1
 
     notes = load_notes()
-    stories = sprint_stories(notes, sprint)
+    open_sprint_keys = set()
+    if not args.no_jira:
+        try:
+            open_sprint_keys, refreshed = sprint_sync(notes, sprint)
+            for line in refreshed:
+                print(f'  Total-SP aus Jira nachgezogen: {line}')
+        except Exception as error:
+            print(f'  ! Sprint-Sync nicht verfügbar: {error}')
+    stories = sprint_stories(notes, sprint, open_sprint_keys)
     if not stories:
         print(f'Keine Stories mit Aufwand im Sprint {sprint} gefunden.')
         return 2
