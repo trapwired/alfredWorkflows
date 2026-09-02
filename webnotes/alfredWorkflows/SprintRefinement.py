@@ -62,14 +62,13 @@ def get_issue_numbers(number_of_elements):
     sprints = JiraInterface.get_all_open_sprints()
     sprints = [s for s in sprints if 'PHX' in s.name]
     sprints = sorted(sprints, key=lambda s: s.name)
+    not_kaizen = '(labels IS EMPTY OR labels NOT IN (Phoenix_Kaizen))'
+    filter_query = f'status IN (Open, "To be Discussed") AND {not_kaizen} ORDER BY Rank ASC'
     issue_numbers = []
-    cur_sprint_index = 0
-    while len(issue_numbers) < number_of_elements:
-        sprint = sprints[cur_sprint_index]
-        filter_query = f'Sprint = {sprint.id} AND status IN (Open, "To be Discussed") ORDER BY RANK ASC'
-        sprint_stories = JiraInterface.get_story_keys_from_backlog(filter_query)
-        issue_numbers.extend(sprint_stories)
-        cur_sprint_index += 1
+    for sprint in sprints:
+        if len(issue_numbers) >= number_of_elements:
+            break
+        issue_numbers.extend(JiraInterface.get_story_keys_from_sprint_on_board(sprint.id, filter_query))
 
     return issue_numbers[:number_of_elements]
 

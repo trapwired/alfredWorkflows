@@ -256,25 +256,27 @@ def get_all_open_sprints():
 
     return sprint_list
 
-def get_open_stories_from_sprint(sprint_id):
+def get_story_keys_from_sprint_on_board(sprint_id, filter_query):
+    # Board-scoped endpoint: applies the board's own filter (project/team), so issues from
+    # other projects that merely share the sprint (e.g. LOG-*) are excluded.
     jira_custom_domain, jira_email, jira_token, board_id = init_config()
 
-    url = f"https://{jira_custom_domain}/rest/agile/1.0/sprint/{sprint_id}/issue"
+    url = f"https://{jira_custom_domain}/rest/agile/1.0/board/{board_id}/sprint/{sprint_id}/issue"
     auth = HTTPBasicAuth(jira_email, jira_token)
     headers = {
-        "Accept": "application/json",
-        "Authorization": f"{jira_token}"
+        "Accept": "application/json"
     }
 
-    response = requests.request(
-        "GET",
-        url,
-        headers=headers,
-        auth=auth
-    )
+    query = {
+        'jql': filter_query,
+        'fields': 'key',
+        'maxResults': 100,
+    }
+
+    response = requests.get(url, headers=headers, params=query, auth=auth)
 
     if response.status_code == 200:
-        return 'found'
+        return extract_issues_numbers(response.json().get('issues', []))
     else:
         return []
 
