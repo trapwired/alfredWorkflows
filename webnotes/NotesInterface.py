@@ -185,7 +185,9 @@ class NotesInterface:
                     head, _ = os.path.split(old_file_path)
                     new_path = os.path.join(head, filename)
                     os.rename(old_file_path, new_path)
+                    old_filename = index[url]
                     filename = Path(new_path).relative_to(self._path).as_posix()
+                    repair_wikilinks(self._path, old_filename, filename)
 
                 elif file_found:
                     # file was moved, update location in index
@@ -204,6 +206,7 @@ class NotesInterface:
                         new_full_path = os.path.join(head, filename)
                         os.rename(existing_full_path, new_full_path)
                         filename = Path(new_full_path).relative_to(self._path).as_posix()
+                        repair_wikilinks(self._path, found_jira_filename, filename)
 
                     else:
                         # file must have been deleted, create new one

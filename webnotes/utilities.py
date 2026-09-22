@@ -15,6 +15,9 @@ DELIMITER = '漢'
 
 OPTIONS = ['OPA', 'SUP']
 
+# Vault plumbing and the trash hold stale copies — rewriting links in there is noise at best.
+SKIPPED_LINK_DIRS = {'.trash', '.git', '.obsidian', '.makemd', '.space'}
+
 
 class TEMPLATE(Enum):
     NO_TEMPLATE = 0
@@ -145,6 +148,48 @@ def find(names, path):
             if name in files:
                 new_path = os.path.join(root, name)
                 return Path(new_path).relative_to(path).as_posix()
+
+
+def repair_wikilinks(vault_path, old_relative_path: str, new_relative_path: str):
+    """Rewrite every wikilink that pointed at a note we just renamed.
+
+    Obsidian resolves `[[…]]` by filename, so a rename breaks every reference to it
+    silently — the link keeps rendering, it just stops going anywhere. Renaming and
+    repairing therefore belong in one step; anything else leaves the vault broken
+    until a human happens to click the link.
+    """
+    old_name, new_name = Path(old_relative_path).stem, Path(new_relative_path).stem
+    if old_name == new_name:
+        return 0
+
+    old_path, new_path = Path(old_relative_path).with_suffix(''), Path(new_relative_path).with_suffix('')
+    # Path form before bare filename: both start with '[[', so the longer target has to win.
+    targets = [(old_path.as_posix(), new_path.as_posix()), (old_name, new_name)]
+    changed_files = 0
+
+    for root, dirs, files in os.walk(vault_path):
+        dirs[:] = [d for d in dirs if d not in SKIPPED_LINK_DIRS]
+        for filename in files:
+            if not filename.endswith(FILE_EXTENSION):
+                continue
+            file_path = os.path.join(root, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+            except (OSError, UnicodeDecodeError):
+                continue
+
+            repaired = content
+            for old_target, new_target in targets:
+                for suffix in (']]', '|', '#'):
+                    repaired = repaired.replace(f'[[{old_target}{suffix}', f'[[{new_target}{suffix}')
+
+            if repaired != content:
+                with open(file_path, 'w', encoding='utf-8') as file:
+                    file.write(repaired)
+                changed_files += 1
+
+    return changed_files
 
 
 def get_issue_number_from_filename(filename):

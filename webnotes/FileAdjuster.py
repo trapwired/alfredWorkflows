@@ -4,6 +4,20 @@ from webnotes.utilities import get_issue_number_from_url, get_current_sprint
 from webnotes.JiraInterface import get_jira_issue
 
 
+def as_story_points(value):
+    """Story points as an int, or None. Tolerates quotes, floats and the literal 'None'
+    that older notes carry in Total-SP."""
+    if value is None:
+        return None
+    text = str(value).strip().strip('"\'').strip()
+    if text in ('', 'None', 'null'):
+        return None
+    try:
+        return int(float(text))
+    except ValueError:
+        return None
+
+
 def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, mark_closed=False):
     if not os.path.exists(file_path):
         return "File does not exist: " + file_path
@@ -43,18 +57,24 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
         if not jira_link:
             return "Not a jira story"
 
-        # If Total-SP doesn't exist or is empty, get it from the Jira API
-        if not total_sp or total_sp.strip() == '""' or total_sp.strip() == "''":
-            issue_key = get_issue_number_from_url(jira_link)
-            if issue_key:
-                jira_issue = get_jira_issue(issue_key)
-                if jira_issue and hasattr(jira_issue, 'story_points'):
-                    total_sp = jira_issue.story_points
-                    print('Total-SP not found in file, fetched from Jira API:', total_sp)
+        # The estimate belongs to Jira; the note only holds a copy, and that copy goes stale
+        # every time someone re-estimates. So ask Jira first and book against its answer —
+        # asking afterwards is too late, the wrong number is already in SP-done by then.
+        note_total_sp = as_story_points(total_sp)
+        jira_total_sp = None
+        issue_key = get_issue_number_from_url(jira_link)
+        if issue_key:
+            jira_issue = get_jira_issue(issue_key)
+            jira_total_sp = as_story_points(getattr(jira_issue, 'story_points', None)) if jira_issue else None
 
-        # Clean up the values (remove quotes if present)
-        if total_sp:
-            total_sp = int(total_sp.strip('"\''))
+        total_sp = jira_total_sp if jira_total_sp is not None else note_total_sp
+        if total_sp is None:
+            return f'Kein Total-SP in der Notiz und keines in Jira ({issue_key}) — nichts gebucht'
+
+        # Keep the copy honest, otherwise the next run drifts again.
+        refreshed_total_sp = total_sp if total_sp != note_total_sp else None
+        if refreshed_total_sp is not None:
+            print(f'Total-SP aus Jira nachgezogen: {note_total_sp} -> {total_sp}')
 
         if sp_done:
             sp_done = sp_done.strip('"\'')
@@ -115,6 +135,8 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
                         new_lines.append(closed_in_sprint_line)
                 elif line.strip().startswith('closedInSprint:'):
                     new_lines.append(closed_in_sprint_line)
+                elif line.strip().startswith('Total-SP:') and refreshed_total_sp is not None:
+                    new_lines.append(f'Total-SP: "{refreshed_total_sp}"')
                 else:
                     new_lines.append(line)
             return f"---\n{chr(10).join(new_lines)}\n---"
