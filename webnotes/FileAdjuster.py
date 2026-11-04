@@ -38,7 +38,7 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
         frontmatter_lines = frontmatter.split('\n')
         total_sp = None
         sp_done = ""
-        jira_link = None
+        link = None
         closed_in_sprint = ""
 
         for line in frontmatter_lines:
@@ -48,13 +48,13 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
             elif line.strip().startswith('SP-done:'):
                 value = line.split('SP-done:', 1)[1].strip()
                 sp_done = value if value else ""
-            elif line.strip().startswith('jira-link:'):
-                jira_link = line.split('jira-link:', 1)[1].strip()
+            elif line.strip().startswith('link:'):
+                link = line.split('link:', 1)[1].strip()
             elif line.strip().startswith('closedInSprint:'):
                 closed_in_sprint = line.split('closedInSprint:', 1)[1].strip().strip('"\'')
 
-        # If we don't have jira-link, it's not a valid Jira story
-        if not jira_link:
+        # Without a link there is nothing to book against
+        if not link:
             return "Not a jira story"
 
         # The estimate belongs to Jira; the note only holds a copy, and that copy goes stale
@@ -62,7 +62,7 @@ def adjust_file(file_path, done_sp_in_sprint=None, return_remaining_sp=False, ma
         # asking afterwards is too late, the wrong number is already in SP-done by then.
         note_total_sp = as_story_points(total_sp)
         jira_total_sp = None
-        issue_key = get_issue_number_from_url(jira_link)
+        issue_key = get_issue_number_from_url(link)
         if issue_key:
             jira_issue = get_jira_issue(issue_key)
             jira_total_sp = as_story_points(getattr(jira_issue, 'story_points', None)) if jira_issue else None
