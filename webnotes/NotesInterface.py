@@ -45,6 +45,10 @@ class NotesInterface:
                 return filename
 
     def find_note_by_link(self, url: str):
+        for candidate in self.likely_notes(url):
+            if frontmatter_link(candidate) == url:
+                return candidate.relative_to(self.paths.notes).as_posix()
+
         for root, dirs, files in os.walk(self.paths.notes):
             dirs[:] = [d for d in dirs if d not in SKIPPED_DIRS]
             for name in files:
@@ -54,6 +58,17 @@ class NotesInterface:
                 if frontmatter_link(path) == url:
                     return path.relative_to(self.paths.notes).as_posix()
         return None
+
+    def likely_notes(self, url: str):
+        """Where a note for this URL would sit by naming convention. Only a hint: the frontmatter
+        `link:` owns the relation, so the glob `OPA-123*` also hitting `OPA-1234…` is harmless."""
+        if 'pullrequest' in url:
+            return sorted(self.paths.jira_pr_dir.glob(f'*{FILE_EXTENSION}'))
+        key = get_issue_number_from_url(url)
+        if not key:
+            return []
+        folder = self.paths.jira_sup_dir if key.startswith('SUP-') else self.paths.jira_dir
+        return sorted(folder.glob(f'{key}*{FILE_EXTENSION}'))
 
     def create_new_file(self, filename, website_title, url):
         while os.path.exists(self.get_full_path(self.get_prefixed_filename(filename))):

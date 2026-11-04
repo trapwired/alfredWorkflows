@@ -211,3 +211,53 @@ jira_pr_folder_name = Jira-PRs
         self.assertEqual(result, title + '42.md')
         self.assertTrue((self.notes / (title + '42.md')).exists())
         self.assertEqual(self.read_note(title + '.md'), '# Unrelated note without link\n')
+
+    def test_findNoteByLink_jiraKeyInFilename_foundWithoutFullScan(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        existing_filename = os.path.join('Jira', 'OPA-42  Old name - Jira.md')
+        self.setup_note(existing_filename, note_with_link(website))
+
+        with patch('webnotes.NotesInterface.os.walk', side_effect=AssertionError('full scan not expected')):
+            result = self.testee.find_note_by_link(website)
+
+        self.assertEqual(result, 'Jira/OPA-42  Old name - Jira.md')
+
+    def test_findNoteByLink_filenameMatchesButLinkDiffers_fallbackFindsRealNote(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        self.setup_note(os.path.join('Jira', 'OPA-42  Decoy - Jira.md'),
+                        note_with_link('https://jiradg.atlassian.net/browse/OPA-421'))
+        self.setup_note(os.path.join('Archive', 'OPA-42  Real - Jira.md'), note_with_link(website))
+
+        result = self.testee.find_note_by_link(website)
+
+        self.assertEqual(result, 'Archive/OPA-42  Real - Jira.md')
+
+    def test_findNoteByLink_keyIsPrefixOfLongerKey_notReturned(self):
+        self.setup_note(os.path.join('Jira', 'OPA-1234  Other story - Jira.md'),
+                        note_with_link('https://jiradg.atlassian.net/browse/OPA-1234'))
+
+        result = self.testee.find_note_by_link('https://jiradg.atlassian.net/browse/OPA-123')
+
+        self.assertIsNone(result)
+
+    def test_findNoteByLink_supKey_foundInSupFolderWithoutFullScan(self):
+        website = 'https://jiradg.atlassian.net/browse/SUP-77'
+        self.setup_note(os.path.join('Jira-SUP', 'SUP-77  Something broken - Jira.md'), note_with_link(website))
+
+        with patch('webnotes.NotesInterface.os.walk', side_effect=AssertionError('full scan not expected')):
+            result = self.testee.find_note_by_link(website)
+
+        self.assertEqual(result, 'Jira-SUP/SUP-77  Something broken - Jira.md')
+
+    def test_findNoteByLink_prUrl_foundInPrFolderWithoutFullScan(self):
+        website = 'https://dev.azure.com/org/project/_git/repo/pullrequest/42'
+        story = 'https://jiradg.atlassian.net/browse/OPA-123'
+        self.setup_note(os.path.join('Jira-PRs', 'Pull request 41: OPA-123 Other.md'),
+                        f'---\nlink: https://dev.azure.com/org/project/_git/repo/pullrequest/41\nstory-link: {story}\n---\n')
+        self.setup_note(os.path.join('Jira-PRs', 'Pull request 42: OPA-123 Add feature.md'),
+                        f'---\nlink: {website}\nstory-link: {story}\n---\n')
+
+        with patch('webnotes.NotesInterface.os.walk', side_effect=AssertionError('full scan not expected')):
+            result = self.testee.find_note_by_link(website)
+
+        self.assertEqual(result, 'Jira-PRs/Pull request 42: OPA-123 Add feature.md')
