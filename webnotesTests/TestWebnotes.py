@@ -140,46 +140,117 @@ jira_pr_folder_name = Jira-PRs
         self.assertNotIn('漢', content)
 
     def test_getOrCreateFile_unknownPrUrl_noteWithLinkAndStoryLinkInPrFolder(self):
-        website = 'https://github.com/org/repo/pull/42'
-        title = 'Pull request #42: OPA-123 Add feature'
+        website = 'https://dev.azure.com/org/project/_git/repo/pullrequest/42'
+        title = 'Pull request 42: OPA-123 Add feature'
         filename = os.path.join('Jira-PRs', title + '.md')
 
         result = self.testee.get_or_create_file(website, title)
 
         self.assertEqual(result, filename)
         content = self.read_note(filename)
-        self.assertIn('link: https://github.com/org/repo/pull/42\n', content)
+        self.assertIn('link: https://dev.azure.com/org/project/_git/repo/pullrequest/42\n', content)
         self.assertIn('story-link: https://jiradg.atlassian.net/browse/OPA-123\n', content)
         self.assertNotIn('漢', content)
 
-    def test_getOrCreateFile_existingNoteWithLink_returnedWithoutRename(self):
+    def test_getOrCreateFile_githubPrTitle_noteInPrFolderWithoutHash(self):
+        website = 'https://github.com/DigitecGalaxus/Dg.Packing/pull/1371'
+        title = 'OPA-56902 Add Report Problem by Hlynur3000 · Pull Request #1371 · DigitecGalaxus/Dg.Packing'
+        filename = os.path.join('Jira-PRs',
+                                'OPA-56902 Add Report Problem by Hlynur3000 · Pull Request  1371 · DigitecGalaxus Dg.Packing.md')
+
+        result = self.testee.get_or_create_file(website, title)
+
+        self.assertEqual(result, filename)
+        content = self.read_note(filename)
+        self.assertIn('link: https://github.com/DigitecGalaxus/Dg.Packing/pull/1371\n', content)
+        self.assertIn('story-link: https://jiradg.atlassian.net/browse/OPA-56902\n', content)
+
+    def test_getOrCreateFile_githubPrTitleWithSupKey_stillPrNotSup(self):
+        website = 'https://github.com/org/repo/pull/5'
+        title = 'SUP-77 Fix thing by me · Pull Request #5 · org/repo'
+
+        result = self.testee.get_or_create_file(website, title)
+
+        self.assertTrue(result.startswith('Jira-PRs/'))
+        self.assertIn('story-link: https://jiradg.atlassian.net/browse/SUP-77\n', self.read_note(result))
+
+    def test_getOrCreateFile_existingNoteWithSameTitle_returnedUnchanged(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        existing_filename = os.path.join('Jira', 'OPA-42  Same name - Jira.md')
+        self.setup_note(existing_filename, note_with_link(website, body='# Keep me\n'))
+
+        result = self.testee.get_or_create_file(website, 'OPA-42  Same name - Jira')
+
+        self.assertEqual(result, existing_filename)
+        self.assertEqual(self.read_note(existing_filename), note_with_link(website, body='# Keep me\n'))
+
+    def test_getOrCreateFile_existingNoteWithNewTitle_renamedInPlaceContentKept(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        old_filename = os.path.join('Jira', 'OPA-42  Old name - Jira.md')
+        new_filename = os.path.join('Jira', 'OPA-42  New name - Jira.md')
+        self.setup_note(old_filename, note_with_link(website, body='# Keep me\n'))
+
+        result = self.testee.get_or_create_file(website, 'OPA-42  New name - Jira')
+
+        self.assertEqual(result, new_filename)
+        self.assertFalse((self.notes / old_filename).exists())
+        self.assertEqual(self.read_note(new_filename), note_with_link(website, body='# Keep me\n'))
+
+    def test_getOrCreateFile_existingNoteRenamed_wikilinksAcrossVaultRepaired(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        self.setup_note(os.path.join('Jira', 'OPA-42  Old name - Jira.md'), note_with_link(website))
+        self.setup_note('Daily.md', 'See [[OPA-42  Old name - Jira]] and [[OPA-42  Old name - Jira|alias]]\n')
+        outside_notes_dir = self.vault / 'Spaces' / 'Home' / 'Private' / 'Journal.md'
+        outside_notes_dir.parent.mkdir(parents=True)
+        outside_notes_dir.write_text('[[Spaces/Home/DG/Jira/OPA-42  Old name - Jira#AKs]]\n', encoding='utf-8')
+
+        self.testee.get_or_create_file(website, 'OPA-42  New name - Jira')
+
+        self.assertEqual(self.read_note('Daily.md'),
+                         'See [[OPA-42  New name - Jira]] and [[OPA-42  New name - Jira|alias]]\n')
+        self.assertEqual(outside_notes_dir.read_text(encoding='utf-8'),
+                         '[[Spaces/Home/DG/Jira/OPA-42  New name - Jira#AKs]]\n')
+
+    def test_getOrCreateFile_newTitleTakenByOtherNote_nothingRenamedOrOverwritten(self):
+        website = 'https://jiradg.atlassian.net/browse/OPA-42'
+        old_filename = os.path.join('Jira', 'OPA-42  Old name - Jira.md')
+        taken_filename = os.path.join('Jira', 'OPA-42  New name - Jira.md')
+        self.setup_note(old_filename, note_with_link(website))
+        self.setup_note(taken_filename, '# Someone else\n')
+
+        result = self.testee.get_or_create_file(website, 'OPA-42  New name - Jira')
+
+        self.assertEqual(result, old_filename)
+        self.assertEqual(self.read_note(taken_filename), '# Someone else\n')
+
+    def test_getOrCreateFile_emptyTitle_existingNoteNotRenamed(self):
         website = 'https://jiradg.atlassian.net/browse/OPA-42'
         existing_filename = os.path.join('Jira', 'OPA-42  Old name - Jira.md')
         self.setup_note(existing_filename, note_with_link(website))
 
-        result = self.testee.get_or_create_file(website, 'OPA-42  New name - Jira')
+        result = self.testee.get_or_create_file(website, '')
 
         self.assertEqual(result, existing_filename)
         self.assertTrue((self.notes / existing_filename).exists())
-        self.assertFalse((self.notes / 'Jira' / 'OPA-42  New name - Jira.md').exists())
 
-    def test_getOrCreateFile_existingNoteInUnrelatedSubfolder_found(self):
+    def test_getOrCreateFile_existingNoteInUnrelatedSubfolder_foundAndRenamedThere(self):
         website = 'www.website.com'
         existing_filename = os.path.join('Projects', 'deep', 'Some note.md')
         self.setup_note(existing_filename, note_with_link(website))
 
         result = self.testee.get_or_create_file(website, 'Website Title')
 
-        self.assertEqual(result, 'Projects/deep/Some note.md')
+        self.assertEqual(result, 'Projects/deep/Website Title.md')
+        self.assertFalse((self.notes / existing_filename).exists())
         self.assertFalse((self.notes / 'Website Title.md').exists())
 
     def test_getOrCreateFile_urlWithQuery_matchesNoteLinkedWithoutQuery(self):
-        existing_filename = 'Some note.md'
-        self.setup_note(existing_filename, note_with_link('www.website.com/page'))
+        self.setup_note('Some note.md', note_with_link('www.website.com/page'))
 
         result = self.testee.get_or_create_file('www.website.com/page?utm=1', 'Website Title')
 
-        self.assertEqual(result, existing_filename)
+        self.assertEqual(result, 'Website Title.md')
+        self.assertFalse((self.notes / 'Some note.md').exists())
 
     def test_getOrCreateFile_linkOutsideFrontmatter_notFoundNewNoteCreated(self):
         website = 'www.website.com'
@@ -261,3 +332,13 @@ jira_pr_folder_name = Jira-PRs
             result = self.testee.find_note_by_link(website)
 
         self.assertEqual(result, 'Jira-PRs/Pull request 42: OPA-123 Add feature.md')
+
+    def test_findNoteByLink_githubPrUrl_foundInPrFolderWithoutFullScan(self):
+        website = 'https://github.com/org/repo/pull/42'
+        self.setup_note(os.path.join('Jira-PRs', 'Feature by me · Pull Request  42 · org repo.md'),
+                        f'---\nlink: {website}\nstory-link: https://jiradg.atlassian.net/browse/OPA-123\n---\n')
+
+        with patch('webnotes.NotesInterface.os.walk', side_effect=AssertionError('full scan not expected')):
+            result = self.testee.find_note_by_link(website)
+
+        self.assertEqual(result, 'Jira-PRs/Feature by me · Pull Request  42 · org repo.md')
