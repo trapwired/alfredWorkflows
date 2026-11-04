@@ -1,4 +1,6 @@
+import os
 from enum import Enum
+from pathlib import Path
 import re
 import datetime
 import sys
@@ -12,7 +14,7 @@ FILE_EXTENSION = '.md'
 
 OPTIONS = ['OPA', 'SUP']
 
-# Vault plumbing and the trash hold stale copies — a `link:` found in there is not the note we want.
+# Vault plumbing and the trash hold stale copies — neither a `link:` nor a wikilink in there counts.
 SKIPPED_DIRS = {'.trash', '.git', '.obsidian', '.makemd', '.space'}
 
 
@@ -66,7 +68,8 @@ def replace_multiple(input_str: str, characters: str, replace_with: str):
 
 
 def get_filename(name: str):
-    filename = replace_multiple(name, '/[]&"', ' ')
+    # `#^|[]` are Obsidian link syntax: a note name containing them cannot be opened by name.
+    filename = replace_multiple(name, '/[]&"#^|', ' ')
     filename = filename.strip()
     filename += FILE_EXTENSION
     return filename
@@ -134,6 +137,48 @@ def frontmatter_link(path):
             if key == 'link':
                 return value.strip()
     return None
+
+
+def repair_wikilinks(vault_path, old_relative_path: str, new_relative_path: str):
+    """Rewrite every wikilink that pointed at a note we just renamed.
+
+    Obsidian resolves `[[…]]` by filename, so a rename breaks every reference to it
+    silently — the link keeps rendering, it just stops going anywhere. Renaming and
+    repairing therefore belong in one step. Paths are relative to the vault root, which
+    is what Obsidian's path form `[[Spaces/…/Note]]` is relative to.
+    """
+    old_name, new_name = Path(old_relative_path).stem, Path(new_relative_path).stem
+    if old_name == new_name:
+        return 0
+
+    old_path, new_path = Path(old_relative_path).with_suffix(''), Path(new_relative_path).with_suffix('')
+    # Path form before bare filename: both start with '[[', so the longer target has to win.
+    targets = [(old_path.as_posix(), new_path.as_posix()), (old_name, new_name)]
+    changed_files = 0
+
+    for root, dirs, files in os.walk(vault_path):
+        dirs[:] = [d for d in dirs if d not in SKIPPED_DIRS]
+        for filename in files:
+            if not filename.endswith(FILE_EXTENSION):
+                continue
+            file_path = os.path.join(root, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+            except (OSError, UnicodeDecodeError):
+                continue
+
+            repaired = content
+            for old_target, new_target in targets:
+                for suffix in (']]', '|', '#'):
+                    repaired = repaired.replace(f'[[{old_target}{suffix}', f'[[{new_target}{suffix}')
+
+            if repaired != content:
+                with open(file_path, 'w', encoding='utf-8') as file:
+                    file.write(repaired)
+                changed_files += 1
+
+    return changed_files
 
 
 def get_issue_number_from_url(url):

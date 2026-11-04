@@ -21,15 +21,17 @@ class NotesInterface:
         return filename.strip().startswith('SUP')
 
     def is_jira_pr(self, filename):
-        return filename.startswith('Pull request')
+        # Azure DevOps titles its pages 'Pull request 1234: …', GitHub '… · Pull Request #1234 · org/repo'
+        return filename.startswith('Pull request') or '· Pull Request' in filename
 
     def is_template(self, filename):
-        if self.is_jira_sup(filename):
+        # PR first: a GitHub PR title usually starts with the issue key, which would read as SUP/Jira
+        if self.is_jira_pr(filename):
+            return TEMPLATE.JIRA_PR
+        elif self.is_jira_sup(filename):
             return TEMPLATE.JIRA_SUP
         elif self.is_jira(filename):
             return TEMPLATE.JIRA
-        elif self.is_jira_pr(filename):
-            return TEMPLATE.JIRA_PR
 
         return TEMPLATE.NO_TEMPLATE
 
@@ -62,7 +64,7 @@ class NotesInterface:
     def likely_notes(self, url: str):
         """Where a note for this URL would sit by naming convention. Only a hint: the frontmatter
         `link:` owns the relation, so the glob `OPA-123*` also hitting `OPA-1234…` is harmless."""
-        if 'pullrequest' in url:
+        if 'pullrequest' in url or '/pull/' in url:
             return sorted(self.paths.jira_pr_dir.glob(f'*{FILE_EXTENSION}'))
         key = get_issue_number_from_url(url)
         if not key:
@@ -99,13 +101,28 @@ class NotesInterface:
         Path(self.get_full_path(relative_filename)).write_text(content, encoding='utf-8')
         return relative_filename
 
+    def rename_note(self, relative_filename, new_name):
+        folder, old_name = os.path.split(relative_filename)
+        if old_name == new_name:
+            return relative_filename
+        renamed = os.path.join(folder, new_name)
+        if os.path.exists(self.get_full_path(renamed)):
+            return relative_filename
+
+        os.rename(self.get_full_path(relative_filename), self.get_full_path(renamed))
+        notes_in_vault = Path(self.paths.notes_dir)
+        repair_wikilinks(self.paths.root, (notes_in_vault / relative_filename).as_posix(),
+                         (notes_in_vault / renamed).as_posix())
+        return renamed
+
     def get_or_create_file(self, url: str, website_title: str, resolve_issue_from_clipboard: bool = False):
         url, website_title = handle_special_jira_cases(url, website_title, resolve_issue_from_clipboard)
         url = url.split('?')[0]
+        filename = normalize_jira_filename(url, get_filename(website_title))
 
         existing = self.find_note_by_link(url)
         if existing:
-            return existing
+            # The note follows the title it is called with; an empty title is nothing to follow.
+            return self.rename_note(existing, filename) if website_title.strip() else existing
 
-        filename = normalize_jira_filename(url, get_filename(website_title))
         return self.create_new_file(filename, website_title, url)
