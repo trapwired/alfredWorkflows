@@ -27,8 +27,7 @@ def main(keys):
         if not title:
             print(f'failed {key} — Jira lieferte keinen Titel')
             continue
-        target = interface.get_full_path(interface.get_prefixed_filename(f'{title}.md'))
-        existed = Path(target).exists()
+        existed = interface.find_note_by_link(url) is not None
         filename = interface.get_or_create_file(url, title)
         if not filename:
             print(f'failed {key}')

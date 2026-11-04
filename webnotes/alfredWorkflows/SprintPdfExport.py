@@ -27,9 +27,9 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-VAULT = Path('/Users/fluffyoctopus/kDrive/Dominic/notes')
-JIRA_DIR = VAULT / 'Spaces/Home/DG/Jira'
-OVERVIEW = VAULT / 'Spaces/Home/DG/SCRUM/Story Points done in Sprint.md'
+from webnotes.paths import VaultPaths
+
+CONFIG_PATH = Path(project_root) / 'webnotes' / 'config.ini'
 
 SP_FIELD = 'customfield_10013'
 TEAM_JQL = '"Team[Team]" = 26'
@@ -89,9 +89,9 @@ def fmt(value):
     return str(int(value)) if float(value).is_integer() else f'{value:.1f}'
 
 
-def load_notes():
+def load_notes(jira_dir):
     notes = []
-    for path in sorted(JIRA_DIR.glob('*.md')):
+    for path in sorted(jira_dir.glob('*.md')):
         fields = read_frontmatter(path)
         key = path.stem.split(' ')[0]
         if not re.match(r'^[A-Z]+-\d+$', key):
@@ -144,7 +144,7 @@ def velocity(notes, sprint, span=8):
 
 def jira_auth():
     config = configparser.ConfigParser()
-    config.read(Path(project_root) / 'webnotes' / 'config.ini')
+    config.read(CONFIG_PATH)
     domain = config.get('API', 'jira_custom_domain')
     return domain, HTTPBasicAuth(config.get('API', 'jira_email'), config.get('API', 'jira_token'))
 
@@ -241,7 +241,7 @@ def initiative_scope(notes, initiatives, epic_map):
 
 def create_missing_notes(missing):
     from webnotes import NotesInterface, utilities
-    interface = NotesInterface.NotesInterface(Path(project_root) / 'webnotes')
+    interface = NotesInterface.NotesInterface(CONFIG_PATH.parent)
     created = []
     for key, _ in missing:
         url, title = utilities.get_jira_url_and_title(key)
@@ -527,12 +527,14 @@ def main():
     parser.add_argument('--create-notes', action='store_true')
     args = parser.parse_args()
 
-    sprint = args.sprint or read_frontmatter(OVERVIEW).get('SprintNumber')
+    paths = VaultPaths.from_config(CONFIG_PATH)
+    overview = paths.notes / 'SCRUM/Story Points done in Sprint.md'
+    sprint = args.sprint or read_frontmatter(overview).get('SprintNumber')
     if not sprint:
         print('Kein Sprint angegeben und keine SprintNumber in der Notiz gefunden.')
         return 1
 
-    notes = load_notes()
+    notes = load_notes(paths.jira_dir)
     open_sprint_keys = set()
     if not args.no_jira:
         try:

@@ -1,6 +1,4 @@
-import os.path
 from enum import Enum
-from pathlib import Path
 import re
 import datetime
 import sys
@@ -11,12 +9,11 @@ import xerox
 # rather than at the module level
 
 FILE_EXTENSION = '.md'
-DELIMITER = '漢'
 
 OPTIONS = ['OPA', 'SUP']
 
-# Vault plumbing and the trash hold stale copies — rewriting links in there is noise at best.
-SKIPPED_LINK_DIRS = {'.trash', '.git', '.obsidian', '.makemd', '.space'}
+# Vault plumbing and the trash hold stale copies — a `link:` found in there is not the note we want.
+SKIPPED_DIRS = {'.trash', '.git', '.obsidian', '.makemd', '.space'}
 
 
 class TEMPLATE(Enum):
@@ -78,8 +75,8 @@ def get_filename(name: str):
 def normalize_jira_filename(url: str, filename: str):
     """Enforce the vault convention '{KEY}  {Titel} - Jira.md' for Jira-issue notes.
 
-    Callers (e.g. addStoryPoints) may pass a bare issue title; without this,
-    get_or_create_file renames existing notes to unconventional filenames."""
+    Callers (e.g. addStoryPoints) may pass a bare issue title; without this, a new note
+    would get an unconventional filename and miss the Jira template."""
     issue_number = get_issue_number_from_url(url)
     if not issue_number:
         return filename
@@ -125,77 +122,17 @@ def get_current_sprint():
     return current_sprint
 
 
-def parse_index(index_file):
-    result_dict = dict()
-    for line in index_file.readlines():
-        line_split = line.split(DELIMITER)
-        if len(line_split) > 1:
-            link = line_split[0].split('?')[0]
-            title = line_split[1].rstrip()
-            if title == 'None':
-                continue
-            if title.endswith(f'{FILE_EXTENSION}{FILE_EXTENSION}'):
-                title = title.split(f'{FILE_EXTENSION}')[0] + f'{FILE_EXTENSION}'
-            result_dict[link] = title
-    return result_dict
-
-
-def find(names, path):
-    for root, dirs, files in os.walk(path):
-        files = [x.rstrip() for x in files]
-        for name in names:
-            name = name.rstrip()
-            if name in files:
-                new_path = os.path.join(root, name)
-                return Path(new_path).relative_to(path).as_posix()
-
-
-def repair_wikilinks(vault_path, old_relative_path: str, new_relative_path: str):
-    """Rewrite every wikilink that pointed at a note we just renamed.
-
-    Obsidian resolves `[[…]]` by filename, so a rename breaks every reference to it
-    silently — the link keeps rendering, it just stops going anywhere. Renaming and
-    repairing therefore belong in one step; anything else leaves the vault broken
-    until a human happens to click the link.
-    """
-    old_name, new_name = Path(old_relative_path).stem, Path(new_relative_path).stem
-    if old_name == new_name:
-        return 0
-
-    old_path, new_path = Path(old_relative_path).with_suffix(''), Path(new_relative_path).with_suffix('')
-    # Path form before bare filename: both start with '[[', so the longer target has to win.
-    targets = [(old_path.as_posix(), new_path.as_posix()), (old_name, new_name)]
-    changed_files = 0
-
-    for root, dirs, files in os.walk(vault_path):
-        dirs[:] = [d for d in dirs if d not in SKIPPED_LINK_DIRS]
-        for filename in files:
-            if not filename.endswith(FILE_EXTENSION):
-                continue
-            file_path = os.path.join(root, filename)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
-                    content = file.read()
-            except (OSError, UnicodeDecodeError):
-                continue
-
-            repaired = content
-            for old_target, new_target in targets:
-                for suffix in (']]', '|', '#'):
-                    repaired = repaired.replace(f'[[{old_target}{suffix}', f'[[{new_target}{suffix}')
-
-            if repaired != content:
-                with open(file_path, 'w', encoding='utf-8') as file:
-                    file.write(repaired)
-                changed_files += 1
-
-    return changed_files
-
-
-def get_issue_number_from_filename(filename):
-    potential_issue_number = filename.split()[0]
-    if any([x in potential_issue_number for x in OPTIONS]):
-        return potential_issue_number
+def frontmatter_link(path):
+    """Value of `link:` in the frontmatter block at the top of the note, None if there is none."""
+    with open(path, 'r', encoding='utf-8', errors='ignore') as file:
+        if file.readline().strip() != '---':
+            return None
+        for line in file:
+            if line.strip() == '---':
+                return None
+            key, _, value = line.partition(':')
+            if key == 'link':
+                return value.strip()
     return None
 
 
@@ -204,17 +141,6 @@ def get_issue_number_from_url(url):
     if match:
         return match.group(0)
     return None
-
-
-def find_jira(issue_number, path, filename):
-    if not issue_number:
-        return
-    for root, dirs, files in os.walk(path):
-        files = [x.rstrip() for x in files]
-        for file in files:
-            if file.startswith(issue_number):
-                new_path = os.path.join(root, file)
-                return Path(new_path).relative_to(path).as_posix()
 
 
 def get_jira_issue_link_from_pr_title(filename):

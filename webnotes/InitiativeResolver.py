@@ -34,9 +34,11 @@ from pathlib import Path
 import requests
 from requests.auth import HTTPBasicAuth
 
+from webnotes.paths import VaultPaths
+
 HERE = Path(__file__).resolve().parent
 CACHE_PATH = HERE / 'initiative_map.json'
-VAULT_JIRA_DIR = Path('/Users/fluffyoctopus/kDrive/Dominic/notes/Spaces/Home/DG/Jira')
+CONFIG_PATH = HERE / 'config.ini'
 
 LANE_FIELD = 'customfield_19101'
 # Lanes, die zugleich Initiativen sind — Kapazitätstöpfe statt Vorhaben.
@@ -61,12 +63,17 @@ def _save(cache):
     CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True))
 
 
+def jira_notes_dir():
+    return VaultPaths.from_config(CONFIG_PATH).jira_dir
+
+
 def vocabulary_from_vault():
     """Initiative-Werte, die in den Notizen wirklich vorkommen — kaputte Frontmatter aussortiert."""
     counter = collections.Counter()
-    if not VAULT_JIRA_DIR.exists():
+    jira_dir = jira_notes_dir()
+    if not jira_dir.exists():
         return list(SEED_VOCABULARY)
-    for path in VAULT_JIRA_DIR.glob('*.md'):
+    for path in jira_dir.glob('*.md'):
         text = path.read_text(errors='ignore')
         if not text.startswith('---'):
             continue
@@ -115,7 +122,7 @@ def resolve(parent_key=None, parent_summary='', summary='', lane=None, learn=Tru
 def _jira_fields(keys, fields):
     """Jira-Felder für viele Keys holen, in Blöcken zu 80. Gibt {key: fields} zurück."""
     config = configparser.ConfigParser()
-    config.read(HERE / 'config.ini')
+    config.read(CONFIG_PATH)
     domain = config.get('API', 'jira_custom_domain')
     auth = HTTPBasicAuth(config.get('API', 'jira_email'), config.get('API', 'jira_token'))
 
@@ -151,7 +158,7 @@ def read_initiative(path):
 
 def note_paths():
     """Alle Jira-Notizen als (key, path), Dateien ohne sauberen Key übersprungen."""
-    for path in sorted(VAULT_JIRA_DIR.glob('*.md')):
+    for path in sorted(jira_notes_dir().glob('*.md')):
         key = path.stem.split(' ')[0]
         if re.match(r'^[A-Z]+-\d+$', key):
             yield key, path
