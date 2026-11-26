@@ -1,0 +1,44 @@
+{
+  "source": {
+    "repo": "devinite",
+    "ref": "origin/master",
+    "commit": "b19dae6d838b43042a2deb47212a7717285c17ab"
+  },
+  "tdfs": [
+    {
+      "name": "ATK Packing Workflow",
+      "factory_full_name": "Dg.Packing.TestDataFactory.AtkTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/AtkTestDataFactory.cs"
+    },
+    {
+      "name": "ETK Packing Workflow",
+      "factory_full_name": "Dg.Packing.TestDataFactory.EtkTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/EtkTestDataFactory.cs"
+    },
+    {
+      "name": "MSA Packing Workflow",
+      "factory_full_name": "Dg.Packing.TestDataFactory.ManualStorageArea.ManualStorageAreaPackingAvailableTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/ManualStorageArea/ManualStorageAreaPackingAvailableTestDataFactory.cs"
+    },
+    {
+      "name": "OutboundSorting - parcel sorting with user selection",
+      "factory_full_name": "Dg.Packing.TestDataFactory.ParcelSortingUserSelectionTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/ParcelSortingUserSelectionTestDataFactory.cs"
+    },
+    {
+      "name": "Packing workflow - available products",
+      "factory_full_name": "Dg.Packing.TestDataFactory.PackingAvailableTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/PackingAvailableTestDataFactory.cs"
+    },
+    {
+      "name": "Packing workflow - user selection",
+      "factory_full_name": "Dg.Packing.TestDataFactory.PackingUserSelectionTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/PackingUserSelectionTestDataFactory.cs"
+    },
+    {
+      "name": "VAS Packing workflow",
+      "factory_full_name": "Dg.Packing.TestDataFactory.VasPackingUserSelectionTestDataFactory",
+      "file": "src/Packing/Dg.Packing/TestDataFactory/VasPackingUserSelectionTestDataFactory.cs"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "source": {
+    "repo": "Dg.Packing",
+    "ref": "origin/master",
+    "commit": "5aa4593657e8ec63a7ad2351c0fb0ec8c6da67dd"
+  },
+  "deployments": [
+    {
+      "folder": "dg-cmcpackingmachine-host",
+      "appname": "dg-cmcpackingmachine-host",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-cache-inspector",
+      "appname": "dg-packing-cache-inspector",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-cache-inspector-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-cache-inspector-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-cache-inspector-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-deployment",
+      "appname": "dg-packing-deployment",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-deployment-staticfiles",
+      "appname": "dg-packing-deployment-staticfiles",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-eventhandlers",
+      "appname": "dg-packing-eventhandlers",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-messaging",
+      "appname": "dg-packing-messaging",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-pouchsorterstoragearea-proxy",
+      "appname": "dg-packing-pouchsorterstoragearea-proxy",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-scriptrunner",
+      "appname": "dg-packing-scriptrunner",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-webapi",
+      "appname": "dg-packing-webapi",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-website",
+      "appname": "dg-packing-website",
+      "hosts": {}
+    },
+    {
+      "folder": "dg-packing-workflow-atk2",
+      "appname": "dg-packing-workflow-atk2",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-atk2-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-atk2-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-atk2-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-atk3",
+      "appname": "dg-packing-workflow-atk3",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-atk3-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-atk3-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-atk3-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-cmc-prepack",
+      "appname": "dg-packing-workflow-cmc-prepack",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-cmc-prepack-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-cmc-prepack-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-cmc-prepack-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-errorhandling",
+      "appname": "dg-packing-workflow-errorhandling",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-errorhandling-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-errorhandling-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-errorhandling-ch.core.prod.int.devinite.com"
+        },
+        "eu": {
+          "dev": "dg-packing-workflow-errorhandling-eu.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-errorhandling-eu.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-errorhandling-eu.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-etk",
+      "appname": "dg-packing-workflow-etk",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-etk-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-etk-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-etk-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-flexpack",
+      "appname": "dg-packing-workflow-flexpack",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-flexpack-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-flexpack-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-flexpack-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-outboundsorting-nio",
+      "appname": "dg-packing-workflow-outboundsorting-nio",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-outboundsorting-nio-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-outboundsorting-nio-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-outboundsorting-nio-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-pickpack",
+      "appname": "dg-packing-workflow-pickpack",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-pickpack-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-pickpack-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-pickpack-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-problemhandling",
+      "appname": "dg-packing-workflow-problemhandling",
+      "hosts": {
+        "ch": {
+          "dev": "dg-outbound-workflow-packingproblemhandling-ch.core.dev.int.devinite.com",
+          "test": "dg-outbound-workflow-packingproblemhandling-ch.core.test.int.devinite.com",
+          "prod": "dg-outbound-workflow-packingproblemhandling-ch.core.prod.int.devinite.com"
+        },
+        "eu": {
+          "dev": "dg-outbound-workflow-packingproblemhandling-eu.core.dev.int.devinite.com",
+          "test": "dg-outbound-workflow-packingproblemhandling-eu.core.test.int.devinite.com",
+          "prod": "dg-outbound-workflow-packingproblemhandling-eu.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-spo-no-repack",
+      "appname": "dg-packing-workflow-spo-no-repack",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-spo-no-repack-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-spo-no-repack-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-spo-no-repack-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-unipack",
+      "appname": "dg-packing-workflow-unipack",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-unipack-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-unipack-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-unipack-ch.core.prod.int.devinite.com"
+        },
+        "eu": {
+          "dev": "dg-packing-workflow-unipack-eu.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-unipack-eu.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-unipack-eu.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-vas",
+      "appname": "dg-packing-workflow-vas",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflow-vas-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-vas-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-vas-ch.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "dg-packing-workflow-xmp",
+      "appname": "dg-packing-workflow-xmp",
+      "hosts": {
+        "eu": {
+          "dev": "dg-packing-workflow-xmp-eu.core.dev.int.devinite.com",
+          "test": "dg-packing-workflow-xmp-eu.core.test.int.devinite.com",
+          "prod": "dg-packing-workflow-xmp-eu.core.prod.int.devinite.com"
+        }
+      }
+    },
+    {
+      "folder": "external-secrets",
+      "appname": "external-secrets",
+      "hosts": {}
+    }
+  ]
+}

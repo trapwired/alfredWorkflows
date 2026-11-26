@@ -1,0 +1,43 @@
+{
+  "workflows": {
+    "dg-packing-cache-inspector": {"keyword": "inspector", "title": "Cache Inspector"},
+    "dg-packing-workflow-atk2": {"keyword": "atk2", "title": "ATK 2 Workflow"},
+    "dg-packing-workflow-atk3": {"keyword": "atk3", "title": "ATK 3 Workflow"},
+    "dg-packing-workflow-cmc-prepack": {"keyword": "cmc", "title": "CmcPrepack Workflow"},
+    "dg-packing-workflow-errorhandling": {"keyword": "errorhandling", "title": "Errorhandling Workflow"},
+    "dg-packing-workflow-etk": {"keyword": "etk", "title": "ETK Workflow"},
+    "dg-packing-workflow-flexpack": {"keyword": "flexpack", "title": "FlexPack Workflow"},
+    "dg-packing-workflow-outboundsorting-nio": {"keyword": "nio", "title": "Outbound Sorting Nio workflow"},
+    "dg-packing-workflow-pickpack": {"keyword": "pickpack", "title": "PickPack Workflow"},
+    "dg-packing-workflow-problemhandling": {"keyword": "problem", "title": "Problemhandling Workflow"},
+    "dg-packing-workflow-spo-no-repack": {"keyword": "spo", "title": "Spo No Repack Workflow"},
+    "dg-packing-workflow-unipack": {"keyword": "unipack", "title": "UniPack Workflow"},
+    "dg-packing-workflow-vas": {"keyword": "vas", "title": "Vas Packing Workflow"},
+    "dg-packing-workflow-xmp": {"keyword": "xmp", "title": "XMP Workflow"}
+  },
+  "extra_workflows": [
+    {
+      "keyword": "flow",
+      "title": "Flow Pos 3",
+      "appname": "dg-packing-workflows",
+      "hosts": {
+        "ch": {
+          "dev": "dg-packing-workflows-ch.core.dev.int.devinite.com",
+          "test": "dg-packing-workflows-ch.core.test.int.devinite.com",
+          "prod": "dg-packing-workflows-ch.core.prod.int.devinite.com"
+        }
+      },
+      "path": "/manual-packing/flow",
+      "datadog_query": "@service:dg.packing.workflows*"
+    }
+  ],
+  "tdfs": {
+    "Dg.Packing.TestDataFactory.AtkTestDataFactory": {"keyword": "atk"},
+    "Dg.Packing.TestDataFactory.EtkTestDataFactory": {"keyword": "etk"},
+    "Dg.Packing.TestDataFactory.ManualStorageArea.ManualStorageAreaPackingAvailableTestDataFactory": {"keyword": "msa"},
+    "Dg.Packing.TestDataFactory.PackingAvailableTestDataFactory": {"keyword": "aprod"},
+    "Dg.Packing.TestDataFactory.PackingUserSelectionTestDataFactory": {"keyword": "usel"},
+    "Dg.Packing.TestDataFactory.ParcelSortingUserSelectionTestDataFactory": {"keyword": "nio"},
+    "Dg.Packing.TestDataFactory.VasPackingUserSelectionTestDataFactory": {"keyword": "vas"}
+  }
+}

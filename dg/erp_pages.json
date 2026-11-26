@@ -1,0 +1,17 @@
+[
+  {"keyword": "feat", "title": "Feature Flags (Team Phoenix)", "path": "FeatureFlag/Filter?DepartmentId=285"},
+  {"keyword": "parcel", "title": "Parcel", "path": "Parcel"},
+  {"keyword": "pu", "title": "Packing Unit", "path": "PackingUnit"},
+  {"keyword": "package", "title": "Package", "path": "ui/Packing/Package", "id_path": "ui/Packing/Package/{id}"},
+  {"keyword": "log", "title": "Packing Workflow Log", "path": "ui/Packing/PackingWorkflowLog", "id_path": null},
+  {"keyword": "po", "title": "Packing Order", "path": "ui/Packing/PackingOrder", "id_path": "ui/Packing/PackingOrder/{id}"},
+  {"keyword": "monitoring", "title": "Packing Monitoring", "path": "ui/Packing/PackingMonitoring", "id_path": null},
+  {"keyword": "carton", "title": "Carton", "path": "ui/Packing/Carton", "id_path": null},
+  {"keyword": "deadline", "title": "Order Deadline", "path": "ui/Packing/OrderDeadline", "id_path": null},
+  {"keyword": "mail", "title": "Mail Availability Explained", "path": "ui/Packing/MailAvailabilityExplained", "id_path": null},
+  {"keyword": "commitment", "title": "Last Mile Commitment Time", "path": "ui/Packing/LastMileCommitmentTime", "id_path": null},
+  {"keyword": "etkstations", "title": "ETK Working Stations", "path": "ui/Packing/EtkWorkingStations", "id_path": null},
+  {"keyword": "belt", "title": "ATK Belt Divider", "path": "ui/Packing/AtkBeltDivider", "id_path": null},
+  {"keyword": "lock", "title": "Packing Source Container Lock", "path": "ui/Packing/PackingSourceContainerLock", "id_path": null},
+  {"keyword": "xmpcarrier", "title": "XMP Load Carrier", "path": "ui/Packing/XmpLoadCarrier", "id_path": "ui/Packing/XmpLoadCarrier/{id}"}
+]

@@ -1,0 +1,4216 @@
+{
+  "sources": [
+    {
+      "repo": "devinite",
+      "ref": "origin/master",
+      "commit": "b19dae6d838b43042a2deb47212a7717285c17ab"
+    },
+    {
+      "repo": "Dg.Packing",
+      "ref": "origin/master",
+      "commit": "5aa4593657e8ec63a7ad2351c0fb0ec8c6da67dd"
+    }
+  ],
+  "controllers": [
+    {
+      "name": "AccessoryRule",
+      "path": "AccessoryRule",
+      "module": "ProductData"
+    },
+    {
+      "name": "Account",
+      "path": "Account",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountGroup",
+      "path": "AccountGroup",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountSystem",
+      "path": "AccountSystem",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingAdviceStatement",
+      "path": "AccountingAdviceStatement",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "AccountingPurposeName",
+      "path": "AccountingPurposeName",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingPurposeNameAccount",
+      "path": "AccountingPurposeNameAccount",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingPurposeNameAccount2AccountingPurposeName",
+      "path": "AccountingPurposeNameAccount2AccountingPurposeName",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingPurposeNameSelection",
+      "path": "AccountingPurposeNameSelection",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingPurposeNameSelectionEntry",
+      "path": "AccountingPurposeNameSelectionEntry",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "AccountingSalesOrder",
+      "path": "AccountingSalesOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "AddGtin",
+      "path": "AddGtin",
+      "module": "ProductData"
+    },
+    {
+      "name": "AddItemsToDirectDelivery",
+      "path": "AddItemsToDirectDelivery",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "AddItemsToWarehouseOrder",
+      "path": "AddItemsToWarehouseOrder",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "AddOverDeliveryItemsToDirectDelivery",
+      "path": "AddOverDeliveryItemsToDirectDelivery",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "AddPropertyDefinitionOptions",
+      "path": "AddPropertyDefinitionOptions",
+      "module": "ProductData"
+    },
+    {
+      "name": "Address",
+      "path": "Address",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "AdventCalendar",
+      "path": "AdventCalendar",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AdventCalendar2Advertisement",
+      "path": "AdventCalendar2Advertisement",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "Advertisement",
+      "path": "Advertisement",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AdvertisementContent",
+      "path": "AdvertisementContent",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AdvertisementContentOnAbsolutePrice",
+      "path": "AdvertisementContentOnAbsolutePrice",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AdvertisementInfoMessagesForProduct",
+      "path": "AdvertisementInfoMessagesForProduct",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AdvertisementSearch",
+      "path": "AdvertisementSearch",
+      "module": "MarketingReporting"
+    },
+    {
+      "name": "AdvertisementSearchV2",
+      "path": "AdvertisementSearchV2",
+      "module": "MarketingReporting"
+    },
+    {
+      "name": "AdvertisingCampaign",
+      "path": "AdvertisingCampaign",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "AffiliateProgramPrice",
+      "path": "AffiliateProgramPrice",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "AfterSalesCustomerAgreement",
+      "path": "AfterSalesCustomerAgreement",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "AfterSalesCustomerAgreementHint",
+      "path": "AfterSalesCustomerAgreementHint",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "AfterSalesLogisticsIpsRouting",
+      "path": "AfterSalesLogisticsIpsRouting",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "AfterSalesOrderProduct",
+      "path": "AfterSalesOrderProduct",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "AfterSalesPartnerAgreement",
+      "path": "AfterSalesPartnerAgreement",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "AfterSalesProductServices",
+      "path": "AfterSalesProductServices",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "AnnotationLog",
+      "path": "AnnotationLog",
+      "module": "CustomerService"
+    },
+    {
+      "name": "ApplicationState",
+      "path": "ApplicationState",
+      "module": "Recruiting"
+    },
+    {
+      "name": "ArticleMovementSaga",
+      "path": "ArticleMovementSaga",
+      "module": "ArticleMovement"
+    },
+    {
+      "name": "ArticleReservation",
+      "path": "ArticleReservation",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "ArticleService",
+      "path": "ArticleService",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "AssortmentControlling",
+      "path": "AssortmentControlling",
+      "module": "ProductData"
+    },
+    {
+      "name": "AtkBeltDivider",
+      "path": "ui/Packing/AtkBeltDivider",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "AvailabilityCorrection",
+      "path": "AvailabilityCorrection",
+      "module": "Warehousing"
+    },
+    {
+      "name": "BankAccount",
+      "path": "BankAccount",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "BankAccountAccount",
+      "path": "BankAccountAccount",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "BankAccountTransfer",
+      "path": "BankAccountTransfer",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "BankPayment",
+      "path": "BankPayment",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "BankPaymentManager",
+      "path": "BankPaymentManager",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "BankPaymentProposal",
+      "path": "BankPaymentProposal",
+      "module": "BankTransactionProcessing"
+    },
+    {
+      "name": "BankPaymentRefund",
+      "path": "BankPaymentRefund",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "BankruptSupplier",
+      "path": "BankruptSupplier",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "Barcode",
+      "path": "Barcode",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "BarcodeInput",
+      "path": "BarcodeInput",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "BindingTest",
+      "path": "BindingTest",
+      "module": "Applications"
+    },
+    {
+      "name": "BlockedBankPayments",
+      "path": "BlockedBankPayments",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "BookInBatch",
+      "path": "BookInBatch",
+      "module": "BookIn"
+    },
+    {
+      "name": "BookInErrorCase",
+      "path": "BookInErrorCase",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "BookInErrorCaseRouting",
+      "path": "BookInErrorCaseRouting",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "BookInOrder",
+      "path": "BookInOrder",
+      "module": "Warehousing"
+    },
+    {
+      "name": "BookInOrderPosition",
+      "path": "BookInOrderPosition",
+      "module": "Warehousing"
+    },
+    {
+      "name": "BookInPositions",
+      "path": "BookInPositions",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "BookInToWms",
+      "path": "BookInToWms",
+      "module": "Warehousing"
+    },
+    {
+      "name": "BookInToWmsCancel",
+      "path": "BookInToWmsCancel",
+      "module": "Warehousing"
+    },
+    {
+      "name": "BookToHandlingUnit",
+      "path": "BookToHandlingUnit",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "BookToLogisticsContainer",
+      "path": "BookToLogisticsContainer",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "Booking",
+      "path": "Booking",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "BookingOutline",
+      "path": "BookingOutline",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "Brand",
+      "path": "Brand",
+      "module": "ProductData"
+    },
+    {
+      "name": "BrandImage",
+      "path": "BrandImage",
+      "module": "ProductData"
+    },
+    {
+      "name": "BrandMapping",
+      "path": "BrandMapping",
+      "module": "ProductData"
+    },
+    {
+      "name": "BrandMappingEvaluation",
+      "path": "BrandMappingEvaluation",
+      "module": "ProductData"
+    },
+    {
+      "name": "BrandOfficialPartner",
+      "path": "BrandOfficialPartner",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "BrowserSession",
+      "path": "BrowserSession",
+      "module": "ShopFramework"
+    },
+    {
+      "name": "CalendarPublicHoliday",
+      "path": "CalendarPublicHoliday",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "CancelOrder",
+      "path": "CancelOrder",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "CancelOrderPosition",
+      "path": "CancelOrderPosition",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "CancelOrderPositionCommand",
+      "path": "CancelOrderPositionCommand",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "CancelRequestExportEdiDataContent",
+      "path": "CancelRequestExportEdiDataContent",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "CancelRequestResponseToggleCorrectable",
+      "path": "CancelRequestResponseToggleCorrectable",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "Carton",
+      "path": "ui/Packing/Carton",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "CashBox",
+      "path": "CashBox",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashBoxDifference",
+      "path": "CashBoxDifference",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashBoxDifferenceClearing",
+      "path": "CashBoxDifferenceClearing",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashBoxFilling",
+      "path": "CashBoxFilling",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashBoxMoneyTransport",
+      "path": "CashBoxMoneyTransport",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashBoxTransaction",
+      "path": "CashBoxTransaction",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashDesk",
+      "path": "CashDesk",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashPayment",
+      "path": "CashPayment",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashUnitization",
+      "path": "CashUnitization",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CashUnitizationUnit",
+      "path": "CashUnitizationUnit",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CategoryManagementTeam",
+      "path": "CategoryManagementTeam",
+      "module": "ProductData"
+    },
+    {
+      "name": "CategoryManagementTeamBudgetingGroup",
+      "path": "CategoryManagementTeamBudgetingGroup",
+      "module": "ProductData"
+    },
+    {
+      "name": "ChangeCurrency",
+      "path": "ChangeCurrency",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ChangeOrderData",
+      "path": "ChangeOrderData",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "ChangeOrderDelivery",
+      "path": "ChangeOrderDelivery",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "ChangeOrderPayment",
+      "path": "ChangeOrderPayment",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "ChangePaymentOptionAdmin",
+      "path": "ChangePaymentOptionAdmin",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "ChangeRecipientWarehouse",
+      "path": "ChangeRecipientWarehouse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ChangeWorkingSite",
+      "path": "ChangeWorkingSite",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "Checkout",
+      "path": "Checkout",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "CheckoutContent",
+      "path": "CheckoutContent",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "CheckoutProcess",
+      "path": "CheckoutProcess",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "CheckoutStatus",
+      "path": "CheckoutStatus",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "ClientInteraction",
+      "path": "ClientInteraction",
+      "module": "Framework"
+    },
+    {
+      "name": "CmiUser",
+      "path": "CmiUser",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "CodeOwnership",
+      "path": "CodeOwnership",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "Comment",
+      "path": "Comment",
+      "module": "Framework"
+    },
+    {
+      "name": "CommunitySpam",
+      "path": "CommunitySpam",
+      "module": "Community"
+    },
+    {
+      "name": "Company",
+      "path": "Company",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "Company2WikiTopic",
+      "path": "Company2WikiTopic",
+      "module": "CompanyProfile"
+    },
+    {
+      "name": "CompanyAccountingPurposeName",
+      "path": "CompanyAccountingPurposeName",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "CompanyContract",
+      "path": "CompanyContract",
+      "module": "Payables"
+    },
+    {
+      "name": "CompanyContractFile",
+      "path": "CompanyContractFile",
+      "module": "Payables"
+    },
+    {
+      "name": "CompanyCurrency",
+      "path": "CompanyCurrency",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CompanyData",
+      "path": "CompanyData",
+      "module": "CompanyProfile"
+    },
+    {
+      "name": "CompanyDueDiligenceData",
+      "path": "CompanyDueDiligenceData",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "CompanyEmail",
+      "path": "CompanyEmail",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CompanyInvoiceRequest",
+      "path": "CompanyInvoiceRequest",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CompanyKeyword",
+      "path": "CompanyKeyword",
+      "module": "CompanyProfile"
+    },
+    {
+      "name": "CompanyLegalForm",
+      "path": "CompanyLegalForm",
+      "module": "CompanyProfile"
+    },
+    {
+      "name": "CompanyPhoneNumber",
+      "path": "CompanyPhoneNumber",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CompanyRoleRelation",
+      "path": "CompanyRoleRelation",
+      "module": "CompanyProfile"
+    },
+    {
+      "name": "CompanySearch",
+      "path": "CompanySearch",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CompanySolvencyCheck",
+      "path": "CompanySolvencyCheck",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "Competition",
+      "path": "Competition",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "CompetitionAnswer",
+      "path": "CompetitionAnswer",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "Compliance",
+      "path": "Compliance",
+      "module": "ProductData"
+    },
+    {
+      "name": "ComplianceTinder",
+      "path": "ComplianceTinder",
+      "module": "ProductData"
+    },
+    {
+      "name": "ComponentCreditNoteRequest",
+      "path": "ComponentCreditNoteRequest",
+      "module": "Payables"
+    },
+    {
+      "name": "ConextradeEdiData",
+      "path": "ConextradeEdiData",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "ConfirmOrder",
+      "path": "ConfirmOrder",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ConfirmPickupDelivery",
+      "path": "ConfirmPickupDelivery",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ContainerBatchDeliveryNote",
+      "path": "ContainerBatchDeliveryNote",
+      "module": "LastMile"
+    },
+    {
+      "name": "ContributorConfiguration",
+      "path": "ContributorConfiguration",
+      "module": "ProductData"
+    },
+    {
+      "name": "Cookie",
+      "path": "Cookie",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "Country",
+      "path": "Country",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "CreateCreditNote",
+      "path": "CreateCreditNote",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "CreditInsurance",
+      "path": "CreditInsurance",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "CreditInsuranceCase",
+      "path": "CreditInsuranceCase",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "CreditInsuranceRequest",
+      "path": "CreditInsuranceRequest",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "CreditNote",
+      "path": "CreditNote",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "CreditNoteManager",
+      "path": "CreditNoteManager",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "CreditNoteRequest",
+      "path": "CreditNoteRequest",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CreditNoteRequestFromOrder",
+      "path": "CreditNoteRequestFromOrder",
+      "module": "Payables"
+    },
+    {
+      "name": "CreditNoteRequestManager",
+      "path": "CreditNoteRequestManager",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "Customer",
+      "path": "Customer",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "Customer2Address",
+      "path": "Customer2Address",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "Customer2OrderTemplate",
+      "path": "Customer2OrderTemplate",
+      "module": "Payables"
+    },
+    {
+      "name": "CustomerAccountReplacement",
+      "path": "CustomerAccountReplacement",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "CustomerAnnotation",
+      "path": "CustomerAnnotation",
+      "module": "CustomerService"
+    },
+    {
+      "name": "CustomerAuditLog",
+      "path": "CustomerAuditLog",
+      "module": "Identity"
+    },
+    {
+      "name": "CustomerBankAccount",
+      "path": "CustomerBankAccount",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "CustomerEDIData",
+      "path": "CustomerEDIData",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CustomerEDIInterface",
+      "path": "CustomerEDIInterface",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CustomerEDIInterfaceBlacklistedEDIDataType",
+      "path": "CustomerEDIInterfaceBlacklistedEDIDataType",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CustomerFile",
+      "path": "CustomerFile",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CustomerGroup",
+      "path": "CustomerGroup",
+      "module": "SalesOffer"
+    },
+    {
+      "name": "CustomerGuidanceSystemSalesAssistantTool",
+      "path": "CustomerGuidanceSystemSalesAssistantTool",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CustomerGuidanceSystemStoreManagerCockpit",
+      "path": "CustomerGuidanceSystemStoreManagerCockpit",
+      "module": "RetailStore"
+    },
+    {
+      "name": "CustomerInvoiceSearch",
+      "path": "CustomerInvoiceSearch",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "CustomerMerging",
+      "path": "CustomerMerging",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "CustomerPaymentServicesOrderDocument",
+      "path": "CustomerPaymentServicesOrderDocument",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "CustomerPaymentServicesSupport",
+      "path": "CustomerPaymentServicesSupport",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "CustomerPaymentSettings",
+      "path": "CustomerPaymentSettings",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "CustomerPersonSearch",
+      "path": "CustomerPersonSearch",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "CustomerProductConcern",
+      "path": "CustomerProductConcern",
+      "module": "ProductData"
+    },
+    {
+      "name": "CustomerProductDataSuggestions",
+      "path": "CustomerProductDataSuggestions",
+      "module": "ProductData"
+    },
+    {
+      "name": "CustomerProductRangeLimitation",
+      "path": "CustomerProductRangeLimitation",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "CustomerResponsibility",
+      "path": "CustomerResponsibility",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "CustomerReturnRegistration",
+      "path": "CustomerReturnRegistration",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "CustomerReturnRegistrationExportEdiDataContent",
+      "path": "CustomerReturnRegistrationExportEdiDataContent",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "CustomerReturnRegistrationItemProduct",
+      "path": "CustomerReturnRegistrationItemProduct",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "CustomerReturnRegistrationItemProductStateChange",
+      "path": "CustomerReturnRegistrationItemProductStateChange",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "CustomerSignal",
+      "path": "CustomerSignal",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "CustomerTracing",
+      "path": "CustomerTracing",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "Customer_CustomerGroup",
+      "path": "Customer_CustomerGroup",
+      "module": "SalesOffer"
+    },
+    {
+      "name": "CustomsCheck",
+      "path": "CustomsCheck",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsClassificationData",
+      "path": "CustomsClassificationData",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsClassificationDevTools",
+      "path": "CustomsClassificationDevTools",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsShipmentDeclaration",
+      "path": "CustomsShipmentDeclaration",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsTaresMeasures",
+      "path": "CustomsTaresMeasures",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsTaricMeasures",
+      "path": "CustomsTaricMeasures",
+      "module": "Customs"
+    },
+    {
+      "name": "CustomsTransportUnit",
+      "path": "CustomsTransportUnit",
+      "module": "Customs"
+    },
+    {
+      "name": "DbContent",
+      "path": "DbContent",
+      "module": "Translation"
+    },
+    {
+      "name": "DebtCollectionCase",
+      "path": "DebtCollectionCase",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "DebtCollectionNotification",
+      "path": "DebtCollectionNotification",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "DefectiveItemProductStaticRma",
+      "path": "DefectiveItemProductStaticRma",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "DeleteCancelRequest",
+      "path": "DeleteCancelRequest",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "DeleteUnpaidPurchaseOrders",
+      "path": "DeleteUnpaidPurchaseOrders",
+      "module": "Payables"
+    },
+    {
+      "name": "Delivery",
+      "path": "Delivery",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "DeliveryNoteDistributeToBlob",
+      "path": "DeliveryNoteDistributeToBlob",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "DeliveryNotePosition",
+      "path": "DeliveryNotePosition",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "DeliveryNotePositionError",
+      "path": "DeliveryNotePositionError",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "DeliveryNoteToggleCorrectable",
+      "path": "DeliveryNoteToggleCorrectable",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "DeliveryStateRecalculation",
+      "path": "DeliveryStateRecalculation",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "Department",
+      "path": "Department",
+      "module": "HumanResources"
+    },
+    {
+      "name": "DepartmentViewComposition",
+      "path": "DepartmentViewComposition",
+      "module": "HumanResources"
+    },
+    {
+      "name": "DeviceLogin",
+      "path": "DeviceLogin",
+      "module": "Framework"
+    },
+    {
+      "name": "DirectDelivery",
+      "path": "DirectDelivery",
+      "module": "Purchasing"
+    },
+    {
+      "name": "DirectDeliveryForAlreadyCoveredBacklog",
+      "path": "DirectDeliveryForAlreadyCoveredBacklog",
+      "module": "Purchasing"
+    },
+    {
+      "name": "DisposalTour",
+      "path": "DisposalTour",
+      "module": "Warehousing"
+    },
+    {
+      "name": "DistributeToBlob",
+      "path": "DistributeToBlob",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "DivorceCustomer",
+      "path": "DivorceCustomer",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "Dunning",
+      "path": "Dunning",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "DunningBlock",
+      "path": "DunningBlock",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "DunningSetting",
+      "path": "DunningSetting",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "DunningSettingTypeMandator",
+      "path": "DunningSettingTypeMandator",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "EDIText",
+      "path": "EDIText",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "EDITextProcessingResult",
+      "path": "EDITextProcessingResult",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "EDITextSignatureValidation",
+      "path": "EDITextSignatureValidation",
+      "module": "Payables"
+    },
+    {
+      "name": "EdiDataContent",
+      "path": "EdiDataContent",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiDeliveryNote",
+      "path": "EdiDeliveryNote",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiDeliveryNoteManualIntervention",
+      "path": "EdiDeliveryNoteManualIntervention",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiDeliveryNoteReprocess",
+      "path": "EdiDeliveryNoteReprocess",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiDeliveryNoteReprocessWithInput",
+      "path": "EdiDeliveryNoteReprocessWithInput",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiInvoice",
+      "path": "EdiInvoice",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "EdiProviderCancelNotification",
+      "path": "EdiProviderCancelNotification",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "Employee",
+      "path": "Employee",
+      "module": "HumanResources"
+    },
+    {
+      "name": "Employee2CustomerGuidanceSystemSkill",
+      "path": "Employee2CustomerGuidanceSystemSkill",
+      "module": "RetailStore"
+    },
+    {
+      "name": "EmployeeHistory",
+      "path": "EmployeeHistory",
+      "module": "HumanResources"
+    },
+    {
+      "name": "EmployeePhoneNumber",
+      "path": "EmployeePhoneNumber",
+      "module": "HumanResources"
+    },
+    {
+      "name": "EmployeeSalesOrder",
+      "path": "EmployeeSalesOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "EmptyProductType",
+      "path": "EmptyProductType",
+      "module": "ProductData"
+    },
+    {
+      "name": "ErpAddressTextEnrichment",
+      "path": "ErpAddressTextEnrichment",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "ErpCancelRequestList",
+      "path": "ErpCancelRequestList",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpCancelRequestResponse",
+      "path": "ErpCancelRequestResponse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpCrud",
+      "path": "ErpCrud",
+      "module": "Framework"
+    },
+    {
+      "name": "ErpCustomerLinkEnrichment",
+      "path": "ErpCustomerLinkEnrichment",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "ErpDirectDeliveryManualDispatchNotification",
+      "path": "ErpDirectDeliveryManualDispatchNotification",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpDirectDeliveryManualDispatchNotificationCreation",
+      "path": "ErpDirectDeliveryManualDispatchNotificationCreation",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpDispatchNotificationView",
+      "path": "ErpDispatchNotificationView",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpIdp",
+      "path": "ErpIdp",
+      "module": "Framework"
+    },
+    {
+      "name": "ErpManualDispatchNotificationIntent",
+      "path": "ErpManualDispatchNotificationIntent",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ErpMenu",
+      "path": "ErpMenu",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "ErpMenuMandatorUser",
+      "path": "ErpMenuMandatorUser",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "ErpModuleFrontend",
+      "path": "ErpModuleFrontend",
+      "module": "Framework"
+    },
+    {
+      "name": "ErpPersonLinkEnrichment",
+      "path": "ErpPersonLinkEnrichment",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "ErpToPartnerPortalLogin",
+      "path": "ErpToPartnerPortalLogin",
+      "module": "Framework"
+    },
+    {
+      "name": "ErpViewComposition",
+      "path": "ErpViewComposition",
+      "module": "ProductData"
+    },
+    {
+      "name": "ErpWorkflow",
+      "path": "ErpWorkflow",
+      "module": "Framework"
+    },
+    {
+      "name": "ErpWorkflowAsync",
+      "path": "ErpWorkflowAsync",
+      "module": "Framework"
+    },
+    {
+      "name": "ErrorCase",
+      "path": "ErrorCase",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "EtkWorkingStations",
+      "path": "ui/Packing/EtkWorkingStations",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "EuHubCustomerType",
+      "path": "EuHubCustomerType",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubCustomsDeclaration",
+      "path": "EuHubCustomsDeclaration",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubFeeReport",
+      "path": "EuHubFeeReport",
+      "module": "MarketplaceFinance"
+    },
+    {
+      "name": "EuHubMerchantConfiguration",
+      "path": "EuHubMerchantConfiguration",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubReturnParcel",
+      "path": "EuHubReturnParcel",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "EuHubShipmentDetails",
+      "path": "EuHubShipmentDetails",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionItemInMultipleShipments",
+      "path": "EuHubShipmentInterventionItemInMultipleShipments",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionLostParcelReplacement",
+      "path": "EuHubShipmentInterventionLostParcelReplacement",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionMoreParcelsThanAnnounced",
+      "path": "EuHubShipmentInterventionMoreParcelsThanAnnounced",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionSparePartReplacement",
+      "path": "EuHubShipmentInterventionSparePartReplacement",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionTrackingNumberUpdate",
+      "path": "EuHubShipmentInterventionTrackingNumberUpdate",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipmentInterventionWarrantyShipment",
+      "path": "EuHubShipmentInterventionWarrantyShipment",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubShipments",
+      "path": "EuHubShipments",
+      "module": "Customs"
+    },
+    {
+      "name": "EuHubSupplierConfiguration",
+      "path": "EuHubSupplierConfiguration",
+      "module": "Customs"
+    },
+    {
+      "name": "EvictedOrder",
+      "path": "EvictedOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "ExcelOrderingList",
+      "path": "ExcelOrderingList",
+      "module": "Purchasing"
+    },
+    {
+      "name": "Exception",
+      "path": "Exception",
+      "module": "Applications"
+    },
+    {
+      "name": "ExitZoneConfiguration",
+      "path": "ExitZoneConfiguration",
+      "module": "Warehousing"
+    },
+    {
+      "name": "FancyCreditNote",
+      "path": "FancyCreditNote",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "FeatureFlag",
+      "path": "FeatureFlag",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "FeatureFlagImport",
+      "path": "FeatureFlagImport",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "FindItemProductStatic",
+      "path": "FindItemProductStatic",
+      "module": "Warehousing"
+    },
+    {
+      "name": "FindItemsEdiInvoice",
+      "path": "FindItemsEdiInvoice",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ForexTrade",
+      "path": "ForexTrade",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "FraudReport",
+      "path": "FraudReport",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "FreightChargesModel",
+      "path": "FreightChargesModel",
+      "module": "Purchasing"
+    },
+    {
+      "name": "FreightChargesModelCountry",
+      "path": "FreightChargesModelCountry",
+      "module": "Purchasing"
+    },
+    {
+      "name": "FreightChargesWeightRange",
+      "path": "FreightChargesWeightRange",
+      "module": "Purchasing"
+    },
+    {
+      "name": "GiftCoupon",
+      "path": "GiftCoupon",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "GoogleLibPhoneNumber",
+      "path": "GoogleLibPhoneNumber",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "GoogleProductCategory",
+      "path": "GoogleProductCategory",
+      "module": "PaidTrafficOptimization"
+    },
+    {
+      "name": "HandlingUnit",
+      "path": "HandlingUnit",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "HolyGrail",
+      "path": "HolyGrail",
+      "module": "ProductData"
+    },
+    {
+      "name": "ImpExportTradeInvoiceExcel",
+      "path": "ImpExportTradeInvoiceExcel",
+      "module": "Customs"
+    },
+    {
+      "name": "ImportHubAddress",
+      "path": "ImportHubAddress",
+      "module": "Customs"
+    },
+    {
+      "name": "ImportedCustomerReturnRegistrationResponse",
+      "path": "ImportedCustomerReturnRegistrationResponse",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ImportedInvoice",
+      "path": "ImportedInvoice",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ImportedInvoiceMatchingResult",
+      "path": "ImportedInvoiceMatchingResult",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ImportedOrderResponse",
+      "path": "ImportedOrderResponse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ImportedSupplierReturnNotification",
+      "path": "ImportedSupplierReturnNotification",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "Incentive",
+      "path": "Incentive",
+      "module": "ShopSpecialDeals"
+    },
+    {
+      "name": "IncomingParcel",
+      "path": "IncomingParcel",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "IntraStatClassification",
+      "path": "IntraStatClassification",
+      "module": "Customs"
+    },
+    {
+      "name": "InventoryUploader",
+      "path": "InventoryUploader",
+      "module": "Warehousing"
+    },
+    {
+      "name": "InvoiceAddressWhitelistConfiguration",
+      "path": "InvoiceAddressWhitelistConfiguration",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "InvoiceBlock",
+      "path": "InvoiceBlock",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "InvoiceBooking",
+      "path": "InvoiceBooking",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "InvoiceComment",
+      "path": "InvoiceComment",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "InvoiceFile",
+      "path": "InvoiceFile",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "InvoicePositions",
+      "path": "InvoicePositions",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "InvoicePriceDifference",
+      "path": "InvoicePriceDifference",
+      "module": "Payables"
+    },
+    {
+      "name": "InvoiceReceivables",
+      "path": "InvoiceReceivables",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "InvoiceRematch",
+      "path": "InvoiceRematch",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "InvoiceReparse",
+      "path": "InvoiceReparse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "InvoiceSearch",
+      "path": "InvoiceSearch",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "InvoiceSending",
+      "path": "InvoiceSending",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "InvoiceShared",
+      "path": "InvoiceShared",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "InvoiceTermsOfSale",
+      "path": "InvoiceTermsOfSale",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "InvoiceToggleCorrectable",
+      "path": "InvoiceToggleCorrectable",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "Invoicing",
+      "path": "Invoicing",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "Item",
+      "path": "Item",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "ItemPrice",
+      "path": "ItemPrice",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "ItemProductAvailability",
+      "path": "ItemProductAvailability",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ItemProductStatic",
+      "path": "ItemProductStatic",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "ItemProductStaticAvailabilityCorrection",
+      "path": "ItemProductStaticAvailabilityCorrection",
+      "module": "Warehousing"
+    },
+    {
+      "name": "ItemProductStaticDisposal",
+      "path": "ItemProductStaticDisposal",
+      "module": "Warehousing"
+    },
+    {
+      "name": "ItemProductStaticRefurbished",
+      "path": "ItemProductStaticRefurbished",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "ItemProductStaticRma2File",
+      "path": "ItemProductStaticRma2File",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ItemProductStaticRma2RmaServiceCenterPickupGroup",
+      "path": "ItemProductStaticRma2RmaServiceCenterPickupGroup",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ItemProductStaticRmaLogMetricLoggerAndRedirect",
+      "path": "ItemProductStaticRmaLogMetricLoggerAndRedirect",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "ItemProductStaticRmaRegistrationList",
+      "path": "ItemProductStaticRmaRegistrationList",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ItemRmaAccessory",
+      "path": "ItemRmaAccessory",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "JobApplication",
+      "path": "JobApplication",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobApplicationBlob",
+      "path": "JobApplicationBlob",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobApplicationComment",
+      "path": "JobApplicationComment",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobApplicationDashboard",
+      "path": "JobApplicationDashboard",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobApplicationManagement",
+      "path": "JobApplicationManagement",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobOffer",
+      "path": "JobOffer",
+      "module": "Recruiting"
+    },
+    {
+      "name": "JobTitleViewComposition",
+      "path": "JobTitleViewComposition",
+      "module": "HumanResources"
+    },
+    {
+      "name": "JobType",
+      "path": "JobType",
+      "module": "Recruiting"
+    },
+    {
+      "name": "LabelContainer",
+      "path": "LabelContainer",
+      "module": "LastMile"
+    },
+    {
+      "name": "LabeledContainerBatches",
+      "path": "LabeledContainerBatches",
+      "module": "LastMile"
+    },
+    {
+      "name": "LanguageSelection",
+      "path": "LanguageSelection",
+      "module": "Framework"
+    },
+    {
+      "name": "LastMileCommitmentTime",
+      "path": "ui/Packing/LastMileCommitmentTime",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "LegacyCreditNote",
+      "path": "LegacyCreditNote",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "LegalRepresentativeIdentification",
+      "path": "LegalRepresentativeIdentification",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "LimitedOrderBlock",
+      "path": "LimitedOrderBlock",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "LiveShopping",
+      "path": "LiveShopping",
+      "module": "ShopSpecialDeals"
+    },
+    {
+      "name": "LiveShopping2AdvertisementContent",
+      "path": "LiveShopping2AdvertisementContent",
+      "module": "ShopSpecialDeals"
+    },
+    {
+      "name": "LiveShoppingProduct",
+      "path": "LiveShoppingProduct",
+      "module": "ShopSpecialDeals"
+    },
+    {
+      "name": "LogiPulse",
+      "path": "LogiPulse",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "LogisticsContainer",
+      "path": "LogisticsContainer",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "LogisticsHandoverZone",
+      "path": "LogisticsHandoverZone",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "LogisticsIdea",
+      "path": "LogisticsIdea",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsIpsRouting",
+      "path": "LogisticsIpsRouting",
+      "module": "StoringPreparation"
+    },
+    {
+      "name": "LogisticsLegacyProduct",
+      "path": "LogisticsLegacyProduct",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "LogisticsLinks",
+      "path": "LogisticsLinks",
+      "module": "BookIn"
+    },
+    {
+      "name": "LogisticsOrder",
+      "path": "LogisticsOrder",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsOrderPosition",
+      "path": "LogisticsOrderPosition",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsOrderToWms",
+      "path": "LogisticsOrderToWms",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsProduct",
+      "path": "LogisticsProduct",
+      "module": "BookIn"
+    },
+    {
+      "name": "LogisticsProvider",
+      "path": "LogisticsProvider",
+      "module": "LastMile"
+    },
+    {
+      "name": "LogisticsSkill",
+      "path": "LogisticsSkill",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsSystemConfiguration",
+      "path": "LogisticsSystemConfiguration",
+      "module": "Warehousing"
+    },
+    {
+      "name": "LogisticsTicket",
+      "path": "LogisticsTicket",
+      "module": "Warehousing"
+    },
+    {
+      "name": "Logout",
+      "path": "Logout",
+      "module": "Framework"
+    },
+    {
+      "name": "MailAvailabilityExplained",
+      "path": "ui/Packing/MailAvailabilityExplained",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "MailDeliveryOrder",
+      "path": "MailDeliveryOrder",
+      "module": "Packing"
+    },
+    {
+      "name": "Mandator",
+      "path": "Mandator",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "MandatorCountry",
+      "path": "MandatorCountry",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "Mandator_Currency",
+      "path": "Mandator_Currency",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "Mandator_Language",
+      "path": "Mandator_Language",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "ManualAccessories",
+      "path": "ManualAccessories",
+      "module": "ProductData"
+    },
+    {
+      "name": "ManualDirectDelivery",
+      "path": "ManualDirectDelivery",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ManualPackingUnit",
+      "path": "ManualPackingUnit",
+      "module": "Packing"
+    },
+    {
+      "name": "ManualTakeout",
+      "path": "ManualTakeout",
+      "module": "Warehousing"
+    },
+    {
+      "name": "MarketingPage",
+      "path": "MarketingPage",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPageComment",
+      "path": "MarketingPageComment",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPageCommentAnswer",
+      "path": "MarketingPageCommentAnswer",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPageConclusion",
+      "path": "MarketingPageConclusion",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPageContributor",
+      "path": "MarketingPageContributor",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPagePreviewImage",
+      "path": "MarketingPagePreviewImage",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingPageTable",
+      "path": "MarketingPageTable",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketingTeaser",
+      "path": "MarketingTeaser",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "MarketplaceExcelReport",
+      "path": "MarketplaceExcelReport",
+      "module": "MarketplaceFinance"
+    },
+    {
+      "name": "MarketplaceSupplierConfiguration",
+      "path": "MarketplaceSupplierConfiguration",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "MarketplaceSupplierPayout",
+      "path": "MarketplaceSupplierPayout",
+      "module": "MarketplaceFinance"
+    },
+    {
+      "name": "Merchant",
+      "path": "Merchant",
+      "module": "MarketplaceFinance"
+    },
+    {
+      "name": "MerchantTradeInvoice",
+      "path": "MerchantTradeInvoice",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "MergePropertyDefinition",
+      "path": "MergePropertyDefinition",
+      "module": "ProductData"
+    },
+    {
+      "name": "MergePropertyDefinitionOption",
+      "path": "MergePropertyDefinitionOption",
+      "module": "ProductData"
+    },
+    {
+      "name": "MliMessage",
+      "path": "MliMessage",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "MvcControler",
+      "path": "MvcControler",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "OacIdempotencyKeyDeletion",
+      "path": "OacIdempotencyKeyDeletion",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "OciParameterConfiguration",
+      "path": "OciParameterConfiguration",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "OldDigitecOrder",
+      "path": "OldDigitecOrder",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "OldDigitecOrderPosition",
+      "path": "OldDigitecOrderPosition",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "OpenBacklog",
+      "path": "OpenBacklog",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "OpenItems",
+      "path": "OpenItems",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "OpeningHour",
+      "path": "OpeningHour",
+      "module": "RetailStore"
+    },
+    {
+      "name": "OpeningHourEntry",
+      "path": "OpeningHourEntry",
+      "module": "RetailStore"
+    },
+    {
+      "name": "Order2CompanyContract",
+      "path": "Order2CompanyContract",
+      "module": "Payables"
+    },
+    {
+      "name": "Order2OrderBlockingState",
+      "path": "Order2OrderBlockingState",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "OrderAddress",
+      "path": "OrderAddress",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "OrderBooking",
+      "path": "OrderBooking",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "OrderComment",
+      "path": "OrderComment",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "OrderDeadline",
+      "path": "ui/Packing/OrderDeadline",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "OrderEmail",
+      "path": "OrderEmail",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "OrderExportEdiDataContent",
+      "path": "OrderExportEdiDataContent",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "OrderFile",
+      "path": "OrderFile",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "OrderItem",
+      "path": "OrderItem",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "OrderNotification",
+      "path": "OrderNotification",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "OrderPerson",
+      "path": "OrderPerson",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "OrderPositionTemplate",
+      "path": "OrderPositionTemplate",
+      "module": "Payables"
+    },
+    {
+      "name": "OrderSearch",
+      "path": "OrderSearch",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "OrderTemplate",
+      "path": "OrderTemplate",
+      "module": "Payables"
+    },
+    {
+      "name": "OrderVisualization",
+      "path": "OrderVisualization",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "OutboundSortingNio",
+      "path": "OutboundSortingNio",
+      "module": "Packing"
+    },
+    {
+      "name": "OwnUsageOrder",
+      "path": "OwnUsageOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "OwnUsageOrderLabel",
+      "path": "OwnUsageOrderLabel",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "Package",
+      "path": "ui/Packing/Package",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "Packing",
+      "path": "Packing",
+      "module": "Packing"
+    },
+    {
+      "name": "PackingErrorHandling",
+      "path": "PackingErrorHandling",
+      "module": "Packing"
+    },
+    {
+      "name": "PackingMonitoring",
+      "path": "ui/Packing/PackingMonitoring",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "PackingOrder",
+      "path": "ui/Packing/PackingOrder",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "PackingQualityAssuranceWorkflow",
+      "path": "PackingQualityAssuranceWorkflow",
+      "module": "Packing"
+    },
+    {
+      "name": "PackingSourceContainerLock",
+      "path": "ui/Packing/PackingSourceContainerLock",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "PackingUnit",
+      "path": "PackingUnit",
+      "module": "Packing"
+    },
+    {
+      "name": "PackingUnit2ItemProduct",
+      "path": "PackingUnit2ItemProduct",
+      "module": "Packing"
+    },
+    {
+      "name": "PackingWorkflowLog",
+      "path": "ui/Packing/PackingWorkflowLog",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "PageHeaderRedesign",
+      "path": "PageHeaderRedesign",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "PaidButNotDeliveredThreshold",
+      "path": "PaidButNotDeliveredThreshold",
+      "module": "Payables"
+    },
+    {
+      "name": "PaidItem",
+      "path": "PaidItem",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "Pallet",
+      "path": "Pallet",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "Parcel",
+      "path": "Parcel",
+      "module": "Packing"
+    },
+    {
+      "name": "ParcelTriage",
+      "path": "ParcelTriage",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "Partner",
+      "path": "Partner",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "PartnerConstellation",
+      "path": "PartnerConstellation",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "PartnerEmailAddressesExport",
+      "path": "PartnerEmailAddressesExport",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "PartnerIntegration",
+      "path": "PartnerIntegration",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "PartnerPortal",
+      "path": "PartnerPortal",
+      "module": "Framework"
+    },
+    {
+      "name": "PartnerPortalAuditLog",
+      "path": "PartnerPortalAuditLog",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "PartnerPortalUser",
+      "path": "PartnerPortalUser",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "PartnerProductDataQuality",
+      "path": "PartnerProductDataQuality",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "PartnerServiceOrder",
+      "path": "PartnerServiceOrder",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServiceOrderAttachment",
+      "path": "PartnerServiceOrderAttachment",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServiceOrderException",
+      "path": "PartnerServiceOrderException",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServiceOrderItemProduct",
+      "path": "PartnerServiceOrderItemProduct",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServiceOrderItemProduct2PartnerService",
+      "path": "PartnerServiceOrderItemProduct2PartnerService",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServicePrice",
+      "path": "PartnerServicePrice",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServicePriceCondition",
+      "path": "PartnerServicePriceCondition",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PartnerServiceRequirement",
+      "path": "PartnerServiceRequirement",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "PayablesTestingHub",
+      "path": "PayablesTestingHub",
+      "module": "Payables"
+    },
+    {
+      "name": "Payment",
+      "path": "Payment",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "PaymentHistory",
+      "path": "PaymentHistory",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "PaymentOption",
+      "path": "PaymentOption",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "PaymentOptionToBankAccountMapping",
+      "path": "PaymentOptionToBankAccountMapping",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "PaymentSearch",
+      "path": "PaymentSearch",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "Person",
+      "path": "Person",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "PersonAnnotation",
+      "path": "PersonAnnotation",
+      "module": "CustomerService"
+    },
+    {
+      "name": "PersonDepartment",
+      "path": "PersonDepartment",
+      "module": "HumanResources"
+    },
+    {
+      "name": "PersonIdentification",
+      "path": "PersonIdentification",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "PersonLanguage",
+      "path": "PersonLanguage",
+      "module": "HumanResources"
+    },
+    {
+      "name": "PersonPersonalDocument",
+      "path": "PersonPersonalDocument",
+      "module": "CustomerService"
+    },
+    {
+      "name": "PersonSearch",
+      "path": "PersonSearch",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "PersonUnconfirmedEmail",
+      "path": "PersonUnconfirmedEmail",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "PersonWithIdentity",
+      "path": "PersonWithIdentity",
+      "module": "Identity"
+    },
+    {
+      "name": "PickingTour",
+      "path": "PickingTour",
+      "module": "Warehousing"
+    },
+    {
+      "name": "PickupProblem",
+      "path": "PickupProblem",
+      "module": "RetailStore"
+    },
+    {
+      "name": "PlannedInvoicing",
+      "path": "PlannedInvoicing",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "Portal",
+      "path": "Portal",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "Portal2SocialNetworkingService",
+      "path": "Portal2SocialNetworkingService",
+      "module": "Community"
+    },
+    {
+      "name": "PortalAvatar",
+      "path": "PortalAvatar",
+      "module": "Community"
+    },
+    {
+      "name": "PortalAvatarColor",
+      "path": "PortalAvatarColor",
+      "module": "Community"
+    },
+    {
+      "name": "PortalLink",
+      "path": "PortalLink",
+      "module": "ShopFramework"
+    },
+    {
+      "name": "PortalSector",
+      "path": "PortalSector",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "PortalSectorTag",
+      "path": "PortalSectorTag",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "PortfolioExpansion",
+      "path": "PortfolioExpansion",
+      "module": "ProductData"
+    },
+    {
+      "name": "PowerConnectorAppliance",
+      "path": "PowerConnectorAppliance",
+      "module": "BookIn"
+    },
+    {
+      "name": "PowerConnectorWall",
+      "path": "PowerConnectorWall",
+      "module": "BookIn"
+    },
+    {
+      "name": "PricingErrorIntervention",
+      "path": "PricingErrorIntervention",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "Printer",
+      "path": "Printer",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "PrinterMandatorUserProfileErp",
+      "path": "PrinterMandatorUserProfileErp",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "ProLitteris",
+      "path": "ProLitteris",
+      "module": "EditorialContent"
+    },
+    {
+      "name": "ProbasStorageAreaConfiguration",
+      "path": "ProbasStorageAreaConfiguration",
+      "module": "Warehousing"
+    },
+    {
+      "name": "ProcessDebtCollectionPaymentNotifications",
+      "path": "ProcessDebtCollectionPaymentNotifications",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "ProcessedImage",
+      "path": "ProcessedImage",
+      "module": "ProductData"
+    },
+    {
+      "name": "Product",
+      "path": "Product",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductAgeRating",
+      "path": "ProductAgeRating",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductCustomsClassification",
+      "path": "ProductCustomsClassification",
+      "module": "Customs"
+    },
+    {
+      "name": "ProductCustomsClassificationVerification",
+      "path": "ProductCustomsClassificationVerification",
+      "module": "Customs"
+    },
+    {
+      "name": "ProductCustomsInformation",
+      "path": "ProductCustomsInformation",
+      "module": "Customs"
+    },
+    {
+      "name": "ProductDataDevTools",
+      "path": "ProductDataDevTools",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductDataQuality",
+      "path": "ProductDataQuality",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductDataTranslation",
+      "path": "ProductDataTranslation",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductDeliveryOptionInhibit",
+      "path": "ProductDeliveryOptionInhibit",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "ProductDocument",
+      "path": "ProductDocument",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductDuplicate",
+      "path": "ProductDuplicate",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichment",
+      "path": "ProductEnrichment",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentAccessories",
+      "path": "ProductEnrichmentAccessories",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentCompliance",
+      "path": "ProductEnrichmentCompliance",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentImages",
+      "path": "ProductEnrichmentImages",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentMasterData",
+      "path": "ProductEnrichmentMasterData",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentMedia",
+      "path": "ProductEnrichmentMedia",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentModel",
+      "path": "ProductEnrichmentModel",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentProperties",
+      "path": "ProductEnrichmentProperties",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentText",
+      "path": "ProductEnrichmentText",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductEnrichmentTradingUnitGroup",
+      "path": "ProductEnrichmentTradingUnitGroup",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductExhibitionSlot",
+      "path": "ProductExhibitionSlot",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductExhibitionSlotAssignment",
+      "path": "ProductExhibitionSlotAssignment",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductExhibitionSpot",
+      "path": "ProductExhibitionSpot",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductExhibitionSpotAssignment",
+      "path": "ProductExhibitionSpotAssignment",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductFee",
+      "path": "ProductFee",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductFeeBatchUpdate",
+      "path": "ProductFeeBatchUpdate",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductFeePriceModelRange",
+      "path": "ProductFeePriceModelRange",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductFeeTariff2Product",
+      "path": "ProductFeeTariff2Product",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductFilter",
+      "path": "ProductFilter",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductGroup",
+      "path": "ProductGroup",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductInformation",
+      "path": "ProductInformation",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductMandatorCountrySalesOffer",
+      "path": "ProductMandatorCountrySalesOffer",
+      "module": "SalesOffer"
+    },
+    {
+      "name": "ProductMinimumAgeRequirement",
+      "path": "ProductMinimumAgeRequirement",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "ProductModel",
+      "path": "ProductModel",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductModelVariant",
+      "path": "ProductModelVariant",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductNameProperties",
+      "path": "ProductNameProperties",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductPurchaseHint",
+      "path": "ProductPurchaseHint",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductRangeLimitationExclusion",
+      "path": "ProductRangeLimitationExclusion",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "ProductRecall",
+      "path": "ProductRecall",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "ProductRemark",
+      "path": "ProductRemark",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductRemark2Product",
+      "path": "ProductRemark2Product",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductRepackType",
+      "path": "ProductRepackType",
+      "module": "Packing"
+    },
+    {
+      "name": "ProductSearch",
+      "path": "ProductSearch",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductSiteTargetInventoryOverride",
+      "path": "ProductSiteTargetInventoryOverride",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductSiteTargetInventorySiteConfiguration",
+      "path": "ProductSiteTargetInventorySiteConfiguration",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductTargetInventory",
+      "path": "ProductTargetInventory",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ProductType",
+      "path": "ProductType",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductType2PortalSectorValidation",
+      "path": "ProductType2PortalSectorValidation",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ProductTypeClassification",
+      "path": "ProductTypeClassification",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeComment",
+      "path": "ProductTypeComment",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeDefaultVatRate",
+      "path": "ProductTypeDefaultVatRate",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeDescription",
+      "path": "ProductTypeDescription",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeDetail",
+      "path": "ProductTypeDetail",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeEnrichment",
+      "path": "ProductTypeEnrichment",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeKeyword",
+      "path": "ProductTypeKeyword",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ProductTypeLogistics",
+      "path": "ProductTypeLogistics",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ProductTypeMandatorMarketplaceFee",
+      "path": "ProductTypeMandatorMarketplaceFee",
+      "module": "Purchasing"
+    },
+    {
+      "name": "ProductTypeNavigation",
+      "path": "ProductTypeNavigation",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ProductTypeProperty",
+      "path": "ProductTypeProperty",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeRelation",
+      "path": "ProductTypeRelation",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ProductTypeResponsibility",
+      "path": "ProductTypeResponsibility",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductTypeSales",
+      "path": "ProductTypeSales",
+      "module": "SalesOffer"
+    },
+    {
+      "name": "ProductTypeTag",
+      "path": "ProductTypeTag",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ProductTypeTitle",
+      "path": "ProductTypeTitle",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductVariantType",
+      "path": "ProductVariantType",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProductWarehouseInformation",
+      "path": "ProductWarehouseInformation",
+      "module": "Warehousing"
+    },
+    {
+      "name": "PromotionalCoupon",
+      "path": "PromotionalCoupon",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "PropertyContextProperty",
+      "path": "PropertyContextProperty",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyDefinition",
+      "path": "PropertyDefinition",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyDefinitionOption",
+      "path": "PropertyDefinitionOption",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyDefinitionOptionTranslation",
+      "path": "PropertyDefinitionOptionTranslation",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyDefinitionTranslations",
+      "path": "PropertyDefinitionTranslations",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyGroup",
+      "path": "PropertyGroup",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyProposals",
+      "path": "PropertyProposals",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyStructureEdit",
+      "path": "PropertyStructureEdit",
+      "module": "ProductData"
+    },
+    {
+      "name": "PropertyValueMigration",
+      "path": "PropertyValueMigration",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderBrand",
+      "path": "ProviderBrand",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderCancelNotificationReprocess",
+      "path": "ProviderCancelNotificationReprocess",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderCancelNotificationToggleCorrectable",
+      "path": "ProviderCancelNotificationToggleCorrectable",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderFileStorageBrowser",
+      "path": "ProviderFileStorageBrowser",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "ProviderFileStorageCredentials",
+      "path": "ProviderFileStorageCredentials",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "ProviderImages",
+      "path": "ProviderImages",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderOrder",
+      "path": "ProviderOrder",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderBacklog",
+      "path": "ProviderOrderBacklog",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ProviderOrderCancelRequest",
+      "path": "ProviderOrderCancelRequest",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderConfirmation",
+      "path": "ProviderOrderConfirmation",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderEdiData",
+      "path": "ProviderOrderEdiData",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderExport",
+      "path": "ProviderOrderExport",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderExportControllerPost",
+      "path": "ProviderOrderExportControllerPost",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderInterfaceResults",
+      "path": "ProviderOrderInterfaceResults",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderPositions",
+      "path": "ProviderOrderPositions",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderProduct",
+      "path": "ProviderOrderProduct",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ProviderOrderRelationship",
+      "path": "ProviderOrderRelationship",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderWarehouseDelivery",
+      "path": "ProviderOrderWarehouseDelivery",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderOrderWarehouseDeliveryBookinDrilldown",
+      "path": "ProviderOrderWarehouseDeliveryBookinDrilldown",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ProviderProduct",
+      "path": "ProviderProduct",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderProductAccessories",
+      "path": "ProviderProductAccessories",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderProductMasterData",
+      "path": "ProviderProductMasterData",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderProductProperties",
+      "path": "ProviderProductProperties",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderTradingUnitGroups",
+      "path": "ProviderTradingUnitGroups",
+      "module": "ProductData"
+    },
+    {
+      "name": "ProviderTradingUnits",
+      "path": "ProviderTradingUnits",
+      "module": "ProductData"
+    },
+    {
+      "name": "PurchaseOffer",
+      "path": "PurchaseOffer",
+      "module": "Purchasing"
+    },
+    {
+      "name": "PurchaseOrderAccounting",
+      "path": "PurchaseOrderAccounting",
+      "module": "Payables"
+    },
+    {
+      "name": "PurchaseOrderBacklogManager",
+      "path": "PurchaseOrderBacklogManager",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "PurchaseOrderPositionCancelRequestCommand",
+      "path": "PurchaseOrderPositionCancelRequestCommand",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "PurchasePaymentOption",
+      "path": "PurchasePaymentOption",
+      "module": "Payables"
+    },
+    {
+      "name": "PurchasePaymentSettings",
+      "path": "PurchasePaymentSettings",
+      "module": "Payables"
+    },
+    {
+      "name": "PurchaseTradeLimit",
+      "path": "PurchaseTradeLimit",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "PurchasingConfigurationTab",
+      "path": "PurchasingConfigurationTab",
+      "module": "Purchasing"
+    },
+    {
+      "name": "PurchasingInterfaceProviderConfiguration",
+      "path": "PurchasingInterfaceProviderConfiguration",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "PurchasingProduct",
+      "path": "PurchasingProduct",
+      "module": "Purchasing"
+    },
+    {
+      "name": "QualityMonitoring",
+      "path": "QualityMonitoring",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "QualityMonitoringEscalationLevel",
+      "path": "QualityMonitoringEscalationLevel",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "QualityMonitoringItem",
+      "path": "QualityMonitoringItem",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "ReadyToLabelContainerBatches",
+      "path": "ReadyToLabelContainerBatches",
+      "module": "LastMile"
+    },
+    {
+      "name": "RebookTour",
+      "path": "RebookTour",
+      "module": "Warehousing"
+    },
+    {
+      "name": "RebookTourItemProductStatic",
+      "path": "RebookTourItemProductStatic",
+      "module": "Warehousing"
+    },
+    {
+      "name": "ReceivablesAccountingSupport",
+      "path": "ReceivablesAccountingSupport",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "ReceivablesFileReference",
+      "path": "ReceivablesFileReference",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "ReceivablesFinancialRiskSupport",
+      "path": "ReceivablesFinancialRiskSupport",
+      "module": "ReceivablesFinancialRisk"
+    },
+    {
+      "name": "ReceiveCmrConsignmentNote",
+      "path": "ReceiveCmrConsignmentNote",
+      "module": "Customs"
+    },
+    {
+      "name": "ReceiveExitNote",
+      "path": "ReceiveExitNote",
+      "module": "Customs"
+    },
+    {
+      "name": "ReceiveExportAccompanyingDocument",
+      "path": "ReceiveExportAccompanyingDocument",
+      "module": "Customs"
+    },
+    {
+      "name": "ReceiveTransitDocument",
+      "path": "ReceiveTransitDocument",
+      "module": "Customs"
+    },
+    {
+      "name": "RecirculateProduct",
+      "path": "RecirculateProduct",
+      "module": "BookIn"
+    },
+    {
+      "name": "ReconciliationAdviceFile",
+      "path": "ReconciliationAdviceFile",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "RefurbishedOfferTable",
+      "path": "RefurbishedOfferTable",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingBacklog",
+      "path": "RefurbishingBacklog",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingCostThreshold",
+      "path": "RefurbishingCostThreshold",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingExclusion",
+      "path": "RefurbishingExclusion",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingImageConfiguration",
+      "path": "RefurbishingImageConfiguration",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingProcess",
+      "path": "RefurbishingProcess",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RefurbishingReview",
+      "path": "RefurbishingReview",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RegisterLogisticsProduct",
+      "path": "RegisterLogisticsProduct",
+      "module": "BookIn"
+    },
+    {
+      "name": "RematchEdiInvoice",
+      "path": "RematchEdiInvoice",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "RemoveGtin",
+      "path": "RemoveGtin",
+      "module": "ProductData"
+    },
+    {
+      "name": "RemovePropertyDefinition",
+      "path": "RemovePropertyDefinition",
+      "module": "ProductData"
+    },
+    {
+      "name": "RemovePropertyDefinitionOption",
+      "path": "RemovePropertyDefinitionOption",
+      "module": "ProductData"
+    },
+    {
+      "name": "RepackArticle",
+      "path": "RepackArticle",
+      "module": "Packing"
+    },
+    {
+      "name": "ReplacementCheckoutProcess",
+      "path": "ReplacementCheckoutProcess",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "Reprocess",
+      "path": "Reprocess",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ReprocessCancelRequestResponse",
+      "path": "ReprocessCancelRequestResponse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ReprocessWithInput",
+      "path": "ReprocessWithInput",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "RepublishProviderOrderUpdated",
+      "path": "RepublishProviderOrderUpdated",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "ResaleCustomer",
+      "path": "ResaleCustomer",
+      "module": "Resale"
+    },
+    {
+      "name": "ResaleMail",
+      "path": "ResaleMail",
+      "module": "Resale"
+    },
+    {
+      "name": "ResaleOfferTable",
+      "path": "ResaleOfferTable",
+      "module": "Resale"
+    },
+    {
+      "name": "ResaleOrderModification",
+      "path": "ResaleOrderModification",
+      "module": "Resale"
+    },
+    {
+      "name": "ResaleProductOfferData",
+      "path": "ResaleProductOfferData",
+      "module": "Resale"
+    },
+    {
+      "name": "ResaleShipment",
+      "path": "ResaleShipment",
+      "module": "Resale"
+    },
+    {
+      "name": "ReservationSupport",
+      "path": "ReservationSupport",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "ResetGtinToggleState",
+      "path": "ResetGtinToggleState",
+      "module": "ProductData"
+    },
+    {
+      "name": "RetailPayment",
+      "path": "RetailPayment",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailPickingTour",
+      "path": "RetailPickingTour",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailPickingTourNew",
+      "path": "RetailPickingTourNew",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailPickingTourPdf",
+      "path": "RetailPickingTourPdf",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailPickingTourPersonIdentification",
+      "path": "RetailPickingTourPersonIdentification",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailPickingTourRollback",
+      "path": "RetailPickingTourRollback",
+      "module": "RetailStore"
+    },
+    {
+      "name": "RetailSalesPaymentOption",
+      "path": "RetailSalesPaymentOption",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "RetailStepIn",
+      "path": "RetailStepIn",
+      "module": "RetailStore"
+    },
+    {
+      "name": "ReturnCaseUpdatedEventBulkPublish",
+      "path": "ReturnCaseUpdatedEventBulkPublish",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnCenter",
+      "path": "ReturnCenter",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnOrderNegativeCreditBalance",
+      "path": "ReturnOrderNegativeCreditBalance",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnOrderSupplier",
+      "path": "ReturnOrderSupplier",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ReturnReason",
+      "path": "ReturnReason",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnReasonAssignment",
+      "path": "ReturnReasonAssignment",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsDepartmentRmaCreation",
+      "path": "ReturnsDepartmentRmaCreation",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "ReturnsHandling",
+      "path": "ReturnsHandling",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsHandlingCompletion",
+      "path": "ReturnsHandlingCompletion",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsHandlingCustomer",
+      "path": "ReturnsHandlingCustomer",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsHandlingIntro",
+      "path": "ReturnsHandlingIntro",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsHandlingPostal",
+      "path": "ReturnsHandlingPostal",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "ReturnsHandlingRetail",
+      "path": "ReturnsHandlingRetail",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "RevertBookInOrderPosition",
+      "path": "RevertBookInOrderPosition",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "ReviewRefurbishingProcess",
+      "path": "ReviewRefurbishingProcess",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "RevocationDeduction",
+      "path": "RevocationDeduction",
+      "module": "NonDefectiveArticles"
+    },
+    {
+      "name": "RmaAccessory",
+      "path": "RmaAccessory",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "RmaComment",
+      "path": "RmaComment",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "RmaCreation",
+      "path": "RmaCreation",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaCustomerOrderCustom",
+      "path": "RmaCustomerOrderCustom",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "RmaCustomerOrderLogMetricAndRedirect",
+      "path": "RmaCustomerOrderLogMetricAndRedirect",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "RmaCustomerOrderPosition",
+      "path": "RmaCustomerOrderPosition",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "RmaGenericZendeskTicket",
+      "path": "RmaGenericZendeskTicket",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaLocationAssigning",
+      "path": "RmaLocationAssigning",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "RmaMergeAccessories",
+      "path": "RmaMergeAccessories",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "RmaRegistrationList",
+      "path": "RmaRegistrationList",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaRegistrationListTicket",
+      "path": "RmaRegistrationListTicket",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaReplacement",
+      "path": "RmaReplacement",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaReplacementDirectDelivery",
+      "path": "RmaReplacementDirectDelivery",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaServiceCenterPickupGroup",
+      "path": "RmaServiceCenterPickupGroup",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "RmaStoringTour",
+      "path": "RmaStoringTour",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "RmaStoringTour2HandlingUnit",
+      "path": "RmaStoringTour2HandlingUnit",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "Role",
+      "path": "Role",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "RoleViewComposition",
+      "path": "RoleViewComposition",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "SalesOfferProduct",
+      "path": "SalesOfferProduct",
+      "module": "SalesOffer"
+    },
+    {
+      "name": "SalesOrderCancellationRequest",
+      "path": "SalesOrderCancellationRequest",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "SalesOrderDeliveryState",
+      "path": "SalesOrderDeliveryState",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "SalesOrderProduct",
+      "path": "SalesOrderProduct",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "SalesOrderUpdateRecalculation",
+      "path": "SalesOrderUpdateRecalculation",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "SalesPriceBulkChange",
+      "path": "SalesPriceBulkChange",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "Search",
+      "path": "Search",
+      "module": "Framework"
+    },
+    {
+      "name": "Sector",
+      "path": "Sector",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ServiceCaseRegistration",
+      "path": "ServiceCaseRegistration",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenter",
+      "path": "ServiceCenter",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenter2PhoneNumber",
+      "path": "ServiceCenter2PhoneNumber",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterCostEstimate",
+      "path": "ServiceCenterCostEstimate",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterEmail",
+      "path": "ServiceCenterEmail",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterFile",
+      "path": "ServiceCenterFile",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterHint",
+      "path": "ServiceCenterHint",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterHintAssignment",
+      "path": "ServiceCenterHintAssignment",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceCenterRegistrationType2ServiceCenter",
+      "path": "ServiceCenterRegistrationType2ServiceCenter",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceProvider",
+      "path": "ServiceProvider",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "ServiceProvider2Region",
+      "path": "ServiceProvider2Region",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "ServiceProviderExclusivityConfiguration",
+      "path": "ServiceProviderExclusivityConfiguration",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "ServiceProviderPartnerService",
+      "path": "ServiceProviderPartnerService",
+      "module": "ProductAssistance"
+    },
+    {
+      "name": "Session",
+      "path": "Session",
+      "module": "ShopFramework"
+    },
+    {
+      "name": "SettlementReceipt",
+      "path": "SettlementReceipt",
+      "module": "MarketplaceFinance"
+    },
+    {
+      "name": "ShipmentCancellationResponse",
+      "path": "ShipmentCancellationResponse",
+      "module": "Customs"
+    },
+    {
+      "name": "ShipmentLossReplacement",
+      "path": "ShipmentLossReplacement",
+      "module": "CustomerService"
+    },
+    {
+      "name": "ShipmentResponse",
+      "path": "ShipmentResponse",
+      "module": "Customs"
+    },
+    {
+      "name": "ShippingProvider",
+      "path": "ShippingProvider",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "ShopWikiLinkContext",
+      "path": "ShopWikiLinkContext",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "ShoppingLists",
+      "path": "ShoppingLists",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "ShowCreatedCreditNotes",
+      "path": "ShowCreatedCreditNotes",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "SidebarWidgetProxy",
+      "path": "SidebarWidgetProxy",
+      "module": "Applications"
+    },
+    {
+      "name": "SimCardOrderCreation",
+      "path": "SimCardOrderCreation",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "Site",
+      "path": "Site",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SiteImage",
+      "path": "SiteImage",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SiteTicketTerminalPrinter",
+      "path": "SiteTicketTerminalPrinter",
+      "module": "RetailStore"
+    },
+    {
+      "name": "Site_SiteRole",
+      "path": "Site_SiteRole",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SixMrxFinancialAdjustment",
+      "path": "SixMrxFinancialAdjustment",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "SixMrxPayment",
+      "path": "SixMrxPayment",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "SixMrxTransaction",
+      "path": "SixMrxTransaction",
+      "module": "CustomerPaymentServices"
+    },
+    {
+      "name": "SixPaymentTerminal",
+      "path": "SixPaymentTerminal",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SixPaymentTerminalBalance",
+      "path": "SixPaymentTerminalBalance",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SixRetailPayment",
+      "path": "SixRetailPayment",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SixTerminalPayback",
+      "path": "SixTerminalPayback",
+      "module": "RetailStore"
+    },
+    {
+      "name": "SlaThroughputTime",
+      "path": "SlaThroughputTime",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "SpeedCheckout",
+      "path": "SpeedCheckout",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "SplitCreditNote",
+      "path": "SplitCreditNote",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "StartRefurbishingProcess",
+      "path": "StartRefurbishingProcess",
+      "module": "Refurbishing"
+    },
+    {
+      "name": "StoragePermission",
+      "path": "StoragePermission",
+      "module": "StockPlanning"
+    },
+    {
+      "name": "StoringTour",
+      "path": "StoringTour",
+      "module": "Warehousing"
+    },
+    {
+      "name": "Supplier",
+      "path": "Supplier",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierCancelRequest",
+      "path": "SupplierCancelRequest",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "SupplierComment",
+      "path": "SupplierComment",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierCustomsInformation",
+      "path": "SupplierCustomsInformation",
+      "module": "Customs"
+    },
+    {
+      "name": "SupplierDelivery",
+      "path": "SupplierDelivery",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "SupplierImage",
+      "path": "SupplierImage",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierPartnerConstellation",
+      "path": "SupplierPartnerConstellation",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierProductLogisticsInformation",
+      "path": "SupplierProductLogisticsInformation",
+      "module": "BookIn"
+    },
+    {
+      "name": "SupplierPurchaseOrder",
+      "path": "SupplierPurchaseOrder",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "SupplierPurchaseOrderResponse",
+      "path": "SupplierPurchaseOrderResponse",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "SupplierResponsibility",
+      "path": "SupplierResponsibility",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierReturnOrder",
+      "path": "SupplierReturnOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "SupplierReturnOrderLogMetricAndRedirect",
+      "path": "SupplierReturnOrderLogMetricAndRedirect",
+      "module": "DefectiveArticles"
+    },
+    {
+      "name": "SupplierTab",
+      "path": "SupplierTab",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SupplierViewComposition",
+      "path": "SupplierViewComposition",
+      "module": "ProviderOfferIntegration"
+    },
+    {
+      "name": "SurveyAnswer",
+      "path": "SurveyAnswer",
+      "module": "LastMile"
+    },
+    {
+      "name": "SurveyQuestionnaire",
+      "path": "SurveyQuestionnaire",
+      "module": "LastMile"
+    },
+    {
+      "name": "SwissCustomsBordereau",
+      "path": "SwissCustomsBordereau",
+      "module": "Payables"
+    },
+    {
+      "name": "SwissCustomsOrder",
+      "path": "SwissCustomsOrder",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "SwissCustomsReceipt",
+      "path": "SwissCustomsReceipt",
+      "module": "Payables"
+    },
+    {
+      "name": "SwissPostGlsBorderau",
+      "path": "SwissPostGlsBorderau",
+      "module": "CustomerOperations"
+    },
+    {
+      "name": "SwissPostParcelShippingConfiguration",
+      "path": "SwissPostParcelShippingConfiguration",
+      "module": "LastMile"
+    },
+    {
+      "name": "SwissVatExemption",
+      "path": "SwissVatExemption",
+      "module": "ReceivablesAccounting"
+    },
+    {
+      "name": "SystemTask",
+      "path": "SystemTask",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "SystemTaskExecution",
+      "path": "SystemTaskExecution",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "SystemTaskInvokerInfo",
+      "path": "SystemTaskInvokerInfo",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "SystemTaskParameter",
+      "path": "SystemTaskParameter",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "TableOwnership",
+      "path": "TableOwnership",
+      "module": "DomainArchitecture"
+    },
+    {
+      "name": "Tag",
+      "path": "Tag",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "Tag2Tag",
+      "path": "Tag2Tag",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "TagKeyword",
+      "path": "TagKeyword",
+      "module": "ShopNavigation"
+    },
+    {
+      "name": "TargetAgreement",
+      "path": "TargetAgreement",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetAgreement2Supplier",
+      "path": "TargetAgreement2Supplier",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetAgreementSettlement",
+      "path": "TargetAgreementSettlement",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetAgreementSettlementBooking",
+      "path": "TargetAgreementSettlementBooking",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetAgreementStep",
+      "path": "TargetAgreementStep",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetAgreementSubtype",
+      "path": "TargetAgreementSubtype",
+      "module": "Purchasing"
+    },
+    {
+      "name": "TargetInventoryConfigurationMandatorStatistic",
+      "path": "TargetInventoryConfigurationMandatorStatistic",
+      "module": "RetailStore"
+    },
+    {
+      "name": "TargetInventoryConfigurationMandatorStatisticLog",
+      "path": "TargetInventoryConfigurationMandatorStatisticLog",
+      "module": "RetailStore"
+    },
+    {
+      "name": "TariffAutomationBulkConfiguration",
+      "path": "TariffAutomationBulkConfiguration",
+      "module": "Customs"
+    },
+    {
+      "name": "TariffAutomationConfiguration",
+      "path": "TariffAutomationConfiguration",
+      "module": "Customs"
+    },
+    {
+      "name": "TestData",
+      "path": "TestData",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "TestReport",
+      "path": "TestReport",
+      "module": "ProductDisplay"
+    },
+    {
+      "name": "TimeClockPunch",
+      "path": "TimeClockPunch",
+      "module": "HumanResources"
+    },
+    {
+      "name": "ToggleCorrectable",
+      "path": "ToggleCorrectable",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "TransportBin",
+      "path": "TransportBin",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "TransportBinHandover",
+      "path": "TransportBinHandover",
+      "module": "StoringPreparation"
+    },
+    {
+      "name": "TransportBinSection",
+      "path": "TransportBinSection",
+      "module": "StoringPreparation"
+    },
+    {
+      "name": "TransportImportUpdate",
+      "path": "TransportImportUpdate",
+      "module": "Customs"
+    },
+    {
+      "name": "TransportOrder",
+      "path": "TransportOrder",
+      "module": "Warehousing"
+    },
+    {
+      "name": "TransportOrderToWms",
+      "path": "TransportOrderToWms",
+      "module": "Warehousing"
+    },
+    {
+      "name": "TransportResponse",
+      "path": "TransportResponse",
+      "module": "Customs"
+    },
+    {
+      "name": "TrialEmployee",
+      "path": "TrialEmployee",
+      "module": "HumanResources"
+    },
+    {
+      "name": "Trolley",
+      "path": "Trolley",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "TrolleyCompartment",
+      "path": "TrolleyCompartment",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "TrolleyType",
+      "path": "TrolleyType",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "UndeliverDirectDelivery",
+      "path": "UndeliverDirectDelivery",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "UndeliverProductPositionWarehouseDelivery",
+      "path": "UndeliverProductPositionWarehouseDelivery",
+      "module": "OldMonolith"
+    },
+    {
+      "name": "User",
+      "path": "User",
+      "module": "CustomerProfile"
+    },
+    {
+      "name": "User2LogisticsSkill",
+      "path": "User2LogisticsSkill",
+      "module": "Warehousing"
+    },
+    {
+      "name": "UserAvatarViewComposition",
+      "path": "UserAvatarViewComposition",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserLists",
+      "path": "UserLists",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "UserNotification",
+      "path": "UserNotification",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserNotificationGroup",
+      "path": "UserNotificationGroup",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserProfileErp",
+      "path": "UserProfileErp",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserRole",
+      "path": "UserRole",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserSelection",
+      "path": "UserSelection",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserSelectionEntryUpselling",
+      "path": "UserSelectionEntryUpselling",
+      "module": "OrderingProcess"
+    },
+    {
+      "name": "UserSelectionWriteOff",
+      "path": "UserSelectionWriteOff",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "UserSession",
+      "path": "UserSession",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "UserSettings",
+      "path": "UserSettings",
+      "module": "CustomerCommunication"
+    },
+    {
+      "name": "ValidateProducts",
+      "path": "ValidateProducts",
+      "module": "Customs"
+    },
+    {
+      "name": "VariantCombination",
+      "path": "VariantCombination",
+      "module": "ProductData"
+    },
+    {
+      "name": "VariantCombinationTestConfiguration",
+      "path": "VariantCombinationTestConfiguration",
+      "module": "ProductData"
+    },
+    {
+      "name": "VariantCombinationTesting",
+      "path": "VariantCombinationTesting",
+      "module": "ProductData"
+    },
+    {
+      "name": "VatCodeChangeOnOrder",
+      "path": "VatCodeChangeOnOrder",
+      "module": "GeneralLedger"
+    },
+    {
+      "name": "VatIdentificationNumber",
+      "path": "VatIdentificationNumber",
+      "module": "Payables"
+    },
+    {
+      "name": "VatNumberValidationLog",
+      "path": "VatNumberValidationLog",
+      "module": "Payables"
+    },
+    {
+      "name": "Warehouse",
+      "path": "Warehouse",
+      "module": "Warehousing"
+    },
+    {
+      "name": "Warehouse2LogisticsProvider",
+      "path": "Warehouse2LogisticsProvider",
+      "module": "LastMile"
+    },
+    {
+      "name": "WarehouseAisle",
+      "path": "WarehouseAisle",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseColumn",
+      "path": "WarehouseColumn",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseColumnType",
+      "path": "WarehouseColumnType",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseCompartment",
+      "path": "WarehouseCompartment",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseCompartmentLockedType",
+      "path": "WarehouseCompartmentLockedType",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseCompartmentSize",
+      "path": "WarehouseCompartmentSize",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseCompartmentType",
+      "path": "WarehouseCompartmentType",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseConfiguration",
+      "path": "WarehouseConfiguration",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseDeliveryNotePdf",
+      "path": "WarehouseDeliveryNotePdf",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "WarehouseRow",
+      "path": "WarehouseRow",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseShelf",
+      "path": "WarehouseShelf",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WarehouseTransfer",
+      "path": "WarehouseTransfer",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTransferDashboard",
+      "path": "WarehouseTransferDashboard",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTransferItemProduct",
+      "path": "WarehouseTransferItemProduct",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTransferPallet",
+      "path": "WarehouseTransferPallet",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTransferTour",
+      "path": "WarehouseTransferTour",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTransferTrolley",
+      "path": "WarehouseTransferTrolley",
+      "module": "Transfers"
+    },
+    {
+      "name": "WarehouseTypeValidation",
+      "path": "WarehouseTypeValidation",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "WarehouseZone",
+      "path": "WarehouseZone",
+      "module": "Warehousing"
+    },
+    {
+      "name": "Welcome",
+      "path": "Welcome",
+      "module": "Framework"
+    },
+    {
+      "name": "WholesaleOrderPartialDelivery",
+      "path": "WholesaleOrderPartialDelivery",
+      "module": "SalesOrderFulfillment"
+    },
+    {
+      "name": "WholesaleSalesOrder",
+      "path": "WholesaleSalesOrder",
+      "module": "OrderAccountingCore"
+    },
+    {
+      "name": "WholesalesWarehouseDeliverySentDirectlyToCustomerAnomaly",
+      "path": "WholesalesWarehouseDeliverySentDirectlyToCustomerAnomaly",
+      "module": "ProviderOrder"
+    },
+    {
+      "name": "WikiDiff",
+      "path": "WikiDiff",
+      "module": "CustomerCommunication"
+    },
+    {
+      "name": "WmsErrorCase",
+      "path": "WmsErrorCase",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsExceptionInfo",
+      "path": "WmsExceptionInfo",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsNightlyStockDelta",
+      "path": "WmsNightlyStockDelta",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsStockFile",
+      "path": "WmsStockFile",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToBookIn",
+      "path": "WmsToBookIn",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToLogisticsOrder",
+      "path": "WmsToLogisticsOrder",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToLogisticsOrderRelocation",
+      "path": "WmsToLogisticsOrderRelocation",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToLogisticsOrderShippingTarget",
+      "path": "WmsToLogisticsOrderShippingTarget",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToTransportOrder",
+      "path": "WmsToTransportOrder",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToWhzRelocation",
+      "path": "WmsToWhzRelocation",
+      "module": "Warehousing"
+    },
+    {
+      "name": "WmsToZoneRelocation",
+      "path": "WmsToZoneRelocation",
+      "module": "Warehousing"
+    },
+    {
+      "name": "Workflow",
+      "path": "Workflow",
+      "module": "Framework"
+    },
+    {
+      "name": "WorkingPlace",
+      "path": "WorkingPlace",
+      "module": "LogisticsPlatform"
+    },
+    {
+      "name": "WorkingPlaceArea",
+      "path": "WorkingPlaceArea",
+      "module": "LogisticsPlatform"
+    },
+    {
+      "name": "WorkingPlaceGroup",
+      "path": "WorkingPlaceGroup",
+      "module": "LogisticsPlatform"
+    },
+    {
+      "name": "WorkingPlaceLogin",
+      "path": "WorkingPlaceLogin",
+      "module": "ErpFramework"
+    },
+    {
+      "name": "WorkingPlacePrinterMandator",
+      "path": "WorkingPlacePrinterMandator",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "WorkingPlacePrinters",
+      "path": "WorkingPlacePrinters",
+      "module": "LogisticsCore"
+    },
+    {
+      "name": "WrongProductClarification",
+      "path": "WrongProductClarification",
+      "module": "SemiStructuredMonolith"
+    },
+    {
+      "name": "WrongProductWorkflow",
+      "path": "WrongProductWorkflow",
+      "module": "BookIn"
+    },
+    {
+      "name": "WrongWarehouseHandling",
+      "path": "WrongWarehouseHandling",
+      "module": "StoringPreparation"
+    },
+    {
+      "name": "WrongWarehouseHandlingWorkflow",
+      "path": "WrongWarehouseHandlingWorkflow",
+      "module": "StoringPreparation"
+    },
+    {
+      "name": "XmpLoadCarrier",
+      "path": "ui/Packing/XmpLoadCarrier",
+      "module": "Dg.Packing.Website"
+    },
+    {
+      "name": "Zendesk",
+      "path": "Zendesk",
+      "module": "CustomerService"
+    }
+  ]
+}
